@@ -184,7 +184,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 16
+  orthographic size: 26
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -244,14 +244,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6886067ff3185694498a21841ba4a457, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomSizeWorldUnits: {x: 30, y: 30}
+  roomSizeWorldUnits: {x: 50, y: 50}
   worldUnitsInOneGridCell: 1
   wallObject: {fileID: 2549613894093050608, guid: 7f3cb57b5c2bee24f94e7ea3b8b8cef2, type: 3}
   floorObject: {fileID: 6088810557984876109, guid: f48e4e7a55177bc4289058ab4ba9955a, type: 3}
   chanceWalkerChangeDir: 0.5
   chanceWalkerSpawn: 0.05
   chanceWalkerDestroy: 0.05
-  percentToFill: 0.3
+  percentToFill: 0.1
   maxWalkers: 10
 --- !u!4 &780555519
 Transform:
