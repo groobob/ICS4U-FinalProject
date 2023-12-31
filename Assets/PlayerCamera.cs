@@ -24,10 +24,25 @@ public class PlayerCamera : MonoBehaviour
         UpdateCameraPosition();
     }
     /**
+     * Method initiates a shake
+     * @param direction Direction to begin the shake
+     * @param magnitude How hard to shake
+     * @param length Duration of Shake
+     * 
+     */
+    public void Shake(Vector3 direction, float magnitude, float length)
+    {
+        shaking = true; // Set the value to true. This allows the script to know the camera is shaking
+        shakeVector = direction; // Set direction
+        shakeMag = magnitude; //Set magnitude
+        shakeTimeEnd = Time.time + length; // Set the time where the shake ends
+    }
+
+    /**
      * Method that returns the current mouse position relative to the center of the screen
      * @return Vector3
      */
-    Vector3 CaptureMousePos() {
+    private Vector3 CaptureMousePos() {
         Vector2 ret = Camera.main.ScreenToViewportPoint(Input.mousePosition); // Obtain the coordinates of the mouse
 
         //Following Section makes the coordinates a relative offset to the center of the screen
@@ -45,7 +60,7 @@ public class PlayerCamera : MonoBehaviour
      * Method that returns the new position for the camera
      * @return Vector3
      */
-    Vector3 UpdateTargetPos() {
+    private Vector3 UpdateTargetPos() {
         Vector3 mouseOffset = mousePos * cameraDist;
         Vector3 ret = player.position + mouseOffset;
         ret += shakeOffset;
@@ -55,27 +70,17 @@ public class PlayerCamera : MonoBehaviour
     /**
      * Moves the camera to the new position on screen.
      */
-    void UpdateCameraPosition()
+    private void UpdateCameraPosition()
     {
         Vector3 tempPos;
         tempPos = Vector3.SmoothDamp(transform.position, target, ref refVel, smoothTime);
         transform.position = tempPos;
     }
+    
     /**
-     * Method initiates a shake
-     * @param direction Direction to begin the shake
-     * @param magnitude How hard to shake
-     * @param length Duration of Shake
-     * 
+     * Method that runs every update(). It causes the screen to shake.
      */
-    public void Shake(Vector3 direction, float magnitude, float length) {
-        shaking = true; // Set the value to true. This allows the script to know the camera is shaking
-        shakeVector = direction; // Set direction
-        shakeMag = magnitude; //Set magnitude
-        shakeTimeEnd = Time.time + length; // Set the time where the shake ends
-    }
-
-    Vector3 UpdateShake()
+    private Vector3 UpdateShake()
     {
         if (!shaking || Time.time > shakeTimeEnd) // If we aren't shaking or if we are done shaking
         {
