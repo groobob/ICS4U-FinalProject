@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    public Transform player;
+    public Transform _player;
     Vector3 target, mousePos, refVel, shakeOffset;
     float cameraDist = 2f;
     float smoothTime = 0.2f, zStart;
@@ -13,7 +13,7 @@ public class PlayerCamera : MonoBehaviour
     bool shaking;
     void Start()
     {
-        target = player.position;
+        target = _player.position;
         zStart = transform.position.z;
     }
     void FixedUpdate()
@@ -62,7 +62,7 @@ public class PlayerCamera : MonoBehaviour
      */
     private Vector3 UpdateTargetPos() {
         Vector3 mouseOffset = mousePos * cameraDist;
-        Vector3 ret = player.position + mouseOffset;
+        Vector3 ret = _player.position + mouseOffset;
         ret += shakeOffset;
         ret.z = zStart;
         return ret;
