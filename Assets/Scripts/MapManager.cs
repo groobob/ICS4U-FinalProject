@@ -12,6 +12,9 @@ using UnityEngine;
 
 public class MapManager : MonoBehaviour
 {
+    //Singleton
+    public static MapManager Instance;
+
     //Values for the grid
     enum cell {empty, floor, wall};
     enum entity {empty, player, enemy};
@@ -40,12 +43,32 @@ public class MapManager : MonoBehaviour
     [SerializeField] float percentToFill = 0.2f;
     [SerializeField] int maxWalkers = 10;
 
+    // Singleton
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    /*
+     * Destroys the map for the scene
+     * 
+     * @return void
+     */
+    public void DestroyMap()
+    {
+        for (int i = transform.childCount - 1; i >= 0; i--)
+        {
+            var child = transform.GetChild(i).gameObject;
+            Destroy(child);
+        }
+    }
+
     /*
      * Generates the map for the scene
      * 
      * @return void
      */
-    void Start()
+    public void GenerateMap()
     {
         Setup();
         CreateFloor();
@@ -244,7 +267,7 @@ public class MapManager : MonoBehaviour
     {
         Vector2 offset = roomSizeWorldUnits / 2.0f;
         Vector2 spawnPos = new Vector2(x, y) * worldUnitsInOneGridCell - offset;
-        Instantiate(toSpawn, spawnPos, Quaternion.identity);
+        Instantiate(toSpawn, spawnPos, Quaternion.identity, transform);
     }
 
     /*
