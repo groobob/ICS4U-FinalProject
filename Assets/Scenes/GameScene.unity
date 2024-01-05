@@ -587,7 +587,7 @@ MonoBehaviour:
   chanceWalkerChangeDir: 0.5
   chanceWalkerSpawn: 0.05
   chanceWalkerDestroy: 0.05
-  percentToFill: 0.1
+  percentToFill: 0.3
   maxWalkers: 10
 --- !u!4 &780555519
 Transform:
@@ -782,7 +782,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridSize: {x: 5, y: 5}
-  gridSpacing: 5
+  gridSpacing: 6
   roomObject: {fileID: 1126142324897539060, guid: 1aac1915c0741b44db17b8611c8ccdd9, type: 3}
   chanceItem: 0.1
   chanceShop: 0.1

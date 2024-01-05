@@ -2,7 +2,7 @@
  * Class to manage an individual room within the room grid
  * 
  * @author Richard
- * @version Jan 5
+ * @version January 5
  */
 
 using System.Collections;

@@ -2,7 +2,7 @@
  * Class to manage all things related to the grid of rooms between maps
  * 
  * @author Richard
- * @version Jan 5
+ * @version January 5
  */
 
 using System.Collections;

@@ -2,7 +2,7 @@
  * Class to manage all things related to the grid, and map generation
  * 
  * @author Richard
- * @version December 31
+ * @version January 5
  */
 
 using System;
@@ -74,6 +74,7 @@ public class MapManager : MonoBehaviour
         Setup();
         CreateFloor();
         CreateWalls();
+        RemoveSingleWalls();
         SpawnLevel();
     }
 
@@ -219,6 +220,33 @@ public class MapManager : MonoBehaviour
             if (space == cell.floor) count++;
         }
         return count;
+    }
+
+    /*
+     * A method that removes single walls within the map
+     * 
+     * @return void
+     */
+    void RemoveSingleWalls()
+    {
+        for(int x = 1; x < roomWidth - 2; x++)
+        {
+            for(int y = 1; y < roomHeight - 2; y++)
+            {
+                if (grid[x, y] == cell.wall)
+                {
+                    bool allFloors = (grid[x, y + 1] == cell.floor) &&
+                                      (grid[x, y - 1] == cell.floor) &&
+                                      (grid[x + 1, y] == cell.floor) &&
+                                      (grid[x - 1, y] == cell.floor) ? true : false;
+
+                    if (allFloors)
+                    {
+                        grid[x, y] = cell.floor;
+                    }
+                }
+            }
+        }
     }
 
     /*
