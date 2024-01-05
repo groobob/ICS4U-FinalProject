@@ -50,7 +50,7 @@ public class MapManager : MonoBehaviour
     }
 
     /*
-     * Destroys the map for the scene
+     * Destroys the map for the scene and spawns in the roomgrid from GridManager
      * 
      * @return void
      */
@@ -61,6 +61,7 @@ public class MapManager : MonoBehaviour
             var child = transform.GetChild(i).gameObject;
             Destroy(child);
         }
+        GridManager.Instance.SpawnGrid();
     }
 
     /*
@@ -298,6 +299,22 @@ public class MapManager : MonoBehaviour
                     if (grid[x - 1, y] == cell.empty)
                     {
                         grid[x - 1, y] = cell.wall;
+                    }
+                    if (grid[x + 1, y + 1] == cell.empty)
+                    {
+                        grid[x + 1, y + 1] = cell.wall;
+                    }
+                    if (grid[x + 1, y - 1] == cell.empty)
+                    {
+                        grid[x + 1, y - 1] = cell.wall;
+                    }
+                    if (grid[x - 1, y + 1] == cell.empty)
+                    {
+                        grid[x - 1, y + 1] = cell.wall;
+                    }
+                    if (grid[x - 1, y - 1] == cell.empty)
+                    {
+                        grid[x - 1, y - 1] = cell.wall;
                     }
                 }
             }
