@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour
     private Vector3 mousePlayerVector;
 
     //Weapon
-    [SerializeField] private GameObject weaponManager;
     [SerializeField] private Transform _weaponPos;
     private Weapons currentWeapon;
     private float weaponDisplacement = 1f;
