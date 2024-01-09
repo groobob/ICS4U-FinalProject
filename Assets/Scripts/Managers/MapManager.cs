@@ -20,11 +20,13 @@ public class MapManager : MonoBehaviour
     enum entity {empty, player, enemy};
     cell[,] grid;
     entity[,] entityGrid;
+    Vector2 spawnPos;
     int roomWidth, roomHeight;
     [Header("Grid Parameters")] 
     [SerializeField] Vector2 roomSizeWorldUnits = new Vector2(30, 30);
-    [SerializeField] float worldUnitsInOneGridCell = 1;
+    [SerializeField] float worldUnitsInOneGridCell = 1f;
     [SerializeField] GameObject wallObject, floorObject;
+    [SerializeField] float minSquaredDistanceFromEnemy = 10f;
 
     //Walkers for algorithm
     struct walker
@@ -40,6 +42,7 @@ public class MapManager : MonoBehaviour
     [SerializeField] float chanceWalkerChangeDir = 0.5f;
     [SerializeField] float chanceWalkerSpawn = 0.05f;
     [SerializeField] float chanceWalkerDestroy = 0.05f;
+    [SerializeField] float chanceEnemySpawn = 0.1f;
     [SerializeField] float percentToFill = 0.2f;
     [SerializeField] int maxWalkers = 10;
 
@@ -75,6 +78,7 @@ public class MapManager : MonoBehaviour
         CreateFloor();
         CreateWalls();
         RemoveSingleWalls();
+        GenerateEnemies();
         SpawnLevel();
     }
 
@@ -105,7 +109,7 @@ public class MapManager : MonoBehaviour
         walker newWalker = new walker();
         newWalker.direction = RandomDirection();
 
-        Vector2 spawnPos = new Vector2(Mathf.RoundToInt(roomWidth / 2f), Mathf.RoundToInt(roomHeight / 2f));
+        spawnPos = new Vector2(Mathf.RoundToInt(roomWidth / 2f), Mathf.RoundToInt(roomHeight / 2f));
         newWalker.position = spawnPos;
 
         entityGrid[(int) spawnPos.x, (int) spawnPos.y] = entity.player;
@@ -249,6 +253,26 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    void GenerateEnemies()
+    {
+        for (int x = 0; x < roomWidth - 1; x++)
+        {
+            for (int y = 0; y < roomHeight - 1; y++)
+            {
+                if (grid[x, y] == cell.floor)
+                {
+                    if(Vector2.SqrMagnitude(new Vector2(spawnPos.x - x, spawnPos.y - y)) > minSquaredDistanceFromEnemy)
+                    {
+                        if(UnityEngine.Random.value < chanceEnemySpawn) 
+                        {
+                            entityGrid[x, y] = entity.enemy;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     /*
      * Creates the map that was generated using gameobjects within the scene
      * 
@@ -274,7 +298,7 @@ public class MapManager : MonoBehaviour
                 {
                     case entity.empty: break;
                     case entity.enemy:
-                        //entitymanager spawn random enemy
+                        //entitymanager spawn enemy
                         break;
                     case entity.player: 
                         //entitymanager spawn player
