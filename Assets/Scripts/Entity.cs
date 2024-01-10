@@ -1,3 +1,10 @@
+/*
+ * Superclass to all Entities. Handles base stats for all entities.
+ * 
+ * @author Evan
+ * @version January 09
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,15 +31,6 @@ public abstract class Entity : MonoBehaviour
     public abstract void DeathEvent();
     /**
      * Method that adds an entity to the world
-     */
-    public abstract void AddEntity();
-    /**
-     * Method that removes an entity from the world.
-     */
-    public abstract void RemoveEntity();
-    /**
-     * Method for making an entity take damage.
-     * @param damage Damage a Unit should take.
      */
     public void TakeDamage(int damage)
     {

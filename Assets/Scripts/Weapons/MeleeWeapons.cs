@@ -1,3 +1,10 @@
+/*
+ * Superclass to all Melee Weapons.
+ * 
+ * @author Evan
+ * @version January 09
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;

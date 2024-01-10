@@ -1,3 +1,10 @@
+/*
+ * Script for controlling the player.
+ * 
+ * @author Evan
+ * @version January 09
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
