@@ -27,6 +27,7 @@ public class PlayerManager : MonoBehaviour
      */
     public void SpawnPlayer(float x, float y)
     {
+        Debug.Log(x + " " + y);
         player = Instantiate(playerPrefab, new Vector2(x, y), Quaternion.identity);
     }
 

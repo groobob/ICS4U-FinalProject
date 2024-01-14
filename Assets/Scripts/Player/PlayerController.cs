@@ -109,6 +109,7 @@ public class PlayerController : MonoBehaviour
     private void Movement()
     {
         direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")); // Get Direction of Player Movement
+        direction.Normalize(); // Fixes diagonal directions going faster than intended
         _rb.velocity = direction * runSpeed;
     }
     /**
