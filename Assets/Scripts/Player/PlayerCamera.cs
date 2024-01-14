@@ -1,22 +1,29 @@
+/*
+ * Handles player camera. Has camera shake. Moves with the position of the mouse.
+ * 
+ * @author Evan
+ * @version January 09
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    public Transform _player;
+    [SerializeField] private Transform _player;
     Vector3 target, mousePos, refVel, shakeOffset;
-    float cameraDist = 2f;
-    float smoothTime = 0.2f, zStart;
-    float shakeMag, shakeTimeEnd;
-    Vector3 shakeVector;
-    bool shaking;
-    void Start()
+    private float cameraDist = 2f;
+    private float smoothTime = 0.2f, zStart;
+    private float shakeMag, shakeTimeEnd;
+    private Vector3 shakeVector;
+    private bool shaking;
+    private void Start()
     {
         target = _player.position;
         zStart = transform.position.z;
     }
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         mousePos = CaptureMousePos();
         shakeOffset = UpdateShake();
@@ -36,6 +43,15 @@ public class PlayerCamera : MonoBehaviour
         shakeVector = direction; // Set direction
         shakeMag = magnitude; //Set magnitude
         shakeTimeEnd = Time.time + length; // Set the time where the shake ends
+    }
+
+    /**
+     * Method for setting the tranform for the camera to follow
+     * @param character The Transform of the player camera
+     */
+    public void setPlayerCamera(Transform charater)
+    {
+        _player = charater;
     }
 
     /**
