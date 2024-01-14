@@ -2,10 +2,9 @@
  * Class to manage all things related to the grid, and map generation
  * 
  * @author Richard
- * @version January 5
+ * @version January 9
  */
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -123,7 +122,7 @@ public class MapManager : MonoBehaviour
      */
     Vector2 RandomDirection()
     {
-        return cardinalDirections[Mathf.FloorToInt(UnityEngine.Random.Range(0f, 3.99f))];
+        return cardinalDirections[Mathf.FloorToInt(Random.Range(0f, 3.99f))];
     }
 
     /*
@@ -150,7 +149,7 @@ public class MapManager : MonoBehaviour
                 for (int i = 0; i < numberChecks; i++)
                 {
 
-                    if (UnityEngine.Random.value < chanceWalkerDestroy)
+                    if (Random.value < chanceWalkerDestroy)
                     {
                         walkers.RemoveAt(i);
                         break; //Caps destroy at one per iteration
@@ -161,7 +160,7 @@ public class MapManager : MonoBehaviour
             //Change direction?
             for (int i = 0; i < walkers.Count; i++)
             {
-                if (UnityEngine.Random.value < chanceWalkerChangeDir)
+                if (Random.value < chanceWalkerChangeDir)
                 {
                     walker thisWalker = walkers[i];
                     thisWalker.direction = RandomDirection();
@@ -175,7 +174,7 @@ public class MapManager : MonoBehaviour
                 int numberChecks = walkers.Count;
                 for (int i = 0; i < numberChecks; i++)
                 {
-                    if (UnityEngine.Random.value < chanceWalkerSpawn)
+                    if (Random.value < chanceWalkerSpawn)
                     {
                         walker newWalker = new walker();
                         newWalker.direction = RandomDirection();
@@ -263,7 +262,7 @@ public class MapManager : MonoBehaviour
                 {
                     if(Vector2.SqrMagnitude(new Vector2(spawnPos.x - x, spawnPos.y - y)) > minSquaredDistanceFromEnemy)
                     {
-                        if(UnityEngine.Random.value < chanceEnemySpawn) 
+                        if(Random.value < chanceEnemySpawn) 
                         {
                             entityGrid[x, y] = entity.enemy;
                         }
