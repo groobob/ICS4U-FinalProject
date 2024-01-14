@@ -18,7 +18,7 @@ public class PlayerManager : MonoBehaviour
 
     public void Start()
     {
-        SpawnPlayer(0, 0);
+
     }
     /**
      * Method for spawning the player, loads all data.
