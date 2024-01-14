@@ -112,7 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
-    serializedVersion: 2
+    serializedVersion: 
     x: 968.6667
     y: 0
     width: 154.66669
@@ -307,7 +307,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: SceneView
+  m_Name: GameView
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -1015,7 +1015,7 @@ MonoBehaviour:
   m_Position:
     m_Target: {x: 0.47736737, y: -0.8808082, z: -0.23957215}
     speed: 2
-    m_Value: {x: 56.29036, y: 19.092266, z: -2.2732022}
+    m_Value: {x: -1.481835, y: 4.624654, z: -0.043648515}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1067,7 +1067,7 @@ MonoBehaviour:
   m_Size:
     m_Target: 4.9661846
     speed: 2
-    m_Value: 188.63818
+    m_Value: 8.737418
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1112,10 +1112,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 213.5
-    y: 78.5
-    width: 640
-    height: 565.5
+    x: -15791
+    y: -15970
+    width: 645.5
+    height: 575.5
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1132,7 +1132,7 @@ MonoBehaviour:
   m_ShowGizmos: 0
   m_TargetDisplay: 0
   m_ClearColor: {r: 0, g: 0, b: 0, a: 0}
-  m_TargetSize: {x: 640, y: 544.5}
+  m_TargetSize: {x: 645.5, y: 554.5}
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
@@ -1159,7 +1159,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 0
+    m_EnableMouseInput: 1
     m_EnableSliderZoomHorizontal: 0
     m_EnableSliderZoomVertical: 0
     m_UniformScale: 1
