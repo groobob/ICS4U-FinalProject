@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PlayerStats : Entity
 {
-    public PlayerStats(int HP) : base(HP)
+
+    
+    public PlayerStats(int HP, float speed) : base(HP, speed)
     {
 
     }

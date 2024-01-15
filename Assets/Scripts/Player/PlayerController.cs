@@ -89,6 +89,7 @@ public class PlayerController : MonoBehaviour
             {
                 nextAttackTime = Time.time + currentWeapon.getReloadTime();
                 currentWeapon.Attack(); // call the attack method on the weapon
+                
                 Debug.Log("attack");
             }
         }
