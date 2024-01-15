@@ -51,6 +51,7 @@ public class Star : MonoBehaviour
         if (currentWaypoint >= path.vectorPath.Count)
         {
             reachedEndOfPath = true;
+            return;
         }
         else
         {
@@ -60,7 +61,7 @@ public class Star : MonoBehaviour
         Vector2 direction = ((Vector2) path.vectorPath[currentWaypoint] - _rb.position).normalized;
         Vector2 force = direction * movementSpeed * Time.deltaTime;
 
-        _rb.AddForce(force);
+        _rb.AddForce(force, ForceMode2D.Impulse);
 
         float distance = Vector2.Distance(_rb.position, path.vectorPath[currentWaypoint]);
 
