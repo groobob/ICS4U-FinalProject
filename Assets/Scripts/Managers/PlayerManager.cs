@@ -25,10 +25,9 @@ public class PlayerManager : MonoBehaviour
      * @param x X coord for spawning the player
      * @param y Y coord for spawning the player
      */
-    public void SpawnPlayer(float x, float y)
+    public GameObject SpawnPlayer(float x, float y)
     {
-        Debug.Log(x + " " + y);
-        player = Instantiate(playerPrefab, new Vector2(x, y), Quaternion.identity);
+        return player = Instantiate(playerPrefab, new Vector2(x, y), Quaternion.identity);
     }
 
     /**

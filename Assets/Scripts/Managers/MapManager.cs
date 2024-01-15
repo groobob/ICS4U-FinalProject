@@ -16,7 +16,7 @@ public class MapManager : MonoBehaviour
 
     //Values for the grid
     enum cell {empty, floor, wall};
-    enum entity {empty, player, enemy};
+    enum entity {empty, enemy};
     cell[,] grid;
     entity[,] entityGrid;
     Vector2 spawnPos;
@@ -118,7 +118,6 @@ public class MapManager : MonoBehaviour
         spawnPos = new Vector2(Mathf.RoundToInt(roomWidth / 2f), Mathf.RoundToInt(roomHeight / 2f));
         newWalker.position = spawnPos;
 
-        entityGrid[(int) spawnPos.x, (int) spawnPos.y] = entity.player;
         walkers.Add(newWalker);
     }
 
@@ -286,6 +285,9 @@ public class MapManager : MonoBehaviour
      */
     void SpawnLevel()
     {
+        // Spawn player first so that enemys can reference it
+        _camera.enabled = false;
+        GameObject player = Spawn((int)spawnPos.x, (int) spawnPos.y, 0);
         for (int x = 0; x < roomWidth; x++)
         {
             for (int y = 0; y < roomHeight; y++)
@@ -304,16 +306,14 @@ public class MapManager : MonoBehaviour
                 {
                     case entity.empty: break;
                     case entity.enemy:
-                        //entitymanager spawn enemy
-                        break;
-                    case entity.player:
-                        _camera.enabled = false;
-                        Spawn(x, y, 0);
+                        GameObject spawnedEnemy = Spawn(x, y, 1);
+                        spawnedEnemy.GetComponent<Star>().target = player.transform; 
                         break;
                 }
             }
         }
 
+        // Refresh the pathfinder as there is a new map
         _pathfinder.Scan();
     }
     
@@ -339,14 +339,14 @@ public class MapManager : MonoBehaviour
      * @param x - X co-ordinate of the location to spawn to
      * @param y - Y co-ordinate of the location to spawn to
      * @param type - An integer for the type to spawn, 0 for player, 1 for enemies
-     * @return void
+     * @return GameObject - Returns a reference to the spawned gameobject
      */
-    void Spawn(int x, int y, int type)
+    GameObject Spawn(int x, int y, int type)
     {
         Vector2 offset = roomSizeWorldUnits / 2.0f;
         Vector2 spawnPos = new Vector2(x, y) * worldUnitsInOneGridCell - offset;
-        if (type == 0) PlayerManager.Instance.SpawnPlayer(spawnPos.x, spawnPos.y);
-        else return; //placeholder for enemies
+        if (type == 0) return PlayerManager.Instance.SpawnPlayer(spawnPos.x, spawnPos.y);
+        else return EnemyManager.Instance.SpawnEnemy(spawnPos.x, spawnPos.y);
     }
 
     /*

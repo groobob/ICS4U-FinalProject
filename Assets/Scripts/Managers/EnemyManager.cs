@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    // Singleton
+    public static EnemyManager Instance;
+
+    // Serialized References
+    [Header("Enemy Game Objects")]
+    [SerializeField] List<GameObject> tierOneEnemies;
+    [SerializeField] List<GameObject> tierTwoEnemies;
+    [SerializeField] List<GameObject> tierThreeEnemies;
+
+    // Values
+    int numEnemies = 0;
+    void Awake()
     {
-        
+        Instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public GameObject SpawnEnemy(float x, float y)
     {
-        
+        // placeholder math later
+        numEnemies++;
+        return Instantiate(tierOneEnemies[0], new Vector2(x, y), Quaternion.identity);
+
     }
 }

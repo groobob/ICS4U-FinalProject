@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
-public class Star : MonoBehaviour
+public class Star : Enemy
 {
     // Values for the enemy
     [Header("Values")]
@@ -19,7 +19,7 @@ public class Star : MonoBehaviour
     
     // References for the enemy
     [Header("References")]
-    [SerializeField] Transform target;
+    [SerializeField] public Transform target;
     [SerializeField] Transform sprite;
     [SerializeField] float nextWaypointDistance = 3f;
 
@@ -33,11 +33,18 @@ public class Star : MonoBehaviour
     Seeker _seeker;
     Rigidbody2D _rb;
 
+    public Star(int HP) : base(HP)
+    {
+        
+    }
+
     void Start()
     {
         // Component initialization
         _seeker = GetComponent<Seeker>();
         _rb = GetComponent<Rigidbody2D>();
+
+        sprite = transform.GetChild(0).transform;
 
         // Constant path creation
         InvokeRepeating("UpdatePath", 0f, 0.5f);
