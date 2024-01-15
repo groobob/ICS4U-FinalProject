@@ -14,7 +14,7 @@ public class Star : Enemy
 {
     // Values for the enemy
     [Header("Values")]
-    [SerializeField] float detectionRadius;
+    [SerializeField] float detectionRadiusSquared;
     [SerializeField] float movementSpeed;
     
     // References for the enemy
@@ -67,8 +67,8 @@ public class Star : Enemy
     // Update is called once per frame
     void FixedUpdate()
     {
-        distanceToPlayer = Vector2.Distance(_rb.position, target.position);
-        if (distanceToPlayer > detectionRadius) return;
+        distanceToPlayer = Vector2.SqrMagnitude(new Vector2(target.position.x - _rb.position.x, target.position.y - _rb.position.y));
+        if (distanceToPlayer > detectionRadiusSquared) return;
         if (path == null) return;
 
         if (currentWaypoint >= path.vectorPath.Count)

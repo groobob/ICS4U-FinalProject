@@ -69,6 +69,7 @@ public class MapManager : MonoBehaviour
             Destroy(child);
         }
         _camera.enabled = true;
+        EnemyManager.Instance.ClearAllEnemies();
         PlayerManager.Instance.DespawnPlayer();
         GridManager.Instance.SpawnGrid();
     }

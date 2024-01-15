@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d30d02bfc7411be468f58257dac947ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRadius: 10
+  detectionRadiusSquared: 100
   movementSpeed: 300
   target: {fileID: 0}
   sprite: {fileID: 0}

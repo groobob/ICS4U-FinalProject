@@ -15,6 +15,7 @@ public class EnemyManager : MonoBehaviour
 
     // Values
     int numEnemies = 0;
+    List<Enemy> enemies = new List<Enemy>();
     void Awake()
     {
         Instance = this;
@@ -24,7 +25,16 @@ public class EnemyManager : MonoBehaviour
     {
         // placeholder math later
         numEnemies++;
-        return Instantiate(tierOneEnemies[0], new Vector2(x, y), Quaternion.identity);
+        return Instantiate(tierOneEnemies[0], new Vector2(x, y), Quaternion.identity, transform);
+    }
 
+    //Used as a placeholder for later
+    public void ClearAllEnemies()
+    {
+        for (int i = transform.childCount - 1; i >= 0; i--)
+        {
+            var child = transform.GetChild(i).gameObject;
+            Destroy(child);
+        }
     }
 }
