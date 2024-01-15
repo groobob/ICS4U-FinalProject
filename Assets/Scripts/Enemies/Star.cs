@@ -1,3 +1,10 @@
+/*
+ * Class to manage the ai and behaviour for the star enemy
+ * 
+ * @author Richard
+ * @version January 15
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,27 +12,34 @@ using Pathfinding;
 
 public class Star : MonoBehaviour
 {
+    // Values for the enemy
     [Header("Values")]
     [SerializeField] float detectionRadius;
     [SerializeField] float movementSpeed;
-
+    
+    // References for the enemy
     [Header("References")]
     [SerializeField] Transform target;
     [SerializeField] Transform sprite;
     [SerializeField] float nextWaypointDistance = 3f;
 
+    // Pathfinding
     Path path;
     int currentWaypoint = 0;
     bool reachedEndOfPath = false;
+    float distanceToPlayer;
 
+    // other references to own components
     Seeker _seeker;
     Rigidbody2D _rb;
-    // Start is called before the first frame update
+
     void Start()
     {
+        // Component initialization
         _seeker = GetComponent<Seeker>();
         _rb = GetComponent<Rigidbody2D>();
 
+        // Constant path creation
         InvokeRepeating("UpdatePath", 0f, 0.5f);
     }
 
@@ -46,6 +60,8 @@ public class Star : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        distanceToPlayer = Vector2.Distance(_rb.position, target.position);
+        if (distanceToPlayer > detectionRadius) return;
         if (path == null) return;
 
         if (currentWaypoint >= path.vectorPath.Count)
@@ -61,7 +77,7 @@ public class Star : MonoBehaviour
         Vector2 direction = ((Vector2) path.vectorPath[currentWaypoint] - _rb.position).normalized;
         Vector2 force = direction * movementSpeed * Time.deltaTime;
 
-        _rb.AddForce(force, ForceMode2D.Impulse);
+        _rb.AddForce(force, ForceMode2D.Force);
 
         float distance = Vector2.Distance(_rb.position, path.vectorPath[currentWaypoint]);
 

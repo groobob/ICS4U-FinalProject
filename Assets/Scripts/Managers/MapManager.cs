@@ -2,7 +2,7 @@
  * Class to manage all things related to the grid, and map generation
  * 
  * @author Richard
- * @version January 14
+ * @version January 15
  */
 
 using System.Collections;
