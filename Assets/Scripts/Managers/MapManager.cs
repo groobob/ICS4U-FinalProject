@@ -2,7 +2,7 @@
  * Class to manage all things related to the grid, and map generation
  * 
  * @author Richard
- * @version January 9
+ * @version January 14
  */
 
 using System.Collections;
@@ -48,6 +48,7 @@ public class MapManager : MonoBehaviour
     //References
     [Header("Serialized References")]
     [SerializeField] Camera _camera;
+    [SerializeField] AstarPath _pathfinder;
 
     // Singleton
     private void Awake()
@@ -312,6 +313,8 @@ public class MapManager : MonoBehaviour
                 }
             }
         }
+
+        _pathfinder.Scan();
     }
     
     /*
