@@ -102,6 +102,7 @@ public class StarWand : Enemy
             currentWaypoint++;
         }
 
+        /* turn to player saved code for later
         if (_rb.velocity.x >= 0.01f)
         {
             sprite.localScale = new Vector3(-1f, 1f, 1f);
@@ -110,5 +111,6 @@ public class StarWand : Enemy
         {
             sprite.localScale = new Vector3(1f, 1f, 1f);
         }
+        */
     }
 }

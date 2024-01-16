@@ -21,6 +21,7 @@ public class MapManager : MonoBehaviour
     entity[,] entityGrid;
     Vector2 spawnPos;
     int roomWidth, roomHeight;
+    int numLevelsGenerated;
     [Header("Grid Parameters")] 
     [SerializeField] Vector2 roomSizeWorldUnits = new Vector2(30, 30);
     [SerializeField] float worldUnitsInOneGridCell = 1f;
@@ -316,6 +317,7 @@ public class MapManager : MonoBehaviour
 
         // Refresh the pathfinder as there is a new map
         _pathfinder.Scan();
+        numLevelsGenerated++;
     }
     
     /*
@@ -347,7 +349,7 @@ public class MapManager : MonoBehaviour
         Vector2 offset = roomSizeWorldUnits / 2.0f;
         Vector2 spawnPos = new Vector2(x, y) * worldUnitsInOneGridCell - offset;
         if (type == 0) return PlayerManager.Instance.SpawnPlayer(spawnPos.x, spawnPos.y);
-        else return EnemyManager.Instance.SpawnEnemy(spawnPos.x, spawnPos.y);
+        else return EnemyManager.Instance.SpawnEnemy(spawnPos.x, spawnPos.y, numLevelsGenerated);
     }
 
     /*

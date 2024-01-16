@@ -691,11 +691,11 @@ MonoBehaviour:
   - {fileID: 1193838315863159021, guid: 2c43e698af5a02f4aab7141ef6beee10, type: 3}
   - {fileID: 1460581786227775414, guid: 81d367c704265f34dbf93790dc57fd13, type: 3}
   tierTwoEnemies:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 5122812395558436429, guid: c39b2626379537646b3b01d78ebb6316, type: 3}
+  - {fileID: 6178542050392735374, guid: 7e9041386198e5d43a0d5762e7ddc612, type: 3}
   tierThreeEnemies:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 7738426441016444083, guid: d90ecce4e9fba184281634df0486db2f, type: 3}
+  - {fileID: 6998104231271973072, guid: 75f55eb2c71c5064faaf9585aa9ff782, type: 3}
 --- !u!1 &1088725936
 GameObject:
   m_ObjectHideFlags: 0
