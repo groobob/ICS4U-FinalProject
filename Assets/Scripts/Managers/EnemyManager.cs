@@ -25,7 +25,7 @@ public class EnemyManager : MonoBehaviour
     {
         // placeholder math later
         numEnemies++;
-        return Instantiate(tierOneEnemies[0], new Vector2(x, y), Quaternion.identity, transform);
+        return Instantiate(tierOneEnemies[Mathf.FloorToInt(Random.Range(0f, 1.999f))], new Vector2(x, y), Quaternion.identity, transform);
     }
 
     //Used as a placeholder for later

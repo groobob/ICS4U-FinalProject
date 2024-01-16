@@ -1,5 +1,5 @@
 /*
- * Class to manage the ai and behaviour for the star enemy
+ * Class to manage the ai and behaviour for the star with a wand enemy
  * 
  * @author Richard
  * @version January 15
@@ -10,16 +10,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
-public class Star : Enemy
+public class StarWand : Enemy
 {
     // Values for the enemy
     [Header("Values")]
     [SerializeField] float detectionRadiusSquared;
+    [SerializeField] float spaceBetweenPlayerSquared;
+    [SerializeField] float rangeSquared;
     [SerializeField] float movementSpeed;
-    
+    [SerializeField] float reloadTime;
+
     // References for the enemy
     [Header("References")]
     [SerializeField] float nextWaypointDistance = 3f;
+    float timeElapsed;
 
     // Pathfinding
     Path path;
@@ -31,9 +35,9 @@ public class Star : Enemy
     Seeker _seeker;
     Rigidbody2D _rb;
 
-    public Star(int HP) : base(HP)
+    public StarWand(int HP) : base(HP)
     {
-        
+
     }
 
     void Start()
@@ -55,7 +59,7 @@ public class Star : Enemy
 
     void OnPathComplete(Path p)
     {
-        if(!p.error)
+        if (!p.error)
         {
             path = p;
             currentWaypoint = 0;
@@ -65,9 +69,16 @@ public class Star : Enemy
     // Update is called once per frame
     void FixedUpdate()
     {
+        timeElapsed += Time.deltaTime;
         distanceToPlayer = Vector2.SqrMagnitude(new Vector2(target.position.x - _rb.position.x, target.position.y - _rb.position.y));
-        if (distanceToPlayer > detectionRadiusSquared) return;
+        if (distanceToPlayer > detectionRadiusSquared || distanceToPlayer < spaceBetweenPlayerSquared) return;
         if (path == null) return;
+        if (distanceToPlayer < rangeSquared && timeElapsed > reloadTime)
+        {
+            //Attack stuff
+            Debug.Log("A");
+            timeElapsed = 0f;
+        }
 
         if (currentWaypoint >= path.vectorPath.Count)
         {
@@ -79,7 +90,7 @@ public class Star : Enemy
             reachedEndOfPath = false;
         }
 
-        Vector2 direction = ((Vector2) path.vectorPath[currentWaypoint] - _rb.position).normalized;
+        Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - _rb.position).normalized;
         Vector2 force = direction * movementSpeed * Time.deltaTime;
 
         _rb.AddForce(force, ForceMode2D.Force);

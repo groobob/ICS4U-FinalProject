@@ -308,7 +308,7 @@ public class MapManager : MonoBehaviour
                     case entity.empty: break;
                     case entity.enemy:
                         GameObject spawnedEnemy = Spawn(x, y, 1);
-                        spawnedEnemy.GetComponent<Star>().target = player.transform; 
+                        spawnedEnemy.GetComponent<Enemy>().target = player.transform; 
                         break;
                 }
             }

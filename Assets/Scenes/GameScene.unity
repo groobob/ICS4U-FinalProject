@@ -689,7 +689,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tierOneEnemies:
   - {fileID: 1193838315863159021, guid: 2c43e698af5a02f4aab7141ef6beee10, type: 3}
-  - {fileID: 0}
+  - {fileID: 1460581786227775414, guid: 81d367c704265f34dbf93790dc57fd13, type: 3}
   tierTwoEnemies:
   - {fileID: 0}
   - {fileID: 0}
