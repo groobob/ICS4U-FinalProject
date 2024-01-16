@@ -90,14 +90,5 @@ public class Star : Enemy
         {
             currentWaypoint++;
         }
-
-        if (_rb.velocity.x >= 0.01f)
-        {
-            sprite.localScale = new Vector3(-1f, 1f, 1f);
-        }
-        else if (_rb.velocity.y <= 0.01f)
-        {
-            sprite.localScale = new Vector3(1f, 1f, 1f);
-        }
     }
 }

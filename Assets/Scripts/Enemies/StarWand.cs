@@ -37,7 +37,7 @@ public class StarWand : Enemy
 
     public StarWand(int HP) : base(HP)
     {
-
+        
     }
 
     void Start()
