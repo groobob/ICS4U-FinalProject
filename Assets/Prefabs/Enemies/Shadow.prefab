@@ -140,9 +140,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   sprite: {fileID: 0}
-  detectionRadiusSquared: 0
-  movementSpeed: 0
-  nextWaypointDistance: 0
+  detectionRadiusSquared: 100
+  movementSpeed: 300
+  nextWaypointDistance: 3
 --- !u!1 &8908632361908828065
 GameObject:
   m_ObjectHideFlags: 0

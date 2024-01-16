@@ -76,7 +76,6 @@ public class StarWand : Enemy
         if (distanceToPlayer < rangeSquared && timeElapsed > reloadTime)
         {
             //Attack stuff
-            Debug.Log("A");
             timeElapsed = 0f;
         }
 

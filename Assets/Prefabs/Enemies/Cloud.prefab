@@ -140,9 +140,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   sprite: {fileID: 0}
-  detectionRadiusSquared: 0
-  movementSpeed: 0
-  nextWaypointDistance: 0
+  detectionRadiusSquared: 100
+  movementSpeed: 300
+  nextWaypointDistance: 3
 --- !u!1 &7965330982228327778
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,7 +217,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 15
-  m_Sprite: {fileID: -958459331, guid: d3f8d95d971fca1408c330b7f3dacdf1, type: 3}
+  m_Sprite: {fileID: -2137092113, guid: 1b3e9e5350a34ae48b4c607c8ae89fab, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
