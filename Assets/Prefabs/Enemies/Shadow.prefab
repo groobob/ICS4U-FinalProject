@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2304108478827994064}
   - component: {fileID: 5863073005503419041}
   - component: {fileID: 8659783841701782475}
-  - component: {fileID: -5030414459113380480}
+  - component: {fileID: -8779514608916696962}
   m_Layer: 0
   m_Name: Shadow
   m_TagString: Untagged
@@ -126,7 +126,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.9
---- !u!114 &-5030414459113380480
+--- !u!114 &-8779514608916696962
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,13 +135,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 5122812395558436429}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d30d02bfc7411be468f58257dac947ee, type: 3}
+  m_Script: {fileID: 11500000, guid: 98f45a519a0b64d44b0589a8cfd87119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   sprite: {fileID: 0}
   detectionRadiusSquared: 100
-  movementSpeed: 300
+  rangeSquared: 25
+  movementSpeed: 500
+  dashSpeed: 1000
+  chargeTime: 0.5
+  chargeDuration: 3
   nextWaypointDistance: 3
 --- !u!1 &8908632361908828065
 GameObject:
@@ -238,7 +242,7 @@ Animator:
   m_GameObject: {fileID: 8908632361908828065}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: bee86273e999ee84893b0df384a8d191, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

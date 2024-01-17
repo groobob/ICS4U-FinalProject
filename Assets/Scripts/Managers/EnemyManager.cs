@@ -16,7 +16,7 @@ public class EnemyManager : MonoBehaviour
     // Values
     float tierOneMaxSpawnRate = -4 * 10 + 60;
     float tierTwoMaxSpawnRate = -10 + 40;
-    float tierThreeMaxSpawnRate = 5 * 10;
+    //float tierThreeMaxSpawnRate = 5 * 10;
     int numEnemies = 0;
     List<Enemy> enemies = new List<Enemy>();
     void Awake()

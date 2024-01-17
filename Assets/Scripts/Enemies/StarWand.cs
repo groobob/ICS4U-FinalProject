@@ -19,11 +19,12 @@ public class StarWand : Enemy
     [SerializeField] float rangeSquared;
     [SerializeField] float movementSpeed;
     [SerializeField] float reloadTime;
+    float timeElapsed;
 
     // References for the enemy
     [Header("References")]
     [SerializeField] float nextWaypointDistance = 3f;
-    float timeElapsed;
+    
 
     // Pathfinding
     Path path;
@@ -100,16 +101,5 @@ public class StarWand : Enemy
         {
             currentWaypoint++;
         }
-
-        /* turn to player saved code for later
-        if (_rb.velocity.x >= 0.01f)
-        {
-            sprite.localScale = new Vector3(-1f, 1f, 1f);
-        }
-        else if (_rb.velocity.y <= 0.01f)
-        {
-            sprite.localScale = new Vector3(1f, 1f, 1f);
-        }
-        */
     }
 }
