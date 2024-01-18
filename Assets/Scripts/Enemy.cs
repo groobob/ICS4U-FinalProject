@@ -11,6 +11,8 @@ using UnityEngine;
 
 public class Enemy : Entity
 {
+    public Transform target;
+    public Transform sprite;
     public Enemy(int HP) : base(HP)
     {
 

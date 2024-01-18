@@ -2,7 +2,7 @@
  * Class to manage all things related to the grid, and map generation
  * 
  * @author Richard
- * @version January 9
+ * @version January 15
  */
 
 using System.Collections;
@@ -16,11 +16,12 @@ public class MapManager : MonoBehaviour
 
     //Values for the grid
     enum cell {empty, floor, wall};
-    enum entity {empty, player, enemy};
+    enum entity {empty, enemy};
     cell[,] grid;
     entity[,] entityGrid;
     Vector2 spawnPos;
     int roomWidth, roomHeight;
+    int numLevelsGenerated;
     [Header("Grid Parameters")] 
     [SerializeField] Vector2 roomSizeWorldUnits = new Vector2(30, 30);
     [SerializeField] float worldUnitsInOneGridCell = 1f;
@@ -45,6 +46,11 @@ public class MapManager : MonoBehaviour
     [SerializeField] float percentToFill = 0.2f;
     [SerializeField] int maxWalkers = 10;
 
+    //References
+    [Header("Serialized References")]
+    [SerializeField] Camera _camera;
+    [SerializeField] AstarPath _pathfinder;
+
     // Singleton
     private void Awake()
     {
@@ -63,6 +69,9 @@ public class MapManager : MonoBehaviour
             var child = transform.GetChild(i).gameObject;
             Destroy(child);
         }
+        _camera.enabled = true;
+        EnemyManager.Instance.ClearAllEnemies();
+        PlayerManager.Instance.DespawnPlayer();
         GridManager.Instance.SpawnGrid();
     }
 
@@ -111,7 +120,6 @@ public class MapManager : MonoBehaviour
         spawnPos = new Vector2(Mathf.RoundToInt(roomWidth / 2f), Mathf.RoundToInt(roomHeight / 2f));
         newWalker.position = spawnPos;
 
-        entityGrid[(int) spawnPos.x, (int) spawnPos.y] = entity.player;
         walkers.Add(newWalker);
     }
 
@@ -279,6 +287,9 @@ public class MapManager : MonoBehaviour
      */
     void SpawnLevel()
     {
+        // Spawn player first so that enemys can reference it
+        _camera.enabled = false;
+        GameObject player = Spawn((int)spawnPos.x, (int) spawnPos.y, 0);
         for (int x = 0; x < roomWidth; x++)
         {
             for (int y = 0; y < roomHeight; y++)
@@ -297,22 +308,25 @@ public class MapManager : MonoBehaviour
                 {
                     case entity.empty: break;
                     case entity.enemy:
-                        //entitymanager spawn enemy
-                        break;
-                    case entity.player: 
-                        //entitymanager spawn player
+                        GameObject spawnedEnemy = Spawn(x, y, 1);
+                        spawnedEnemy.GetComponent<Enemy>().target = player.transform; 
                         break;
                 }
             }
         }
+
+        // Refresh the pathfinder as there is a new map
+        _pathfinder.Scan();
+        numLevelsGenerated++;
     }
     
     /*
-     * Spawns a gameobject at a certain co-ordinate
+     * Spawns a gameobject at a certain co-ordinate purely for environments
      * 
      * @param x - X co-ordinate of the location to spawn to
      * @param y - Y co-ordinate of the location to spawn to
      * @param toSpawn - The gameobject that you want to spawn
+     * @param type - An integer for the type to spawn, 0 for environment, 1 for player, 2 for enemies
      * @return void
      */
     void Spawn(int x, int y, GameObject toSpawn)
@@ -320,6 +334,22 @@ public class MapManager : MonoBehaviour
         Vector2 offset = roomSizeWorldUnits / 2.0f;
         Vector2 spawnPos = new Vector2(x, y) * worldUnitsInOneGridCell - offset;
         Instantiate(toSpawn, spawnPos, Quaternion.identity, transform);
+    }
+
+    /*
+     * Spawns a gameobject at a certain co-ordinate purely for entities
+     * 
+     * @param x - X co-ordinate of the location to spawn to
+     * @param y - Y co-ordinate of the location to spawn to
+     * @param type - An integer for the type to spawn, 0 for player, 1 for enemies
+     * @return GameObject - Returns a reference to the spawned gameobject
+     */
+    GameObject Spawn(int x, int y, int type)
+    {
+        Vector2 offset = roomSizeWorldUnits / 2.0f;
+        Vector2 spawnPos = new Vector2(x, y) * worldUnitsInOneGridCell - offset;
+        if (type == 0) return PlayerManager.Instance.SpawnPlayer(spawnPos.x, spawnPos.y);
+        else return EnemyManager.Instance.SpawnEnemy(spawnPos.x, spawnPos.y, numLevelsGenerated);
     }
 
     /*

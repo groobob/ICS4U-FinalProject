@@ -18,16 +18,16 @@ public class PlayerManager : MonoBehaviour
 
     public void Start()
     {
-        SpawnPlayer(0, 0);
+
     }
     /**
      * Method for spawning the player, loads all data.
      * @param x X coord for spawning the player
      * @param y Y coord for spawning the player
      */
-    public void SpawnPlayer(int x, int y)
+    public GameObject SpawnPlayer(float x, float y)
     {
-        player = Instantiate(playerPrefab, new Vector2(x, y), Quaternion.identity);
+        return player = Instantiate(playerPrefab, new Vector2(x, y), Quaternion.identity);
     }
 
     /**
