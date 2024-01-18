@@ -24,7 +24,6 @@ public class Star : Enemy
     // Pathfinding
     Path path;
     int currentWaypoint = 0;
-    bool reachedEndOfPath = false;
     float distanceToPlayer;
 
     // other references to own components
@@ -69,15 +68,7 @@ public class Star : Enemy
         if (distanceToPlayer > detectionRadiusSquared) return;
         if (path == null) return;
 
-        if (currentWaypoint >= path.vectorPath.Count)
-        {
-            reachedEndOfPath = true;
-            return;
-        }
-        else
-        {
-            reachedEndOfPath = false;
-        }
+        if (currentWaypoint >= path.vectorPath.Count) return;
 
         Vector2 direction = ((Vector2) path.vectorPath[currentWaypoint] - _rb.position).normalized;
         Vector2 force = direction * movementSpeed * Time.deltaTime;
