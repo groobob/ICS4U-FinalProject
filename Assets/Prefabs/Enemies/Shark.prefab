@@ -249,4 +249,5 @@ MonoBehaviour:
   fleeRangeSquared: 36
   movementSpeed: 200
   reloadTime: 3
+  projectileSpeed: 6
   nextWaypointDistance: 3

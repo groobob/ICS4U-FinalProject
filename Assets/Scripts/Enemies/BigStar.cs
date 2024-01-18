@@ -18,6 +18,7 @@ public class BigStar : Enemy
     [SerializeField] float rangeSquared;
     [SerializeField] float movementSpeed;
     [SerializeField] float reloadTime;
+    [SerializeField] float projectileSpeed;
     float timeElapsed;
 
     // References for the enemy
@@ -70,13 +71,14 @@ public class BigStar : Enemy
     {
         timeElapsed += Time.deltaTime;
         distanceToPlayer = Vector2.SqrMagnitude(new Vector2(target.position.x - _rb.position.x, target.position.y - _rb.position.y));
-        if (distanceToPlayer > detectionRadiusSquared) return;
-        if (path == null) return;
         if (distanceToPlayer < rangeSquared && timeElapsed > reloadTime)
         {
-            //Attack stuff
+            ProjectileManager.Instance.SpawnProjectileSpread(_rb.position, new Vector2(target.position.x - _rb.position.x, target.position.y - _rb.position.y).normalized * projectileSpeed, 0, 7, Mathf.PI / 9);
             timeElapsed = 0f;
         }
+        if (distanceToPlayer > detectionRadiusSquared) return;
+        if (path == null) return;
+        
 
         if (currentWaypoint >= path.vectorPath.Count) return;
 
