@@ -11,11 +11,11 @@ using UnityEngine;
 
 public class Enemy : Entity
 {
-    public Transform target;
-    public Transform sprite;
-    public Enemy(int HP) : base(HP)
+    protected float detectionRadius;
+    public Enemy(int HP, float speed, float detectionRadius) : base(HP, speed)
     {
-
+        this.detectionRadius = detectionRadius;
+        
     }
 
     public override void DeathEvent()

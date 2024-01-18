@@ -5,23 +5,33 @@
  * @version January 09
  */
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
 {
-    protected int health;
-    protected int maxHealth;
+    public int health;
+    public int maxHealth;
+    public float baseMoveSpeed;
 
     /**
      * Constructor for Entity.
      * @param HP Max Health for entity.
      */
-    public Entity(int HP)
+    public Entity(int HP, float speed)
     {
         maxHealth = HP;
         health = maxHealth;
+        this.baseMoveSpeed = speed;
+    }
+
+    public void setBaseStats(int HP, float speed)
+    {
+        maxHealth = HP;
+        health = maxHealth;
+        this.baseMoveSpeed = speed;
     }
 
     // >>>>>>>>> INSTANCE METHODS <<<<<<<<<
@@ -52,4 +62,26 @@ public abstract class Entity : MonoBehaviour
             maxHealth = health;
         }
     }
+    /**
+     * Method for setting entity speed.
+     * @param spd Speed to set
+     */
+    public void SetBaseSpeed(float spd)
+    { this.baseMoveSpeed = spd; }
+
+    public int GetHealth()
+    {
+        return health;
+    }
+
+    public int GetMaxHealth()
+    {
+        return maxHealth;
+    }
+
+    public float GetMoveSpeed()
+    {
+        return baseMoveSpeed;
+    }
+    
 }
