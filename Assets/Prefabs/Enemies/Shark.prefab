@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 4679047997345717057}
   - component: {fileID: 5505328254332838418}
   - component: {fileID: 4697792701537629094}
-  - component: {fileID: 6110796767193112269}
+  - component: {fileID: -1878005575127685104}
   m_Layer: 6
   m_Name: Shark
   m_TagString: Untagged
@@ -232,7 +232,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.65
---- !u!114 &6110796767193112269
+--- !u!114 &-1878005575127685104
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -241,11 +241,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6178542050392735374}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d30d02bfc7411be468f58257dac947ee, type: 3}
+  m_Script: {fileID: 11500000, guid: 630c8e41ace9159408a9ba3c9e6975ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   sprite: {fileID: 0}
-  detectionRadiusSquared: 100
-  movementSpeed: 300
+  fleeRangeSquared: 36
+  movementSpeed: 200
+  reloadTime: 3
   nextWaypointDistance: 3
