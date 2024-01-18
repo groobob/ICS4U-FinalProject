@@ -2,7 +2,7 @@
  * Class to manage the ai and behaviour for the shadow enemy
  * 
  * @author Richard
- * @version January 15
+ * @version January 17
  */
 
 using System.Collections;

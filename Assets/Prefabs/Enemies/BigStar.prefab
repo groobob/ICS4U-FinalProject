@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4980433518952125107}
   - component: {fileID: 5868914550884885813}
   - component: {fileID: 6582358466550542196}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ Animator:
   m_GameObject: {fileID: 2626201518306237830}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2382c2be6a5b8eb438ab0571b9f69b94, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 4994047261692616925}
   - component: {fileID: 1360380893601361866}
   - component: {fileID: 2422591312096591210}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BigStar
   m_TagString: Untagged
   m_Icon: {fileID: 0}

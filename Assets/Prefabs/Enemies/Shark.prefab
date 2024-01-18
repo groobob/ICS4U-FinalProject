@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5556896563818105469}
   - component: {fileID: 7844803582837890822}
   - component: {fileID: 4188129753350076558}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ Animator:
   m_GameObject: {fileID: 709834734031407989}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9633f63ce39117b4fa8de8e5f566df31, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 5505328254332838418}
   - component: {fileID: 4697792701537629094}
   - component: {fileID: 6110796767193112269}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shark
   m_TagString: Untagged
   m_Icon: {fileID: 0}

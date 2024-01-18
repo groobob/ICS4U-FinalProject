@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 8542541465664574797}
   - component: {fileID: 7026013869842224605}
   - component: {fileID: 4420917585687751364}
-  - component: {fileID: 5491986179212589792}
-  m_Layer: 0
+  - component: {fileID: 8494852274214803389}
+  m_Layer: 6
   m_Name: Cloud
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.9
---- !u!114 &5491986179212589792
+--- !u!114 &8494852274214803389
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,13 +135,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 7738426441016444083}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d30d02bfc7411be468f58257dac947ee, type: 3}
+  m_Script: {fileID: 11500000, guid: bb416f6efabb4294185d893d89d3e5d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   sprite: {fileID: 0}
-  detectionRadiusSquared: 100
-  movementSpeed: 300
+  detectionRadiusSquared: 400
+  spaceBetweenPlayerSquared: 100
+  rangeSquared: 400
+  movementSpeed: 50
+  reloadTime: 2.5
+  chargeTime: 2
   nextWaypointDistance: 3
 --- !u!1 &7965330982228327778
 GameObject:
@@ -153,8 +157,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7898194997494507005}
   - component: {fileID: 4796246403767111535}
-  - component: {fileID: 4822554826531209021}
-  m_Layer: 0
+  - component: {fileID: 7085304502309909310}
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,7 +232,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &4822554826531209021
+--- !u!95 &7085304502309909310
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -238,7 +242,7 @@ Animator:
   m_GameObject: {fileID: 7965330982228327778}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b69281175fb3bf5498b7863414ef7787, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
