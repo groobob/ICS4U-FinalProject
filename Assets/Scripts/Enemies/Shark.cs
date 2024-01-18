@@ -17,6 +17,7 @@ public class Shark : Enemy
     [SerializeField] float fleeRangeSquared;
     [SerializeField] float movementSpeed;
     [SerializeField] float reloadTime;
+    [SerializeField] float projectileSpeed;
     float timeElapsed;
 
     // References for the enemy
@@ -73,7 +74,7 @@ public class Shark : Enemy
         if (path == null) return;
         if (timeElapsed > reloadTime)
         {
-            //Attack stuff
+            ProjectileManager.Instance.SpawnProjectileSpread(_rb.position, new Vector2(target.position.x - _rb.position.x, target.position.y - _rb.position.y).normalized * projectileSpeed, 0, 11, 2 * Mathf.PI / 11);
             timeElapsed = 0f;
         }
 
