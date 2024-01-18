@@ -35,8 +35,9 @@ public class PlayerManager : MonoBehaviour
      * Method for spawning the player, loads all data.
      * @param x X coord for spawning the player
      * @param y Y coord for spawning the player
+     * @return GameObject reference to the player
      */
-    public void SpawnPlayer(float x, float y)
+    public GameObject SpawnPlayer(float x, float y)
     {
         Debug.Log(x + ", " + y);
         player = Instantiate(playerPrefab, new Vector2(x, y), Quaternion.identity);
@@ -44,6 +45,7 @@ public class PlayerManager : MonoBehaviour
         upgrades = player.transform.Find("Upgrades").gameObject;
 
         LoadStats();
+        return player;
     }
 
     /**

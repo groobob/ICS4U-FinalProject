@@ -14,9 +14,9 @@ public class Shadow : Enemy
 {
     // Values for the enemy
     [Header("Values")]
-    [SerializeField] float detectionRadiusSquared;
+    [SerializeField] static float detectionRadiusSquared;
     [SerializeField] float rangeSquared;
-    [SerializeField] float movementSpeed;
+    [SerializeField] static float movementSpeed;
     [SerializeField] float dashSpeed;
     [SerializeField] float chargeTime;
     [SerializeField] float chargeDuration;
@@ -37,7 +37,7 @@ public class Shadow : Enemy
     Seeker _seeker;
     Rigidbody2D _rb;
 
-    public Shadow(int HP) : base(HP)
+    public Shadow(int HP) : base(HP, movementSpeed, detectionRadiusSquared)
     {
 
     }
@@ -72,7 +72,7 @@ public class Shadow : Enemy
     void FixedUpdate()
     {
         distanceToPlayer = Vector2.SqrMagnitude(new Vector2(target.position.x - _rb.position.x, target.position.y - _rb.position.y));
-        if (distanceToPlayer > detectionRadiusSquared) return;
+        if (distanceToPlayer > detectionRadius) return;
         if (path == null) return;
 
         if (distanceToPlayer < rangeSquared)
@@ -87,7 +87,7 @@ public class Shadow : Enemy
             if (currentWaypoint >= path.vectorPath.Count) return;
 
             Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - _rb.position).normalized;
-            Vector2 force = direction * movementSpeed * Time.deltaTime;
+            Vector2 force = direction * baseMoveSpeed * Time.deltaTime;
 
             _rb.AddForce(force, ForceMode2D.Force);
 

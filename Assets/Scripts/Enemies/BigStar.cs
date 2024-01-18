@@ -14,9 +14,9 @@ public class BigStar : Enemy
 {
     // Values for the enemy
     [Header("Values")]
-    [SerializeField] float detectionRadiusSquared;
+    [SerializeField] static float detectionRadiusSquared;
     [SerializeField] float rangeSquared;
-    [SerializeField] float movementSpeed;
+    [SerializeField] static float movementSpeed;
     [SerializeField] float reloadTime;
     [SerializeField] float projectileSpeed;
     float timeElapsed;
@@ -35,9 +35,9 @@ public class BigStar : Enemy
     Seeker _seeker;
     Rigidbody2D _rb;
 
-    public BigStar(int HP) : base(HP)
+    public BigStar(int HP) : base(HP, movementSpeed, detectionRadiusSquared)
     {
-
+        
     }
 
     void Start()
@@ -76,14 +76,14 @@ public class BigStar : Enemy
             ProjectileManager.Instance.SpawnProjectileSpread(_rb.position, new Vector2(target.position.x - _rb.position.x, target.position.y - _rb.position.y).normalized * projectileSpeed, 0, 7, Mathf.PI / 9);
             timeElapsed = 0f;
         }
-        if (distanceToPlayer > detectionRadiusSquared) return;
+        if (distanceToPlayer > detectionRadius) return;
         if (path == null) return;
         
 
         if (currentWaypoint >= path.vectorPath.Count) return;
 
         Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - _rb.position).normalized;
-        Vector2 force = direction * movementSpeed * Time.deltaTime;
+        Vector2 force = direction * baseMoveSpeed * Time.deltaTime;
 
         _rb.AddForce(force, ForceMode2D.Force);
 

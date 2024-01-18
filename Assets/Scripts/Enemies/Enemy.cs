@@ -11,6 +11,8 @@ using UnityEngine;
 
 public class Enemy : Entity
 {
+    public Transform target;
+    public Transform sprite;
     protected float detectionRadius;
     public Enemy(int HP, float speed, float detectionRadius) : base(HP, speed)
     {

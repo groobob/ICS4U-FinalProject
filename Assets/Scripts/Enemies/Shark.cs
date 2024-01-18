@@ -15,7 +15,7 @@ public class Shark : Enemy
     // Values for the enemy
     [Header("Values")]
     [SerializeField] float fleeRangeSquared;
-    [SerializeField] float movementSpeed;
+    [SerializeField] static float movementSpeed;
     [SerializeField] float reloadTime;
     [SerializeField] float projectileSpeed;
     float timeElapsed;
@@ -34,7 +34,7 @@ public class Shark : Enemy
     Seeker _seeker;
     Rigidbody2D _rb;
 
-    public Shark(int HP) : base(HP)
+    public Shark(int HP) : base(HP, movementSpeed, 0)
     {
 
     }
@@ -84,7 +84,7 @@ public class Shark : Enemy
 
             Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - _rb.position).normalized;
             direction = new Vector2(-direction.x, -direction.y);
-            Vector2 force = direction * movementSpeed * Time.deltaTime;
+            Vector2 force = direction * baseMoveSpeed * Time.deltaTime;
 
             _rb.AddForce(force, ForceMode2D.Force);
 

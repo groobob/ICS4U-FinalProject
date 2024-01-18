@@ -695,8 +695,8 @@ MonoBehaviour:
   - {fileID: 5122812395558436429, guid: c39b2626379537646b3b01d78ebb6316, type: 3}
   - {fileID: 6178542050392735374, guid: 7e9041386198e5d43a0d5762e7ddc612, type: 3}
   tierThreeEnemies:
-  - {fileID: 7738426441016444083, guid: d90ecce4e9fba184281634df0486db2f, type: 3}
   - {fileID: 6998104231271973072, guid: 75f55eb2c71c5064faaf9585aa9ff782, type: 3}
+  - {fileID: 7738426441016444083, guid: d90ecce4e9fba184281634df0486db2f, type: 3}
 --- !u!1 &1088725936
 GameObject:
   m_ObjectHideFlags: 0
@@ -1130,6 +1130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 237249601848850802, guid: df384d2d1e6e5e644aaea30b195ec6aa, type: 3}
+  isNew: 0
 --- !u!4 &1446468404
 Transform:
   m_ObjectHideFlags: 0
