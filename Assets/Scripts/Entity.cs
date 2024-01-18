@@ -12,9 +12,9 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
 {
-    protected int health;
-    protected int maxHealth;
-    protected float speed;
+    public int health;
+    public int maxHealth;
+    public float baseMoveSpeed;
 
     /**
      * Constructor for Entity.
@@ -24,7 +24,14 @@ public abstract class Entity : MonoBehaviour
     {
         maxHealth = HP;
         health = maxHealth;
-        this.speed = speed;
+        this.baseMoveSpeed = speed;
+    }
+
+    public void setBaseStats(int HP, float speed)
+    {
+        maxHealth = HP;
+        health = maxHealth;
+        this.baseMoveSpeed = speed;
     }
 
     // >>>>>>>>> INSTANCE METHODS <<<<<<<<<
@@ -59,22 +66,22 @@ public abstract class Entity : MonoBehaviour
      * Method for setting entity speed.
      * @param spd Speed to set
      */
-    public void SetSpeed(float spd)
-    { this.speed = spd; }
+    public void SetBaseSpeed(float spd)
+    { this.baseMoveSpeed = spd; }
 
-    /**
-     * Method for giving entity a timed speed boost
-     * @param spd Speed to set
-     * @param delay time before speed returns to before.
-     * 
-     * DO NOT USE THIS, TELL ME THAT U CAN STACK SPEED BOOSTS. IFYOU CALL THEM CONSECUATIVELY THEY BUG OUT
-     */
-    public void SpeedBoost(float spd, float delay)
+    public int GetHealth()
     {
-        float tempSpeed;
-        tempSpeed = speed;
-        SetSpeed(spd);
-        Invoke("SetSpeed(tempSpeed)", delay);
-
+        return health;
     }
+
+    public int GetMaxHealth()
+    {
+        return maxHealth;
+    }
+
+    public float GetMoveSpeed()
+    {
+        return baseMoveSpeed;
+    }
+    
 }

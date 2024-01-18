@@ -13,7 +13,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     //Player Movement Related
-    [SerializeField] private float runSpeed = 5f;
+    [SerializeField] private float runSpeed;
     private Rigidbody2D _rb;
     private Vector2 direction;
 
@@ -22,6 +22,9 @@ public class PlayerController : MonoBehaviour
     //Mouse Info
     private Vector3 mousePos;
     private Vector3 mousePlayerVector;
+
+    //Player Stats
+    [SerializeField] private PlayerStats _playerStats;
 
     //Weapon
     [SerializeField] private Transform _weaponPos;
@@ -38,6 +41,7 @@ public class PlayerController : MonoBehaviour
         _cameraScript = FindObjectOfType<PlayerCamera>();
         currentWeapon = gameObject.AddComponent<StarterSword>();
         currentWeapon.SetPlayer(this);
+        runSpeed = _playerStats.GetMoveSpeed();
     }
 
     private void Update()
@@ -45,6 +49,7 @@ public class PlayerController : MonoBehaviour
         GetMouseInfo();
         AnimateWeapon();
         MainAttack();
+        runSpeed = _playerStats.GetMoveSpeed();
     }
     private void FixedUpdate()
     {
@@ -57,7 +62,7 @@ public class PlayerController : MonoBehaviour
     public void UpdateWeapon(System.Type weaponType)
     {
         Destroy(currentWeapon);
-        currentWeapon = gameObject.AddComponent<StarterSword>();
+        currentWeapon = gameObject.AddComponent(weaponType) as Weapons;
         currentWeapon.SetPlayer(this);
         weaponDisplacement = currentWeapon.GetWeaponDisplacement();
         weaponAngle = currentWeapon.GetWeaponAngle();

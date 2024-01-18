@@ -592,6 +592,7 @@ MonoBehaviour:
   percentToFill: 0.3
   maxWalkers: 10
   _camera: {fileID: 519420031}
+  _pathfinder: {fileID: 0}
 --- !u!4 &780555519
 Transform:
   m_ObjectHideFlags: 0
