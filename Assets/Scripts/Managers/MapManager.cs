@@ -90,6 +90,12 @@ public class MapManager : MonoBehaviour
         SpawnLevel();
     }
 
+    // for later
+    public void GenerateBossRoom()
+    {
+
+    }
+
     /*
      * Sets up and initalizes variables for the grid
      * 

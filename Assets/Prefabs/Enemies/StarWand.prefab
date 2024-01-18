@@ -251,4 +251,5 @@ MonoBehaviour:
   rangeSquared: 64
   movementSpeed: 200
   reloadTime: 5
+  projectileSpeed: 10
   nextWaypointDistance: 3
