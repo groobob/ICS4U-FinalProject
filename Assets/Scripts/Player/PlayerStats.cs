@@ -9,7 +9,7 @@ public class PlayerStats : Entity
     [SerializeField] private GameObject upgrades;
     private int previousUpgradeCount;
     //Tempo
-    [SerializeField] private float tempo;
+    [SerializeField] public float tempo;
     [SerializeField] private float tempoMax;
     [SerializeField] private float tempoDecayFactor;
     [SerializeField] private float tempoDelayWait;

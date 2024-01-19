@@ -8,6 +8,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -15,6 +16,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private GameObject upgrades;
     //Player Movement Related
+    [Header("Player Movement")]
     [SerializeField] private float runSpeed;
     private Rigidbody2D _rb;
     private Vector2 direction;
@@ -35,6 +37,13 @@ public class PlayerController : MonoBehaviour
     private float weaponAngle = 0f;
     public int numOfAttacks; // USED FOR ON ATTACK UPGRADES
 
+    // Tempo Attack
+    [Header("Tempo Related")]
+    private float tempoCDTime;
+    [SerializeField] private float tempoAttackCD;
+    [SerializeField] private float tempoCost;
+    [SerializeField] private float tempoRequirement;
+
     private float nextAttackTime = 0;
 
 
@@ -53,6 +62,7 @@ public class PlayerController : MonoBehaviour
         GetMouseInfo();
         AnimateWeapon();
         MainAttack();
+        TempoAttack();
         runSpeed = _playerStats.GetMoveSpeed();
     }
     private void FixedUpdate()
@@ -124,6 +134,23 @@ public class PlayerController : MonoBehaviour
         mousePlayerVector = (mousePos - transform.position).normalized;
         //Debug.Log(mousePos + " " + mousePlayerVector);
     }
+
+    private void TempoAttack()
+    {
+        if (Input.GetKeyDown(KeyCode.F) && tempoCDTime < Time.time)
+        {
+            if (_playerStats.tempo >= tempoRequirement && _playerStats.SpendTempo(tempoCost))
+            {
+                tempoCDTime = Time.time + tempoAttackCD;
+                Debug.Log("Tempo Attack");
+            }
+            else
+            {
+                Debug.Log("Not enough tempo");
+            }
+        }
+    }
+
     /**
      * Method for doing movement.
      */
@@ -131,7 +158,7 @@ public class PlayerController : MonoBehaviour
     {
         direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")); // Get Direction of Player Movement
         direction.Normalize(); // Fixes diagonal directions going faster than intended
-        _rb.velocity = direction * runSpeed;
+        _rb.velocity = direction * runSpeed * ApplySpeedMods();
     }
     /**
      * Method for animating the weapon alongside the mouse.
@@ -142,5 +169,13 @@ public class PlayerController : MonoBehaviour
         _weaponPos.rotation = Quaternion.AngleAxis(angle + weaponAngle, Vector3.back); 
         Vector3 weaponOffset = mousePlayerVector * weaponDisplacement;
         _weaponPos.position = transform.position + weaponOffset;
+    }
+
+    private float ApplySpeedMods()
+    {
+        float speedMultiplier = 1;
+        speedMultiplier *= (1 + _playerStats.tempo / 350);
+        Debug.Log(speedMultiplier);
+        return speedMultiplier;
     }
 }

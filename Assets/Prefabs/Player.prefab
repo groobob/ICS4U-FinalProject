@@ -88,6 +88,9 @@ MonoBehaviour:
   _playerStats: {fileID: 5287278252396443439}
   _weaponPos: {fileID: 1902243784294060430}
   numOfAttacks: 0
+  tempoAttackCD: 5
+  tempoCost: 20
+  tempoRequirement: 50
 --- !u!50 &5852556656687508199
 Rigidbody2D:
   serializedVersion: 4

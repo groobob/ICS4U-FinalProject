@@ -40,7 +40,7 @@ public class MeleeWeapons : Weapons
             if (enemy)
             {
                 OnHitEffects();
-                enemy.GetComponent<Enemy>().TakeDamage(damage);
+                enemy.GetComponent<Enemy>().TakeDamage(damage * (1 + (int) (_playerStats.tempo)/100));
                 
             }
         }
