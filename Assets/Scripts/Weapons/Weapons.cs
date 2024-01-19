@@ -14,6 +14,7 @@ public abstract class Weapons : MonoBehaviour
     protected float weaponDisplacement; // how far from player should it be held
     protected float weaponAngle; // what angle offset should the weapon appear to have
     protected PlayerController _player;
+    protected PlayerStats _playerStats;
 
     public Weapons(int damage, float reloadTime, float weaponDisplacement, float weaponAngle, PlayerController player)
     {
@@ -34,6 +35,7 @@ public abstract class Weapons : MonoBehaviour
     public void SetPlayer(PlayerController plr)
     {
         _player = plr;
+        _playerStats = plr.gameObject.GetComponent<PlayerStats>();
         Debug.Log(damage + " " + reloadTime + " " + _player);
     }
     public float GetWeaponDisplacement()
@@ -44,5 +46,10 @@ public abstract class Weapons : MonoBehaviour
     public float GetWeaponAngle()
     {
         return weaponAngle;
+    }
+
+    protected void OnHitEffects()
+    {
+        _playerStats.AddTempo();
     }
 }

@@ -39,7 +39,9 @@ public class MeleeWeapons : Weapons
             Enemy enemy = c.gameObject.GetComponent<Enemy>();
             if (enemy)
             {
+                OnHitEffects();
                 enemy.GetComponent<Enemy>().TakeDamage(damage);
+                
             }
         }
     }

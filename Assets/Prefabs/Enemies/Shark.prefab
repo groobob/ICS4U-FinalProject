@@ -247,6 +247,7 @@ MonoBehaviour:
   health: 5
   maxHealth: 5
   baseMoveSpeed: 200
+  _rb: {fileID: 5505328254332838418}
   target: {fileID: 0}
   sprite: {fileID: 0}
   detectionRadiusSquared: 36

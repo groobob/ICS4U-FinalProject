@@ -16,6 +16,7 @@ public abstract class Entity : MonoBehaviour
     [SerializeField] public int health;
     [SerializeField] public int maxHealth;
     [SerializeField] public float baseMoveSpeed;
+    [SerializeField] protected Rigidbody2D _rb;
 
     public void setBaseStats(int HP, float speed)
     {

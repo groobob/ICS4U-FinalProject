@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class ProjectileShooter : OnAttackUpgrades
 {
+    Vector3 mousePos;
+    Vector3 mousePlayerVector;
     public override void attack()
     {
-        Debug.Log("Richard add your projectile here");
+        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = transform.position.z;
+        mousePlayerVector = (mousePos - transform.position).normalized;
+        ProjectileManager.Instance.SpawnProjectile(transform.position, mousePlayerVector * 8, 0);
     }
 
     public void Start()

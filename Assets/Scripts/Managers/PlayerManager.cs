@@ -33,10 +33,6 @@ public class PlayerManager : MonoBehaviour
         isNew = true;
     }
 
-    public void Update()
-    {
-        WorkUpgrades();
-    }
     /**
      * Method for spawning the player, loads all data.
      * @param x X coord for spawning the player

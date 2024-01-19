@@ -31,7 +31,6 @@ public class Shark : Enemy
 
     // other references to own components
     Seeker _seeker;
-    Rigidbody2D _rb;
     void Start()
     {
         // Component initialization
