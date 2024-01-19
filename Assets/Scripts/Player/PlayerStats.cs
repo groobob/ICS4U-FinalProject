@@ -6,16 +6,9 @@ public class PlayerStats : Entity
 {
 
     // Base Stats
-    private static int baseHP = 7;
-    private static float baseMS = 5f;
-    /**
-     * Main constructor for PlayerStats.
-     * @param HP Max Health for Player.
-     * @param speed Base speed for Player.
-     */
-    public PlayerStats() : base(baseHP, baseMS)
-    {
-    }
+    //private static int baseHP = 7;
+    //private static float baseMS = 5f;
+
 
     private void Start()
     {
@@ -23,7 +16,7 @@ public class PlayerStats : Entity
         if (PlayerManager.Instance.isNew)
         {
             PlayerManager.Instance.isNew = false;
-            setBaseStats(baseHP, baseMS);
+            //setBaseStats(baseHP, baseMS);
         }
     }
 

@@ -244,11 +244,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 738404dc2ccb11d408cd503f85723a36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  maxHealth: 0
-  baseMoveSpeed: 300
+  health: 5
+  maxHealth: 5
+  baseMoveSpeed: 200
   target: {fileID: 0}
   sprite: {fileID: 0}
+  detectionRadiusSquared: 144
   spaceBetweenPlayerSquared: 49
   rangeSquared: 64
   reloadTime: 5

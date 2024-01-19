@@ -14,9 +14,7 @@ public class Shadow : Enemy
 {
     // Values for the enemy
     [Header("Values")]
-    [SerializeField] static float detectionRadiusSquared;
     [SerializeField] float rangeSquared;
-    [SerializeField] static float movementSpeed;
     [SerializeField] float dashSpeed;
     [SerializeField] float chargeTime;
     [SerializeField] float chargeDuration;
@@ -36,11 +34,6 @@ public class Shadow : Enemy
     // other references to own components
     Seeker _seeker;
     Rigidbody2D _rb;
-
-    public Shadow(int HP) : base(HP, movementSpeed, detectionRadiusSquared)
-    {
-
-    }
 
     void Start()
     {
@@ -72,7 +65,7 @@ public class Shadow : Enemy
     void FixedUpdate()
     {
         distanceToPlayer = Vector2.SqrMagnitude(new Vector2(target.position.x - _rb.position.x, target.position.y - _rb.position.y));
-        if (distanceToPlayer > detectionRadius) return;
+        if (distanceToPlayer > detectionRadiusSquared) return;
         if (path == null) return;
 
         if (distanceToPlayer < rangeSquared)

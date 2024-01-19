@@ -44,7 +44,9 @@ public class PlayerManager : MonoBehaviour
         playerStats = player.GetComponent<PlayerStats>();
         upgrades = player.transform.Find("Upgrades").gameObject;
 
-        LoadStats();
+        if (isNew) { isNew = false; }
+        else { LoadStats(); }
+
         return player;
     }
 
@@ -71,6 +73,7 @@ public class PlayerManager : MonoBehaviour
 
     public void LoadStats()
     {
+        Debug.Log("Loaded stats");
         playerStats.health = savedHealth;
         playerStats.maxHealth = savedMaxHealth;
         playerStats.baseMoveSpeed = savedMovespeed;

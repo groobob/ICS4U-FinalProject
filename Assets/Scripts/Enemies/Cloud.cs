@@ -14,10 +14,8 @@ public class Cloud : Enemy
 {
     // Values for the enemy
     [Header("Values")]
-    [SerializeField] static float detectionRadiusSquared;
     [SerializeField] float spaceBetweenPlayerSquared;
     [SerializeField] float rangeSquared;
-    [SerializeField] static float movementSpeed;
     [SerializeField] float reloadTime;
     [SerializeField] float chargeTime;
     bool charging = false;
@@ -36,11 +34,6 @@ public class Cloud : Enemy
     // other references to own components
     Seeker _seeker;
     Rigidbody2D _rb;
-
-    public Cloud(int HP) : base(HP, movementSpeed, detectionRadiusSquared)
-    {
-
-    }
 
     void Start()
     {
@@ -73,7 +66,7 @@ public class Cloud : Enemy
     {
         timeElapsed += Time.deltaTime;
         distanceToPlayer = Vector2.SqrMagnitude(new Vector2(target.position.x - _rb.position.x, target.position.y - _rb.position.y));
-        if (distanceToPlayer > detectionRadius || distanceToPlayer < spaceBetweenPlayerSquared) return;
+        if (distanceToPlayer > detectionRadiusSquared || distanceToPlayer < spaceBetweenPlayerSquared) return;
         if (path == null) return;
 
         // Figure out another time

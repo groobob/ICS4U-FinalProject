@@ -12,10 +12,6 @@ using Pathfinding;
 
 public class Star : Enemy
 {
-    // Values for the enemy
-    [Header("Values")]
-    [SerializeField] static float detectionRadiusSquared;
-    [SerializeField] static float movementSpeed;
     
     // References for the enemy
     [Header("References")]
@@ -29,12 +25,6 @@ public class Star : Enemy
     // other references to own components
     Seeker _seeker;
     Rigidbody2D _rb;
-
-    public Star(int HP) : base(HP, movementSpeed, detectionRadiusSquared)
-    {
-        
-    }
-
     void Start()
     {
         // Component initialization
@@ -65,7 +55,7 @@ public class Star : Enemy
     void FixedUpdate()
     {
         distanceToPlayer = Vector2.SqrMagnitude(new Vector2(target.position.x - _rb.position.x, target.position.y - _rb.position.y));
-        if (distanceToPlayer > detectionRadius) return;
+        if (distanceToPlayer > detectionRadiusSquared) return;
         if (path == null) return;
 
         if (currentWaypoint >= path.vectorPath.Count) return;

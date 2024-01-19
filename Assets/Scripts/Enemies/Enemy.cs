@@ -13,12 +13,9 @@ public class Enemy : Entity
 {
     public Transform target;
     public Transform sprite;
-    protected float detectionRadius;
-    public Enemy(int HP, float speed, float detectionRadius) : base(HP, speed)
-    {
-        this.detectionRadius = detectionRadius;
-        
-    }
+    [Header("Enemy Values")]
+    [SerializeField] protected float detectionRadiusSquared;
+
 
     public override void DeathEvent()
     {

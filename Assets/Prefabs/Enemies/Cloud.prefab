@@ -138,12 +138,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb416f6efabb4294185d893d89d3e5d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 5
+  maxHealth: 5
+  baseMoveSpeed: 50
   target: {fileID: 0}
   sprite: {fileID: 0}
   detectionRadiusSquared: 400
   spaceBetweenPlayerSquared: 100
   rangeSquared: 400
-  movementSpeed: 50
   reloadTime: 2.5
   chargeTime: 2
   nextWaypointDistance: 3
