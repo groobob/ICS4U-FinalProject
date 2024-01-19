@@ -1,3 +1,10 @@
+/*
+ * Manager class to manage all the enemies with spawning and destroying
+ * 
+ * @author Richard
+ * @version January 19
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,7 +25,7 @@ public class EnemyManager : MonoBehaviour
     float tierTwoMaxSpawnRate = -10 + 40;
     //float tierThreeMaxSpawnRate = 5 * 10;
     int numEnemies = 0;
-    List<Enemy> enemies = new List<Enemy>();
+    //List<Enemy> enemies = new List<Enemy>();
     void Awake()
     {
         Instance = this;
@@ -45,6 +52,16 @@ public class EnemyManager : MonoBehaviour
         {
             var child = transform.GetChild(i).gameObject;
             Destroy(child);
+        }
+        numEnemies = 0;
+    }
+
+    public void DecreaseEnemyNumber()
+    {
+        numEnemies--;
+        if (numEnemies <= 0)
+        {
+            MapManager.Instance.DestroyMap();
         }
     }
 }
