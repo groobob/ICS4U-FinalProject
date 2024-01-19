@@ -1,12 +1,16 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Upgrade : MonoBehaviour
+public abstract class Upgrade : MonoBehaviour
 {
 
-    private float healthBoost;
-    private float speedBoost;
+    [SerializeField] public int healthBoost;
+    [SerializeField] public float speedBoost;
+    [SerializeField] public string description;
+    [SerializeField] public string upgradeName;
+    [SerializeField] protected string classification;
     // all upgrades need to be able ot be counted, have their base stats applied, 
     // Stat boost
     // On Attack
