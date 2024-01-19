@@ -15,10 +15,8 @@ public class StarWand : Enemy
 {
     // Values for the enemy
     [Header("Values")]
-    [SerializeField] static float detectionRadiusSquared;
     [SerializeField] float spaceBetweenPlayerSquared;
     [SerializeField] float rangeSquared;
-    [SerializeField] static float movementSpeed;
     [SerializeField] float reloadTime;
     [SerializeField] float projectileSpeed;
     float timeElapsed;
@@ -35,12 +33,6 @@ public class StarWand : Enemy
 
     // other references to own components
     Seeker _seeker;
-    Rigidbody2D _rb;
-
-    public StarWand(int HP) : base(HP, movementSpeed, detectionRadiusSquared)
-    {
-        
-    }
 
     void Start()
     {
@@ -78,7 +70,7 @@ public class StarWand : Enemy
             ProjectileManager.Instance.SpawnProjectile(_rb.position, new Vector2(target.position.x - _rb.position.x, target.position.y - _rb.position.y).normalized * projectileSpeed, 0);
             timeElapsed = 0f;
         }
-        if (distanceToPlayer > detectionRadius || distanceToPlayer < spaceBetweenPlayerSquared) return;
+        if (distanceToPlayer > detectionRadiusSquared || distanceToPlayer < spaceBetweenPlayerSquared) return;
         if (path == null) return;
         if (currentWaypoint >= path.vectorPath.Count) return;
 

@@ -12,6 +12,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+
+    [SerializeField] private GameObject upgrades;
     //Player Movement Related
     [SerializeField] private float runSpeed;
     private Rigidbody2D _rb;
@@ -31,6 +33,7 @@ public class PlayerController : MonoBehaviour
     private Weapons currentWeapon;
     private float weaponDisplacement = 1f;
     private float weaponAngle = 0f;
+    public int numOfAttacks; // USED FOR ON ATTACK UPGRADES
 
     private float nextAttackTime = 0;
 
@@ -42,6 +45,7 @@ public class PlayerController : MonoBehaviour
         currentWeapon = gameObject.AddComponent<StarterSword>();
         currentWeapon.SetPlayer(this);
         runSpeed = _playerStats.GetMoveSpeed();
+        numOfAttacks = 0;
     }
 
     private void Update()
@@ -94,11 +98,22 @@ public class PlayerController : MonoBehaviour
             {
                 nextAttackTime = Time.time + currentWeapon.getReloadTime();
                 currentWeapon.Attack(); // call the attack method on the weapon
-                
+
+                numOfAttacks+= 1;
+                upgradeAttacks();
                 Debug.Log("attack");
             }
         }
     }
+
+    private void upgradeAttacks()
+    {
+        foreach (OnAttackUpgrades upgrade in upgrades.GetComponents<OnAttackUpgrades>())
+        {
+            upgrade.upgradeAttack();
+        }
+    }
+
     /**
      * Method for setting the variables for the mouse's info
      */

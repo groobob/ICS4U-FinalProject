@@ -12,7 +12,7 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] private GameObject playerPrefab;
     private GameObject player;
-    PlayerStats playerStats;
+    PlayerStats _playerStats;
     GameObject upgrades;
 
     //Saved Stats
@@ -21,16 +21,18 @@ public class PlayerManager : MonoBehaviour
     private float savedMovespeed;
     public bool isNew; // Determines if a player needs new base stats or not, used in PlayerStats
 
+    //Stats
+    public int addedHealth;
+    public int addedMaxHealth;
+    public float addedMovespeed;
+
+
     private void Awake()
     {
         Instance = this;
         isNew = true;
     }
 
-    public void Start()
-    {
-
-    }
     /**
      * Method for spawning the player, loads all data.
      * @param x X coord for spawning the player
@@ -41,10 +43,12 @@ public class PlayerManager : MonoBehaviour
     {
         Debug.Log(x + ", " + y);
         player = Instantiate(playerPrefab, new Vector2(x, y), Quaternion.identity);
-        playerStats = player.GetComponent<PlayerStats>();
+        _playerStats = player.GetComponent<PlayerStats>();
         upgrades = player.transform.Find("Upgrades").gameObject;
 
-        LoadStats();
+        if (isNew) { isNew = false; }
+        else { LoadStats(); }
+
         return player;
     }
 
@@ -59,9 +63,9 @@ public class PlayerManager : MonoBehaviour
 
     public void SaveStats()
     {
-        savedHealth = playerStats.GetHealth();
-        savedMaxHealth = playerStats.GetMaxHealth();
-        savedMovespeed = playerStats.GetMoveSpeed();
+        savedHealth = _playerStats.GetHealth() - addedHealth;
+        savedMaxHealth = _playerStats.GetMaxHealth() - addedMaxHealth;
+        savedMovespeed = _playerStats.GetMoveSpeed() - addedMovespeed;
         foreach (Upgrade upg in upgrades.GetComponents<Upgrade>())
         {
             System.Type upgrade = upg.GetType();
@@ -71,9 +75,10 @@ public class PlayerManager : MonoBehaviour
 
     public void LoadStats()
     {
-        playerStats.health = savedHealth;
-        playerStats.maxHealth = savedMaxHealth;
-        playerStats.baseMoveSpeed = savedMovespeed;
+        Debug.Log("Loaded stats");
+        _playerStats.health = savedHealth;
+        _playerStats.maxHealth = savedMaxHealth;
+        _playerStats.baseMoveSpeed = savedMovespeed;
         LoadUpgrades();
     }
 
@@ -95,6 +100,26 @@ public class PlayerManager : MonoBehaviour
         {
             Destroy(upg);
         }
+    }
+
+    public void WorkUpgrades() // makes the passive upgraes work
+    {
+        _playerStats.health -= addedHealth;
+        _playerStats.maxHealth -= addedMaxHealth;
+        _playerStats.baseMoveSpeed -= addedMovespeed;
+
+        addedHealth = 0;
+        addedMaxHealth = 0;
+        addedMovespeed = 0;
+        foreach (Upgrade upg in upgrades.GetComponents<Upgrade>())
+        {
+            addedHealth += upg.healthBoost;
+            addedMaxHealth += upg.healthBoost;
+            addedMovespeed += upg.speedBoost;
+        }
+        _playerStats.health += addedHealth;
+        _playerStats.maxHealth += addedMaxHealth;
+        _playerStats.baseMoveSpeed += addedMovespeed;
     }
 
     private void WipeUpgrades()

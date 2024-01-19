@@ -12,20 +12,11 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
 {
-    public int health;
-    public int maxHealth;
-    public float baseMoveSpeed;
-
-    /**
-     * Constructor for Entity.
-     * @param HP Max Health for entity.
-     */
-    public Entity(int HP, float speed)
-    {
-        maxHealth = HP;
-        health = maxHealth;
-        this.baseMoveSpeed = speed;
-    }
+    [Header("Entity Values")]
+    [SerializeField] public int health;
+    [SerializeField] public int maxHealth;
+    [SerializeField] public float baseMoveSpeed;
+    [SerializeField] protected Rigidbody2D _rb;
 
     public void setBaseStats(int HP, float speed)
     {

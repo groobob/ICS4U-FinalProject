@@ -15,7 +15,6 @@ public class Shark : Enemy
     // Values for the enemy
     [Header("Values")]
     [SerializeField] float fleeRangeSquared;
-    [SerializeField] static float movementSpeed;
     [SerializeField] float reloadTime;
     [SerializeField] float projectileSpeed;
     float timeElapsed;
@@ -32,13 +31,6 @@ public class Shark : Enemy
 
     // other references to own components
     Seeker _seeker;
-    Rigidbody2D _rb;
-
-    public Shark(int HP) : base(HP, movementSpeed, 0)
-    {
-
-    }
-
     void Start()
     {
         // Component initialization
