@@ -72,6 +72,7 @@ public class MapManager : MonoBehaviour
         _camera.enabled = true;
         EnemyManager.Instance.ClearAllEnemies();
         PlayerManager.Instance.DespawnPlayer();
+        ProjectileManager.Instance.ClearAllProjectiles();
         GridManager.Instance.SpawnGrid();
     }
 

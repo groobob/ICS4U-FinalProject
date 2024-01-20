@@ -22,7 +22,9 @@ public abstract class Enemy : Entity
 
     public override void DeathEvent()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
+        Destroy(gameObject);
+        EnemyManager.Instance.DecreaseEnemyNumber();
     }
 
     protected abstract void Attack();

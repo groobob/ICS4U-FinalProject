@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerStats : Entity
 {
@@ -17,6 +19,10 @@ public class PlayerStats : Entity
     private float previousTempoTime;
 
     [SerializeField] private CircleCollider2D hitbox;
+    // References
+    public Slider tempoBar;
+    public Slider healthBar;
+    public TextMeshProUGUI healthBarText;
 
 
     private void Start()
@@ -31,6 +37,15 @@ public class PlayerStats : Entity
     {
         CheckNewUpgrades();
         TempoDecay();
+        UpdateUI();
+    }
+
+    public void UpdateUI()
+    {
+        tempoBar.value = tempo;
+        healthBar.maxValue = maxHealth;
+        healthBar.value = health;
+        healthBarText.text = health + "/" + maxHealth;
     }
 
     private void CheckNewUpgrades()
