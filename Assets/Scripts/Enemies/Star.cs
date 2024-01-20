@@ -71,5 +71,21 @@ public class Star : Enemy
         {
             currentWaypoint++;
         }
+
+        AttackCheck();
+    }
+
+    protected override void Attack()
+    {
+        Collider2D[] hitbox = Physics2D.OverlapCircleAll(transform.position, meleeRange);
+
+        foreach (Collider2D hit in hitbox)
+        {
+            PlayerStats target = hit.gameObject.GetComponent<PlayerStats>();
+            if (target)
+            {
+                target.TakeDamage(1);
+            }
+        }
     }
 }

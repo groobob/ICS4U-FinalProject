@@ -141,10 +141,13 @@ MonoBehaviour:
   health: 5
   maxHealth: 5
   baseMoveSpeed: 50
+  knockbackResistance: 1
   _rb: {fileID: 7026013869842224605}
   target: {fileID: 0}
   sprite: {fileID: 0}
   detectionRadiusSquared: 400
+  attackSpeed: 0
+  meleeRange: 0
   spaceBetweenPlayerSquared: 100
   rangeSquared: 400
   reloadTime: 2.5

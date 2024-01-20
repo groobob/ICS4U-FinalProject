@@ -9,12 +9,14 @@ public class PlayerStats : Entity
     [SerializeField] private GameObject upgrades;
     private int previousUpgradeCount;
     //Tempo
-    [SerializeField] private float tempo;
+    [SerializeField] public float tempo;
     [SerializeField] private float tempoMax;
     [SerializeField] private float tempoDecayFactor;
     [SerializeField] private float tempoDelayWait;
     [SerializeField] private float tempoGain;
     private float previousTempoTime;
+
+    [SerializeField] private CircleCollider2D hitbox;
 
 
     private void Start()
@@ -86,9 +88,34 @@ public class PlayerStats : Entity
         }
     }
 
+    public new bool TakeDamage(int damage)
+    {
+        if (health <= 0) { return false; } // if hitting dead
+        if (!hitbox.enabled) { return false; }
+        ChangeHitbox(false);
+        Invoke("ChangeHitbox", 1.5f);
+        health -= damage;
+        if (health <= 0)
+        {
+            DeathEvent();
+        }
+        return true;
+    }
+
     public void AddUpgrades(System.Type upgrade)
     {
         //Upgrade added = upgrades.AddComponent(upgrade) as Upgrade;
 
+    }
+
+    private void ChangeHitbox(bool value)
+    {
+        hitbox.enabled = value;
+        Debug.Log("Hitbox changed");
+    }
+    private void ChangeHitbox()
+    {
+        hitbox.enabled = true;
+        Debug.Log("Hitbox True");
     }
 }

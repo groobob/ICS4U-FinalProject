@@ -14,6 +14,15 @@ public class MeleeWeapons : Weapons
 {
     protected float attackWidth;
     protected float attackLength;
+    protected float knockbackStrength;
+
+    protected float stunDuration; // should be longer than reloadspeed
+    protected int combo;
+    protected int comboMax;
+    protected float comboResetTime;
+    protected float endlagDuration;
+
+    private float comboTimeGiven = 2.5f; // time given to use your next combo attack
 
     protected Transform attackPoint; // Position where the attack hitbox is.
 
@@ -22,27 +31,69 @@ public class MeleeWeapons : Weapons
     /**
      * Constructor for MeleeWeapons.
      */
-    public MeleeWeapons(int damage, float reloadTime, float weaponDisplacement, float weaponAngle, float attackWidth, float attackLength, PlayerController player) : base(damage, reloadTime, weaponDisplacement, weaponAngle, player)
+    public MeleeWeapons(int damage, float reloadTime, float weaponDisplacement, float weaponAngle, float attackWidth, float attackLength, float knockbackStrength, float stunDuration, int comboMax, float endlagDuration, PlayerController player) : base(damage, reloadTime, weaponDisplacement, weaponAngle, player)
     {
         
         this.attackWidth = attackWidth;
         this.attackLength = attackLength;
+        this.knockbackStrength = knockbackStrength;
+        this.stunDuration = stunDuration;
+        this.comboMax = comboMax;
+        this.endlagDuration = endlagDuration;
     }
+
+    public void Start()
+    {
+        combo = 0;
+    }
+
     /**
      * Method for the primary attack of the player.
      */
     public override void Attack()
     {
+        _playerStats.EndlagEntity(endlagDuration);
+        if (comboResetTime < Time.time) // if you have waited too long to do your next atack
+        {
+            combo = 0;
+            //Debug.Log("Combo timer reset");
+        }
+        combo++;
+        //Debug.Log(combo);
+        comboResetTime = Time.time + comboTimeGiven;
+
         Collider2D[] hitBox = Physics2D.OverlapBoxAll(_player.GetRealWeaponPosition(), new Vector2(attackLength, attackWidth), _player.GetRealWeaponAngle().eulerAngles.z);
         foreach (Collider2D c in hitBox)
         {
             Enemy enemy = c.gameObject.GetComponent<Enemy>();
-            if (enemy)
+            if (enemy && enemy.TakeDamage(damage * (1 + (int)(_playerStats.tempo) / 100)))
             {
                 OnHitEffects();
-                enemy.GetComponent<Enemy>().TakeDamage(damage);
-                
+                enemy.StunEntity(stunDuration);
+                if (combo == comboMax)
+                {
+                    _playerStats.EndlagEntity(3f);
+                    enemy.GiveKnockBack(_player.gameObject, knockbackStrength * 4, 0.1f);
+                }
+                else
+                {
+                    enemy.GiveKnockBack(_player.gameObject, knockbackStrength, 0.1f);
+                }
+                //OnHitEffects();
+                //enemy.GetComponent<Enemy>().TakeDamage(damage * (1 + (int) (_playerStats.tempo)/100));
+                //enemy.GetComponent<Enemy>().GiveKnockBack(_player.gameObject, knockbackStrength, 0.1f);
             }
+
+            if (c.gameObject.GetComponent<Projectile>() && c.gameObject.tag == "EnemyProjectile")
+            {
+                Destroy(c.gameObject);
+            }
+        }
+
+        if (combo == comboMax)
+        {
+            combo = 0;
+            //Debug.Log("Combo max");
         }
     }
 
