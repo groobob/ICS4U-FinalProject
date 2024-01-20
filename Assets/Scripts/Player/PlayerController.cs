@@ -36,6 +36,11 @@ public class PlayerController : MonoBehaviour
     private float weaponDisplacement = 1f;
     private float weaponAngle = 0f;
     public int numOfAttacks; // USED FOR ON ATTACK UPGRADES
+    private float nextAttackTime = 0;
+
+    //Secondary Weapon
+    private SecondaryAttack secondaryAttack;
+    private float nextSecondaryAttackTime = 0;
 
     // Tempo Attack
     [Header("Tempo Related")]
@@ -44,15 +49,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float tempoCost;
     [SerializeField] private float tempoRequirement;
 
-    private float nextAttackTime = 0;
-
-
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>(); // Define RigidBody
         _cameraScript = FindObjectOfType<PlayerCamera>();
-        currentWeapon = gameObject.AddComponent<StarterSword>();
-        currentWeapon.SetPlayer(this);
+        //currentWeapon = gameObject.AddComponent<StarterSword>();
+        //currentWeapon.SetPlayer(this);
+        UpdateWeapon(typeof(StarterSword)); //
+        //secondaryAttack = gameObject.AddComponent<Sidegun>();
+        //secondaryAttack.SetPlayer(this);
+        UpdateSecondaryWeapon(typeof(Sidegun));
         runSpeed = _playerStats.GetMoveSpeed();
         numOfAttacks = 0;
     }
@@ -62,11 +68,16 @@ public class PlayerController : MonoBehaviour
         GetMouseInfo();
         AnimateWeapon();
         MainAttack();
+        SecondaryAttack();
         TempoAttack();
         runSpeed = _playerStats.GetMoveSpeed();
     }
     private void FixedUpdate()
     {
+        if (_playerStats.GetRootReleaseTime() > Time.time)
+        {
+            return;
+        }
         Movement();
     }
     /**
@@ -81,6 +92,17 @@ public class PlayerController : MonoBehaviour
         weaponDisplacement = currentWeapon.GetWeaponDisplacement();
         weaponAngle = currentWeapon.GetWeaponAngle();
     }
+    /**
+     * Method to call when changing the secondary weapon of a Player. Deletes the previous weapon and adds a new one.
+     * @param weaponType The class of the weapon to swap to.
+     */
+    public void UpdateSecondaryWeapon(System.Type weaponType)
+    {
+        Destroy(secondaryAttack);
+        secondaryAttack = gameObject.AddComponent(weaponType) as SecondaryAttack;
+        secondaryAttack.SetPlayer(this);
+    }
+
     /**
      * Method for returning a Vector2 of the current weapon's position in space.
      * @return Vector2
@@ -97,6 +119,7 @@ public class PlayerController : MonoBehaviour
     {
         return _weaponPos.rotation;
     }
+
     /**
      * Method for checking/attacking.
      */
@@ -104,14 +127,28 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (nextAttackTime <= Time.time)
+            if (nextAttackTime <= Time.time && _playerStats.checkDisabled()) 
             {
-                nextAttackTime = Time.time + currentWeapon.getReloadTime();
+                nextAttackTime = Time.time + currentWeapon.GetReloadTime();
                 currentWeapon.Attack(); // call the attack method on the weapon
 
                 numOfAttacks+= 1;
                 upgradeAttacks();
-                Debug.Log("attack");
+                //Debug.Log("attack");
+            }
+        }
+    }
+
+    private void SecondaryAttack()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (nextSecondaryAttackTime <= Time.time && _playerStats.checkDisabled())
+            {
+                nextSecondaryAttackTime = Time.time + secondaryAttack.GetReloadTime();
+                secondaryAttack.Attack();
+                numOfAttacks++;
+                secondaryAttackUpgrades();
             }
         }
     }
@@ -122,6 +159,14 @@ public class PlayerController : MonoBehaviour
         {
             upgrade.upgradeAttack();
         }
+    }
+
+    private void secondaryAttackUpgrades()
+    {
+        //foreach (OnAttackUpgrades upgrade in upgrades.GetComponents<OnAttackUpgrades>())
+        //{
+            //upgrade.upgradeAttack();
+        //}
     }
 
     /**
@@ -174,8 +219,7 @@ public class PlayerController : MonoBehaviour
     private float ApplySpeedMods()
     {
         float speedMultiplier = 1;
-        speedMultiplier *= (1 + _playerStats.tempo / 350);
-        Debug.Log(speedMultiplier);
+        speedMultiplier *= (1 + _playerStats.tempo / 400);
         return speedMultiplier;
     }
 }

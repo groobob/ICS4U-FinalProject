@@ -86,4 +86,6 @@ public class BigStar : Enemy
             currentWaypoint++;
         }
     }
+
+    protected override void Attack() { }
 }

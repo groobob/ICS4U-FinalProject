@@ -41,7 +41,7 @@ public class PlayerManager : MonoBehaviour
      */
     public GameObject SpawnPlayer(float x, float y)
     {
-        Debug.Log(x + ", " + y);
+        //Debug.Log(x + ", " + y);
         player = Instantiate(playerPrefab, new Vector2(x, y), Quaternion.identity);
         _playerStats = player.GetComponent<PlayerStats>();
         upgrades = player.transform.Find("Upgrades").gameObject;

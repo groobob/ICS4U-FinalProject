@@ -121,4 +121,6 @@ public class Cloud : Enemy
             sprite.localScale = new Vector3(1f, 1f, 1f);
         }
     }
+
+    protected override void Attack() { }
 }

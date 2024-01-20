@@ -168,6 +168,7 @@ MonoBehaviour:
   health: 7
   maxHealth: 7
   baseMoveSpeed: 5
+  knockbackResistance: 1
   _rb: {fileID: 5852556656687508199}
   upgrades: {fileID: 152687075609785461}
   tempo: 0
@@ -175,6 +176,7 @@ MonoBehaviour:
   tempoDecayFactor: 0.999
   tempoDelayWait: 1
   tempoGain: 15
+  hitbox: {fileID: 6705575036995754464}
 --- !u!1 &2252727087898865708
 GameObject:
   m_ObjectHideFlags: 0

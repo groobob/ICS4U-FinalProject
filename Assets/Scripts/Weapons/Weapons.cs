@@ -7,7 +7,6 @@ public abstract class Weapons : MonoBehaviour
 {
     protected int damage; // damage dealt
     protected float reloadTime; // time between attacks
-    //private bool meleeWeapon; // shoots projectiles or no?
 
     //private float attackRange;
     //visuals
@@ -27,7 +26,7 @@ public abstract class Weapons : MonoBehaviour
 
     public abstract void Attack();
 
-    public float getReloadTime()
+    public float GetReloadTime()
     {
         return reloadTime;
     }
@@ -36,7 +35,7 @@ public abstract class Weapons : MonoBehaviour
     {
         _player = plr;
         _playerStats = plr.gameObject.GetComponent<PlayerStats>();
-        Debug.Log(damage + " " + reloadTime + " " + _player);
+        //Debug.Log(damage + " " + reloadTime + " " + _player);
     }
     public float GetWeaponDisplacement()
     {

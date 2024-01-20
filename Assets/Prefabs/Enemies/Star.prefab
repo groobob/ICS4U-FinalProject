@@ -106,10 +106,13 @@ MonoBehaviour:
   health: 5
   maxHealth: 5
   baseMoveSpeed: 300
+  knockbackResistance: 1
   _rb: {fileID: 3217262229272277206}
   target: {fileID: 0}
   sprite: {fileID: 0}
   detectionRadiusSquared: 100
+  attackSpeed: 1
+  meleeRange: 1
   nextWaypointDistance: 3
 --- !u!58 &907919997253553576
 CircleCollider2D:

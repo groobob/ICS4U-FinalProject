@@ -16,7 +16,14 @@ public abstract class Entity : MonoBehaviour
     [SerializeField] public int health;
     [SerializeField] public int maxHealth;
     [SerializeField] public float baseMoveSpeed;
+    [SerializeField] public float knockbackResistance = 1f;
     [SerializeField] protected Rigidbody2D _rb;
+
+    // Stun variables
+
+    private float rootReleaseTime;
+    private float stunReleaseTime;
+    private float endlagReleaseTime;
 
     public void setBaseStats(int HP, float speed)
     {
@@ -33,14 +40,46 @@ public abstract class Entity : MonoBehaviour
     /**
      * Method that adds an entity to the world
      */
-    public void TakeDamage(int damage)
+    public bool TakeDamage(int damage)
     {
+        if (health <= 0) { return false; } // if hitting dead
         health -= damage;
         if (health <= 0)
         {
             DeathEvent();
         }
+        return true;
     }
+
+    public void StunEntity(float duration)
+    {
+        stunReleaseTime = Time.time + duration;
+    }
+
+    public float GetStunReleaseTime()
+    {
+        return stunReleaseTime;
+    }
+
+    public void EndlagEntity(float duration)
+    {
+        endlagReleaseTime = Time.time + duration;
+    }
+
+    public float GetEndlagReleaseTime()
+    {
+        return endlagReleaseTime;
+    }
+
+    public bool checkDisabled() // returns true if valid
+    {
+        if (stunReleaseTime > Time.time || endlagReleaseTime > Time.time)
+        {
+            return false;
+        }
+        return true;
+    }
+
     /**
      * Method for making an entity heal damage.
      * @param damage Damage a Unit should heal.
@@ -59,6 +98,31 @@ public abstract class Entity : MonoBehaviour
      */
     public void SetBaseSpeed(float spd)
     { this.baseMoveSpeed = spd; }
+
+    public float GetRootReleaseTime()
+    {
+        return rootReleaseTime;
+    }
+
+    public void RootEntity(float duration)
+    {
+        rootReleaseTime = Time.time + duration;
+    }
+
+    public void GiveKnockBack(GameObject sender, float strength, float duration)
+    {
+        Vector2 direction = (transform.position - sender.transform.position).normalized;
+        _rb.AddForce(strength * direction * knockbackResistance, ForceMode2D.Impulse);
+        ResetKnockback(duration);
+        Debug.Log("Knockback");
+    }
+
+    private IEnumerator ResetKnockback(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        _rb.velocity = Vector3.zero;
+    }
+
 
     public int GetHealth()
     {

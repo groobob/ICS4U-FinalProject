@@ -22,6 +22,9 @@ public class Shadow : Enemy
     bool charging = false;
     Vector2 chargeDirection;
 
+    [SerializeField] private float knockbackStrength = 15f;
+    [SerializeField] private float knockbackDuration = 0.3f;
+
     // References for the enemy
     [Header("References")]
     [SerializeField] float nextWaypointDistance = 3f;
@@ -107,6 +110,8 @@ public class Shadow : Enemy
                 charging = false;
                 timeElapsed = 0f;
             }
+
+            AttackCheck();
         }
 
         if (_rb.velocity.x >= 0.01f)
@@ -116,6 +121,24 @@ public class Shadow : Enemy
         else if (_rb.velocity.y <= 0.01f)
         {
             sprite.localScale = new Vector3(1f, 1f, 1f);
+        }
+    }
+
+    protected override void Attack()
+    {
+        Collider2D[] hitbox = Physics2D.OverlapCircleAll(transform.position, meleeRange);
+
+        foreach (Collider2D hit in hitbox)
+        {
+            PlayerStats target = hit.gameObject.GetComponent<PlayerStats>();
+            if (target)
+            {
+                if (target.TakeDamage(1))
+                {
+                    target.RootEntity(knockbackDuration);
+                    target.GiveKnockBack(gameObject, knockbackStrength, knockbackDuration);
+                }
+            }
         }
     }
 }

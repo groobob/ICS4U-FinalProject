@@ -86,4 +86,6 @@ public class StarWand : Enemy
             currentWaypoint++;
         }
     }
+
+    protected override void Attack() { }
 }
