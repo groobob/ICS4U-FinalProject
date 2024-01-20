@@ -14,8 +14,8 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] public Slider tempoBar;
-    /*[SerializeField] private Slider healthBarSlider;
-    [SerializeField] private TextMeshProUGUI healthBarText;*/
+    [SerializeField] public Slider healthBar;
+    [SerializeField] public TextMeshProUGUI healthBarText;
     private GameObject player;
     PlayerStats _playerStats;
     GameObject upgrades;
@@ -56,7 +56,9 @@ public class PlayerManager : MonoBehaviour
         if (isNew) { isNew = false; }
         else { LoadStats(); }
 
-        player.GetComponent<PlayerStats>().tempoBar = tempoBar;
+        _playerStats.tempoBar = tempoBar;
+        _playerStats.healthBar = healthBar;
+        _playerStats.healthBarText = healthBarText;
 
         return player;
     }
