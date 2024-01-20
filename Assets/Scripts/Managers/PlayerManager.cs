@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 // Note to self. Save stats, load stats.
 
@@ -11,6 +13,9 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager Instance;
 
     [SerializeField] private GameObject playerPrefab;
+    [SerializeField] public Slider tempoBar;
+    /*[SerializeField] private Slider healthBarSlider;
+    [SerializeField] private TextMeshProUGUI healthBarText;*/
     private GameObject player;
     PlayerStats _playerStats;
     GameObject upgrades;
@@ -31,6 +36,8 @@ public class PlayerManager : MonoBehaviour
     {
         Instance = this;
         isNew = true;
+        /*healthBarSlider.value = savedHealth;
+        healthBarText.text = savedHealth + "/" + savedMaxHealth;*/
     }
 
     /**
@@ -48,6 +55,8 @@ public class PlayerManager : MonoBehaviour
 
         if (isNew) { isNew = false; }
         else { LoadStats(); }
+
+        player.GetComponent<PlayerStats>().tempoBar = tempoBar;
 
         return player;
     }

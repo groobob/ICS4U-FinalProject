@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerStats : Entity
 {
@@ -16,6 +17,9 @@ public class PlayerStats : Entity
     [SerializeField] private float tempoGain;
     private float previousTempoTime;
 
+    // References
+    public Slider tempoBar;
+
 
     private void Start()
     {
@@ -29,6 +33,7 @@ public class PlayerStats : Entity
     {
         CheckNewUpgrades();
         TempoDecay();
+        tempoBar.value = tempo;
     }
 
     private void CheckNewUpgrades()
