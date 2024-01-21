@@ -12,15 +12,15 @@ using UnityEngine;
 public class StarterSword : MeleeWeapons
 {
     private static int setDamage = 1;
-    private static float setReloadTime = 0.5f;
+    private static float setReloadTime = 0.38f;
     private static float setDisplacement = 1f;
     private static float setAngle = 0f;
-    private static float setHitWidth = 1.8f;
-    private static float setHitLength = 2.5f;
-    private static float setKnockbackStrength = 0.5f;
+    private static float setHitWidth = 2.5f;
+    private static float setHitLength = 3.5f;
+    private static float setKnockbackStrength = 4f;
 
     private static float setStunDuration = setReloadTime + 0.25f;
-    private static int setComboMax = 3;
+    private static int setComboMax = 4;
     private static float setEndlagDuration = setReloadTime - 0.1f;
     /**
      * Constructor for startersword

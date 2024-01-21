@@ -27,6 +27,12 @@ public class ProjectileManager : MonoBehaviour
         projectile.GetComponent<Rigidbody2D>().AddForce(force, ForceMode2D.Impulse);
     }
 
+    public void SpawnProjectile(Vector2 position, Vector2 force, int projectileType, Quaternion rotation)
+    {
+        GameObject projectile = Instantiate(projectiles[projectileType], position, rotation, transform);
+        projectile.GetComponent<Rigidbody2D>().AddForce(force, ForceMode2D.Impulse);
+    }
+
     public void SpawnProjectileSpread(Vector2 position, Vector2 force, int projectileType, int projectileNum, float spreadInRadians)
     {
         float offset = projectileNum % 2 == 1 ? projectileNum / 2 * spreadInRadians * -1 : projectileNum / 2 * spreadInRadians * -1 + spreadInRadians / 2;

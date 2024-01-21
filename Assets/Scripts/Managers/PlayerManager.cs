@@ -30,7 +30,10 @@ public class PlayerManager : MonoBehaviour
     public int addedHealth;
     public int addedMaxHealth;
     public float addedMovespeed;
+    public float addedRange;
+    public int addedDamage;
 
+    private System.Type currentSecondaryChange;
 
     private void Awake()
     {
@@ -39,7 +42,6 @@ public class PlayerManager : MonoBehaviour
         /*healthBarSlider.value = savedHealth;
         healthBarText.text = savedHealth + "/" + savedMaxHealth;*/
     }
-
     /**
      * Method for spawning the player, loads all data.
      * @param x X coord for spawning the player
@@ -118,19 +120,48 @@ public class PlayerManager : MonoBehaviour
         _playerStats.health -= addedHealth;
         _playerStats.maxHealth -= addedMaxHealth;
         _playerStats.baseMoveSpeed -= addedMovespeed;
+        _playerStats.bonusRange -= addedRange;
+        _playerStats.bonusDamage -= addedDamage;
 
         addedHealth = 0;
         addedMaxHealth = 0;
         addedMovespeed = 0;
+        addedRange = 0;
+        addedDamage = 0;
         foreach (Upgrade upg in upgrades.GetComponents<Upgrade>())
         {
             addedHealth += upg.healthBoost;
             addedMaxHealth += upg.healthBoost;
             addedMovespeed += upg.speedBoost;
+            addedRange += upg.weaponRangeBoost;
+            addedDamage += upg.damageBoost;
         }
         _playerStats.health += addedHealth;
         _playerStats.maxHealth += addedMaxHealth;
         _playerStats.baseMoveSpeed += addedMovespeed;
+        _playerStats.bonusRange += addedRange;
+        _playerStats.bonusDamage += addedDamage;
+
+        SecondaryUpgrades(currentSecondaryChange);
+    }
+
+    public void SecondaryUpgrades(System.Type secondaryChoice)
+    {
+        currentSecondaryChange = secondaryChoice;
+        if (secondaryChoice == typeof(WindwallUpgrade))
+        {
+            _playerStats.gameObject.GetComponent<PlayerController>().UpdateSecondaryWeapon(typeof(Windwall));
+        }
+    }
+    public void TempUpgrades()
+    {
+        _playerStats.tempDmgBoost = 0;
+        
+
+        foreach (Upgrade upg in upgrades.GetComponents<Upgrade>())
+        {
+            _playerStats.tempDmgBoost += upg.tempDmg;
+        }
     }
 
     private void WipeUpgrades()

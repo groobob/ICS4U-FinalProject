@@ -17,6 +17,7 @@ public class PlayerStats : Entity
     [SerializeField] private float tempoDelayWait;
     [SerializeField] private float tempoGain;
     private float previousTempoTime;
+    private float tempoContinueTime;
 
     [SerializeField] private CircleCollider2D hitbox;
     // References
@@ -24,8 +25,16 @@ public class PlayerStats : Entity
     public Slider healthBar;
     public TextMeshProUGUI healthBarText;
 
+    //Upgrades
+    public float bonusRange;
+    public int bonusDamage;
 
-    private void Start()
+    // Temp Boosts
+
+    public int tempDmgBoost;
+
+
+    private new void Start()
     {
         if (PlayerManager.Instance.isNew)
         {
@@ -38,6 +47,7 @@ public class PlayerStats : Entity
         CheckNewUpgrades();
         TempoDecay();
         UpdateUI();
+        PlayerManager.Instance.TempUpgrades();
     }
 
     public void UpdateUI()
@@ -91,8 +101,15 @@ public class PlayerStats : Entity
 
     }
 
+    public void PauseTempoDecay(float duration)
+    {
+        tempoContinueTime = Time.time + duration;
+    }
+
     public void TempoDecay()
     {
+        if (tempoContinueTime > Time.time) { return; }
+
         if (tempo > 0 && previousTempoTime + tempoDelayWait < Time.time)
         {
             tempo *= tempoDecayFactor;
@@ -121,16 +138,26 @@ public class PlayerStats : Entity
     {
         //Upgrade added = upgrades.AddComponent(upgrade) as Upgrade;
 
+        if (upgrade.IsSubclassOf(typeof(SecondaryChange)))
+        {
+            foreach (SecondaryChange upg in upgrades.GetComponents<SecondaryChange>())
+            {
+                Destroy(upg);
+            }
+            upgrades.AddComponent(upgrade);
+            PlayerManager.Instance.SecondaryUpgrades(upgrade);
+        }
+
     }
 
     private void ChangeHitbox(bool value)
     {
         hitbox.enabled = value;
-        Debug.Log("Hitbox changed");
+        //Debug.Log("Hitbox changed");
     }
     private void ChangeHitbox()
     {
         hitbox.enabled = true;
-        Debug.Log("Hitbox True");
+        //Debug.Log("Hitbox True");
     }
 }

@@ -89,8 +89,15 @@ MonoBehaviour:
   _weaponPos: {fileID: 1902243784294060430}
   numOfAttacks: 0
   tempoAttackCD: 5
-  tempoCost: 20
-  tempoRequirement: 50
+  tempoCost: 25
+  tempoRequirement: 40
+  tempoFired: 1
+  rushAttackCD: 7
+  rushCost: 15
+  rushRequirement: 30
+  rushVelocity: 32
+  rushDamage: 1
+  rushDuration: 0.2
 --- !u!50 &5852556656687508199
 Rigidbody2D:
   serializedVersion: 4
@@ -170,13 +177,20 @@ MonoBehaviour:
   baseMoveSpeed: 5
   knockbackResistance: 1
   _rb: {fileID: 5852556656687508199}
+  speedFactor: 1
   upgrades: {fileID: 152687075609785461}
-  tempo: 0
+  tempo: 50
   tempoMax: 100
   tempoDecayFactor: 0.999
   tempoDelayWait: 1
   tempoGain: 15
   hitbox: {fileID: 6705575036995754464}
+  tempoBar: {fileID: 0}
+  healthBar: {fileID: 0}
+  healthBarText: {fileID: 0}
+  bonusRange: 0
+  bonusDamage: 0
+  tempDmgBoost: 0
 --- !u!1 &2252727087898865708
 GameObject:
   m_ObjectHideFlags: 0

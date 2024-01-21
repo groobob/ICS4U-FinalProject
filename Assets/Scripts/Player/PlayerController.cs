@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements.Experimental;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerController : MonoBehaviour
 {
@@ -48,6 +50,23 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float tempoAttackCD;
     [SerializeField] private float tempoCost;
     [SerializeField] private float tempoRequirement;
+    private float tempoAttackCastTime = 0.8f;
+    private float tempoSpellFinishTime;
+    [SerializeField] private bool tempoFired = true;
+
+    // Rush Attack
+    [Header("Rush Related")]
+    private float rushCDTime;
+    [SerializeField] private float rushAttackCD;
+    [SerializeField] private float rushCost;
+    [SerializeField] private float rushRequirement;
+    [SerializeField] private float rushVelocity;
+    [SerializeField] private int rushDamage;
+    [SerializeField] private float rushDuration;
+    private float rushRadius = 2f;
+    private float rushStun = 2f;
+    private List<Enemy> rushHitEnemies;
+    private float rushEndTime;
 
     void Start()
     {
@@ -58,7 +77,7 @@ public class PlayerController : MonoBehaviour
         UpdateWeapon(typeof(StarterSword)); //
         //secondaryAttack = gameObject.AddComponent<Sidegun>();
         //secondaryAttack.SetPlayer(this);
-        UpdateSecondaryWeapon(typeof(Sidegun));
+        UpdateSecondaryWeapon(typeof(Sidegun));//Sidegun
         runSpeed = _playerStats.GetMoveSpeed();
         numOfAttacks = 0;
     }
@@ -70,6 +89,7 @@ public class PlayerController : MonoBehaviour
         MainAttack();
         SecondaryAttack();
         TempoAttack();
+        RushAttack();
         runSpeed = _playerStats.GetMoveSpeed();
     }
     private void FixedUpdate()
@@ -111,6 +131,16 @@ public class PlayerController : MonoBehaviour
     {
         return _weaponPos.position;
     }
+
+    /**
+     * Method for returning the current weapon.
+     * @return Weapons
+     */
+    public Weapons GetWeapon()
+    {
+        return currentWeapon;
+    }
+
     /**
      * Method for returning a Quaternion of the current weapon.
      * @return Quaternion
@@ -131,6 +161,7 @@ public class PlayerController : MonoBehaviour
             {
                 nextAttackTime = Time.time + currentWeapon.GetReloadTime();
                 currentWeapon.Attack(); // call the attack method on the weapon
+                Debug.Log("attack");
 
                 numOfAttacks+= 1;
                 upgradeAttacks();
@@ -145,6 +176,8 @@ public class PlayerController : MonoBehaviour
         {
             if (nextSecondaryAttackTime <= Time.time && _playerStats.checkDisabled())
             {
+                _playerStats.EndlagEntity(0.6f);
+                _playerStats.SpeedBoost(0.5f, 0.6f);
                 nextSecondaryAttackTime = Time.time + secondaryAttack.GetReloadTime();
                 secondaryAttack.Attack();
                 numOfAttacks++;
@@ -163,10 +196,13 @@ public class PlayerController : MonoBehaviour
 
     private void secondaryAttackUpgrades()
     {
-        //foreach (OnAttackUpgrades upgrade in upgrades.GetComponents<OnAttackUpgrades>())
-        //{
-            //upgrade.upgradeAttack();
-        //}
+        foreach (OnAttackUpgrades upgrade in upgrades.GetComponents<OnAttackUpgrades>())
+        {
+            if (upgrade.GetType() == typeof(OwlSlice))
+            {
+                upgrade.attack();
+            }
+        }
     }
 
     /**
@@ -186,12 +222,74 @@ public class PlayerController : MonoBehaviour
         {
             if (_playerStats.tempo >= tempoRequirement && _playerStats.SpendTempo(tempoCost))
             {
+                tempoFired = false;
                 tempoCDTime = Time.time + tempoAttackCD;
-                Debug.Log("Tempo Attack");
+                tempoSpellFinishTime = tempoAttackCastTime + Time.time;
+                //Debug.Log("Tempo Attack");
+                _playerStats.EndlagEntity(tempoAttackCastTime);
+                _playerStats.SpeedBoost(0.2f, tempoAttackCastTime);
             }
             else
             {
-                Debug.Log("Not enough tempo");
+                //Debug.Log("Not enough tempo");
+            }
+        }
+        if ((tempoSpellFinishTime - tempoAttackCastTime*2/3) < Time.time && !tempoFired)
+        {
+            tempoFired = true;
+            ProjectileManager.Instance.SpawnProjectile(transform.position, mousePlayerVector * 15, 1);
+        }
+
+    }
+
+    private void RushAttack()
+    {
+        if (rushEndTime > Time.time)
+        {
+            //Debug.Log("rush hitbox exists");
+            Collider2D[] hitBox = Physics2D.OverlapCircleAll(transform.position, rushRadius);
+            foreach (Collider2D c in hitBox)
+            {
+                Enemy e = c.gameObject.GetComponent<Enemy>();
+                bool ignore = false;
+                if (e)
+                {
+                    foreach (Enemy check in rushHitEnemies)
+                    {
+                        //Debug.Log(check);
+                        if (check == e)
+                        {
+                            ignore = true;
+                            break;
+                        }
+                    }
+                    if (!ignore)
+                    {
+                        //Debug.Log("Damage Done");
+                        rushHitEnemies.Add(e);
+                        e.TakeDamage(rushDamage);
+                        e.StunEntity(rushStun);
+                    }
+                }
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Space) && rushCDTime < Time.time)
+        {
+            if (_playerStats.tempo >= rushRequirement && _playerStats.SpendTempo(rushCost))
+            {
+                rushCDTime = Time.time + rushAttackCD;
+                //Debug.Log("rush Attack");
+                Vector3 rushMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                rushMousePos.z = transform.position.z;
+                Vector3 rushMousePlayerVector = (mousePos - transform.position).normalized;
+                _playerStats.RootEntity(rushDuration);
+                _rb.velocity = rushMousePlayerVector * rushVelocity;
+                rushEndTime = Time.time + rushDuration;
+                rushHitEnemies = new List<Enemy>();
+            }
+            else
+            {
+                //Debug.Log("Not enough tempo for rush");
             }
         }
     }
@@ -203,7 +301,7 @@ public class PlayerController : MonoBehaviour
     {
         direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")); // Get Direction of Player Movement
         direction.Normalize(); // Fixes diagonal directions going faster than intended
-        _rb.velocity = direction * runSpeed * ApplySpeedMods();
+        _rb.velocity = direction * runSpeed * ApplySpeedModsPlayer();
     }
     /**
      * Method for animating the weapon alongside the mouse.
@@ -216,10 +314,11 @@ public class PlayerController : MonoBehaviour
         _weaponPos.position = transform.position + weaponOffset;
     }
 
-    private float ApplySpeedMods()
+    public float ApplySpeedModsPlayer()
     {
         float speedMultiplier = 1;
         speedMultiplier *= (1 + _playerStats.tempo / 400);
+        speedMultiplier *= (_playerStats.speedFactor);
         return speedMultiplier;
     }
 }

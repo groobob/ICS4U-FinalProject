@@ -37,7 +37,7 @@ public class Shadow : Enemy
     // other references to own components
     Seeker _seeker;
 
-    void Start()
+    private new void Start()
     {
         // Component initialization
         _seeker = GetComponent<Seeker>();
@@ -66,6 +66,8 @@ public class Shadow : Enemy
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!checkDisabled() && !charging) return;
+
         distanceToPlayer = Vector2.SqrMagnitude(new Vector2(target.position.x - _rb.position.x, target.position.y - _rb.position.y));
         if (distanceToPlayer > detectionRadiusSquared) return;
         if (path == null) return;

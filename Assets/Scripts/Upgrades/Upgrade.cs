@@ -8,9 +8,14 @@ public abstract class Upgrade : MonoBehaviour
 
     [SerializeField] public int healthBoost;
     [SerializeField] public float speedBoost;
+    [SerializeField] public float weaponRangeBoost;
+    [SerializeField] public int damageBoost;
     [SerializeField] public string description;
     [SerializeField] public string upgradeName;
     [SerializeField] protected string classification;
+
+    [SerializeField] public int tempDmg;
+
     // all upgrades need to be able ot be counted, have their base stats applied, 
     // Stat boost
     // On Attack

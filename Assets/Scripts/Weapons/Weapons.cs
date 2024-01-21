@@ -42,6 +42,11 @@ public abstract class Weapons : MonoBehaviour
         return weaponDisplacement;
     }
 
+    public int GetWeaponDamage()
+    {
+        return damage;
+    }
+
     public float GetWeaponAngle()
     {
         return weaponAngle;
