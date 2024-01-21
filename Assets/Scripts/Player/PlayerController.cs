@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
 
     // Tempo Attack
     [Header("Tempo Related")]
-    private float tempoCDTime;
+    public float tempoCDTime;
     [SerializeField] private float tempoAttackCD;
     [SerializeField] private float tempoCost;
     [SerializeField] private float tempoRequirement;
@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
         UpdateWeapon(typeof(StarterSword)); //
         //secondaryAttack = gameObject.AddComponent<Sidegun>();
         //secondaryAttack.SetPlayer(this);
-        UpdateSecondaryWeapon(typeof(Sidegun));//Sidegun
+        UpdateSecondaryWeapon(typeof(PhantomStep));//Sidegun
         runSpeed = _playerStats.GetMoveSpeed();
         numOfAttacks = 0;
     }
@@ -237,7 +237,7 @@ public class PlayerController : MonoBehaviour
         if ((tempoSpellFinishTime - tempoAttackCastTime*2/3) < Time.time && !tempoFired)
         {
             tempoFired = true;
-            ProjectileManager.Instance.SpawnProjectile(transform.position, mousePlayerVector * 15, 1);
+            ProjectileManager.Instance.SpawnProjectile(transform.position, mousePlayerVector * 25, 1);
         }
 
     }

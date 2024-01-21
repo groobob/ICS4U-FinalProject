@@ -112,10 +112,13 @@ public abstract class Entity : MonoBehaviour
      */
     public void HealDamage(int damage)
     {
-        health += damage;
-        if (health > maxHealth)
+        if (health + damage > maxHealth)
         {
             maxHealth = health;
+        }
+        else
+        {
+            health += damage;
         }
     }
     /**

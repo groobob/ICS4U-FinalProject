@@ -12,10 +12,10 @@ public class PlayerStats : Entity
     private int previousUpgradeCount;
     //Tempo
     [SerializeField] public float tempo;
-    [SerializeField] private float tempoMax;
+    [SerializeField] public float tempoMax;
     [SerializeField] private float tempoDecayFactor;
     [SerializeField] private float tempoDelayWait;
-    [SerializeField] private float tempoGain;
+    [SerializeField] public float tempoGain;
     private float previousTempoTime;
     private float tempoContinueTime;
 
@@ -33,9 +33,12 @@ public class PlayerStats : Entity
 
     public int tempDmgBoost;
 
+    private bool firstSpawned;
+
 
     private new void Start()
     {
+        firstSpawned = true;
         if (PlayerManager.Instance.isNew)
         {
             PlayerManager.Instance.isNew = false;
@@ -44,7 +47,16 @@ public class PlayerStats : Entity
 
     public void Update()
     {
-        CheckNewUpgrades();
+        if (firstSpawned)
+        {
+            Invoke("CheckNewUpgrades", 0.5f);
+        }
+        else
+        {
+            CheckNewUpgrades();
+        }
+
+        //CheckNewUpgrades()
         TempoDecay();
         UpdateUI();
         PlayerManager.Instance.TempUpgrades();
@@ -148,6 +160,12 @@ public class PlayerStats : Entity
             PlayerManager.Instance.SecondaryUpgrades(upgrade);
         }
 
+    }
+
+    public void GiveIFrames(float duration)
+    {
+        ChangeHitbox(false);
+        Invoke("ChangeHitbox", duration);
     }
 
     private void ChangeHitbox(bool value)

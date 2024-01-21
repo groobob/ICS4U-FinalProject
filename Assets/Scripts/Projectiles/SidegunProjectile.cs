@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
-public class TempoBurstProjectile : Projectile
+public class SideGunProjectile : Projectile
 {
 
     private List<Enemy> hitEnemies;
@@ -13,7 +13,7 @@ public class TempoBurstProjectile : Projectile
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+
         Enemy enemy = collision.gameObject.GetComponent<Enemy>();
 
         //Debug.Log(enemy);
@@ -29,17 +29,11 @@ public class TempoBurstProjectile : Projectile
                     ignore = true;
                     Debug.Log("true");
                     break;
-                    
+
                 }
             }
             if (!ignore)
             {
-                if (enemy.health - damage <= 0 && PlayerManager.Instance.GetUpgradesPart().GetComponent<TempoBlitz>())
-                {
-                    Debug.Log("TempoBlitz");
-                    PlayerManager.Instance.ResetTempoBurstCD();
-                }
-
                 hitEnemies.Add(enemy);
                 enemy.TakeDamage(damage);
                 enemy.StunEntity(tempoBurstStun);
