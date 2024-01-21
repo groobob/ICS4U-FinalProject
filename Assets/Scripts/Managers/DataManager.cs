@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class DataManager : MonoBehaviour
 {
@@ -15,7 +16,41 @@ public class DataManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
-        Debug.Log("yippee");
+        LoadData();
+    }
+
+    public void RessetDataToDefault()
+    {
+        WriteToDataFile("0|0|0|0|0");
+    }
+
+    public void LoadData()
+    {
+        TextAsset text = Resources.Load<TextAsset>("Data");
+        string[] loadedData = text.text.Split("|");
+
+        for (int i = 0; i < loadedData.Length; i++)
+        {
+            storedStats[i] = int.Parse(loadedData[i]);
+        }
+    }
+
+    public float GetData(stats type)
+    {
+        switch (type)
+        {
+            case stats.kills:
+                return storedStats[0];
+            case stats.wins:
+                return storedStats[1];
+            case stats.deaths:
+                return storedStats[2];
+            case stats.besttime:
+                return storedStats[3];
+            case stats.timeplayed:
+                return storedStats[4];
+        }
+        return -1f;
     }
 
     public void IncrementData(stats type)
@@ -53,7 +88,7 @@ public class DataManager : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        WriteToDataFile(storedStats[0] + "\n" + storedStats[1] + "\n" + storedStats[2] + "\n" + storedStats[3] + "\n" + storedStats[4]);
+        WriteToDataFile(storedStats[0] + "|" + storedStats[1] + "|" + storedStats[2] + "|" + storedStats[3] + "|" + storedStats[4]);
     }
 
     private void WriteToDataFile(string str)
@@ -63,6 +98,7 @@ public class DataManager : MonoBehaviour
         writer.Close();
     }
 
+    // for shop later maybe
     private void WriteToShopFile(string str)
     {
         StreamWriter writer = new StreamWriter("Assets/Resources/Shop.txt");
