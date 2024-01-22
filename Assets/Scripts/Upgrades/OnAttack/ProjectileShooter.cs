@@ -11,13 +11,14 @@ public class ProjectileShooter : OnAttackUpgrades
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = transform.position.z;
         mousePlayerVector = (mousePos - transform.position).normalized;
-        ProjectileManager.Instance.SpawnProjectile(transform.position, mousePlayerVector * 8, 0);
+        ProjectileManager.Instance.SpawnProjectile(transform.position, mousePlayerVector * 18, 3);
     }
 
     public void Start()
     {
         base.Init();
-        upgradeName = "Projectile Shooter";
-        description = "Every three attacks, fire a projectile";
+        damageBoost = -1;
+        upgradeName = "Magic Path: Grand Wizard";
+        description = "Harness the power of magic. Each attack fires projectiles. Reduces base attack damage.";
     }
 }

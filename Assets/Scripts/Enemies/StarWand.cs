@@ -34,7 +34,7 @@ public class StarWand : Enemy
     // other references to own components
     Seeker _seeker;
 
-    void Start()
+    private new void Start()
     {
         // Component initialization
         _seeker = GetComponent<Seeker>();
@@ -63,6 +63,8 @@ public class StarWand : Enemy
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!checkDisabled()) return;
+
         timeElapsed += Time.deltaTime;
         distanceToPlayer = Vector2.SqrMagnitude(new Vector2(target.position.x - _rb.position.x, target.position.y - _rb.position.y));
         if (distanceToPlayer < rangeSquared && timeElapsed > reloadTime)

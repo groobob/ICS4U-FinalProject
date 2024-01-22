@@ -12,11 +12,12 @@ public class PlayerStats : Entity
     private int previousUpgradeCount;
     //Tempo
     [SerializeField] public float tempo;
-    [SerializeField] private float tempoMax;
+    [SerializeField] public float tempoMax;
     [SerializeField] private float tempoDecayFactor;
     [SerializeField] private float tempoDelayWait;
-    [SerializeField] private float tempoGain;
+    [SerializeField] public float tempoGain;
     private float previousTempoTime;
+    private float tempoContinueTime;
 
     [SerializeField] private CircleCollider2D hitbox;
     // References
@@ -24,9 +25,20 @@ public class PlayerStats : Entity
     public Slider healthBar;
     public TextMeshProUGUI healthBarText;
 
+    //Upgrades
+    public float bonusRange;
+    public int bonusDamage;
 
-    private void Start()
+    // Temp Boosts
+
+    public int tempDmgBoost;
+
+    private bool firstSpawned;
+
+
+    private new void Start()
     {
+        firstSpawned = true;
         if (PlayerManager.Instance.isNew)
         {
             PlayerManager.Instance.isNew = false;
@@ -35,9 +47,19 @@ public class PlayerStats : Entity
 
     public void Update()
     {
-        CheckNewUpgrades();
+        if (firstSpawned)
+        {
+            Invoke("CheckNewUpgrades", 0.5f);
+        }
+        else
+        {
+            CheckNewUpgrades();
+        }
+
+        //CheckNewUpgrades()
         TempoDecay();
         UpdateUI();
+        PlayerManager.Instance.TempUpgrades();
     }
 
     public void UpdateUI()
@@ -91,8 +113,15 @@ public class PlayerStats : Entity
 
     }
 
+    public void PauseTempoDecay(float duration)
+    {
+        tempoContinueTime = Time.time + duration;
+    }
+
     public void TempoDecay()
     {
+        if (tempoContinueTime > Time.time) { return; }
+
         if (tempo > 0 && previousTempoTime + tempoDelayWait < Time.time)
         {
             tempo *= tempoDecayFactor;
@@ -108,29 +137,56 @@ public class PlayerStats : Entity
         if (health <= 0) { return false; } // if hitting dead
         if (!hitbox.enabled) { return false; }
         ChangeHitbox(false);
-        Invoke("ChangeHitbox", 1.5f);
-        health -= damage;
-        if (health <= 0)
+        Invoke("ChangeHitbox", 1f);
+
+        if (health - damage <= 0 && PlayerManager.Instance.GetUpgradesPart().GetComponent<SecondSoul>())
         {
-            DeathEvent();
+            Debug.Log("Second Soul");
+            PlayerManager.Instance.GetUpgradesPart().GetComponent<SecondSoul>().UpgradeProcc();
+            return false;
         }
-        return true;
+        else
+        {
+            health -= damage;
+            if (health <= 0)
+            {
+                DeathEvent();
+            }
+            return true;
+        }
+        
     }
 
     public void AddUpgrades(System.Type upgrade)
     {
         //Upgrade added = upgrades.AddComponent(upgrade) as Upgrade;
 
+        if (upgrade.IsSubclassOf(typeof(SecondaryChange)))
+        {
+            foreach (SecondaryChange upg in upgrades.GetComponents<SecondaryChange>())
+            {
+                Destroy(upg);
+            }
+            upgrades.AddComponent(upgrade);
+            PlayerManager.Instance.SecondaryUpgrades(upgrade);
+        }
+
+    }
+
+    public void GiveIFrames(float duration)
+    {
+        ChangeHitbox(false);
+        Invoke("ChangeHitbox", duration);
     }
 
     private void ChangeHitbox(bool value)
     {
         hitbox.enabled = value;
-        Debug.Log("Hitbox changed");
+        //Debug.Log("Hitbox changed");
     }
     private void ChangeHitbox()
     {
         hitbox.enabled = true;
-        Debug.Log("Hitbox True");
+        //Debug.Log("Hitbox True");
     }
 }

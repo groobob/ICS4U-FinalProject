@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public abstract class Weapons : MonoBehaviour
 {
@@ -42,13 +43,30 @@ public abstract class Weapons : MonoBehaviour
         return weaponDisplacement;
     }
 
+    public int GetWeaponDamage()
+    {
+        return damage;
+    }
+
     public float GetWeaponAngle()
     {
         return weaponAngle;
     }
 
-    protected void OnHitEffects()
+    protected void OnHitEffects(Enemy enemy)
     {
         _playerStats.AddTempo();
+    }
+
+    protected void OnKillEffects(Enemy enemy)
+    {
+        foreach (Upgrade upg in PlayerManager.Instance.GetUpgradesList())
+        {
+            OnKillUpgrades hitUpgrade = upg as OnKillUpgrades;
+            if (hitUpgrade != null)
+            {
+                hitUpgrade.attackEffect();
+            }
+        }
     }
 }

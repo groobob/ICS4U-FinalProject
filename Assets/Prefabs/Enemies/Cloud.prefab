@@ -143,6 +143,7 @@ MonoBehaviour:
   baseMoveSpeed: 50
   knockbackResistance: 1
   _rb: {fileID: 7026013869842224605}
+  speedFactor: 1
   target: {fileID: 0}
   sprite: {fileID: 0}
   detectionRadiusSquared: 400

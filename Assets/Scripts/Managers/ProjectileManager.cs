@@ -14,16 +14,27 @@ public class ProjectileManager : MonoBehaviour
     public static ProjectileManager Instance;
 
     [Header("References")]
-    [SerializeField] List<GameObject> projectiles;
+    [SerializeField] private List<GameObject> projectiles;
 
     private void Awake()
     {
         Instance = this;
     }
 
+    public List<GameObject> GetProjectileList()
+    {
+        return projectiles;
+    }
+
     public void SpawnProjectile(Vector2 position, Vector2 force, int projectileType)
     {
         GameObject projectile = Instantiate(projectiles[projectileType], position, Quaternion.identity, transform);
+        projectile.GetComponent<Rigidbody2D>().AddForce(force, ForceMode2D.Impulse);
+    }
+
+    public void SpawnProjectile(Vector2 position, Vector2 force, int projectileType, Quaternion rotation)
+    {
+        GameObject projectile = Instantiate(projectiles[projectileType], position, rotation, transform);
         projectile.GetComponent<Rigidbody2D>().AddForce(force, ForceMode2D.Impulse);
     }
 

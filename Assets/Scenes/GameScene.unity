@@ -1811,6 +1811,10 @@ MonoBehaviour:
   addedHealth: 0
   addedMaxHealth: 0
   addedMovespeed: 0
+  addedRange: 0
+  addedTempoGain: 0
+  addedTempoMax: 0
+  addedDamage: 0
 --- !u!4 &1446468404
 Transform:
   m_ObjectHideFlags: 0
@@ -1872,6 +1876,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectiles:
   - {fileID: 4272227956018407191, guid: 89d50a3cdfe634a4586839ee4ae10ec0, type: 3}
+  - {fileID: 4272227956018407191, guid: e33b028aa52e6174f9f1cdd0dfa5bfcc, type: 3}
+  - {fileID: 4272227956018407191, guid: caf927c442c0c9a4ca2b9dfdb244758a, type: 3}
+  - {fileID: 8964483261284346135, guid: 4108e7954691ada43a6619abc8f5a112, type: 3}
+  - {fileID: 5762413302619155340, guid: 17ffe3dac0ea66a43a73825b7315468f, type: 3}
+  - {fileID: 3384354688980544220, guid: f4e9a1b39961ad44ca6c49b85dfc8c48, type: 3}
 --- !u!1 &1681970643
 GameObject:
   m_ObjectHideFlags: 0

@@ -61,19 +61,22 @@ public class MeleeWeapons : Weapons
         combo++;
         //Debug.Log(combo);
         comboResetTime = Time.time + comboTimeGiven;
-
-        Collider2D[] hitBox = Physics2D.OverlapBoxAll(_player.GetRealWeaponPosition(), new Vector2(attackLength, attackWidth), _player.GetRealWeaponAngle().eulerAngles.z);
+        //Debug.Log(_playerStats.bonusRange);
+        Collider2D[] hitBox = Physics2D.OverlapBoxAll(_player.GetRealWeaponPosition(), new Vector2(attackLength + _playerStats.bonusRange, attackWidth), _player.GetRealWeaponAngle().eulerAngles.z);
         foreach (Collider2D c in hitBox)
         {
             Enemy enemy = c.gameObject.GetComponent<Enemy>();
-            if (enemy && enemy.TakeDamage(damage * (1 + (int)(_playerStats.tempo) / 100)))
+            if (enemy && enemy.TakeDamage(_playerStats.bonusDamage + _playerStats.tempDmgBoost + damage * (1 + (int)(_playerStats.tempo) / 100)))
             {
-                OnHitEffects();
+                if (enemy.GetHealth() <= 0)
+                {
+                    OnKillEffects(enemy);
+                }
+                OnHitEffects(enemy);
                 enemy.StunEntity(stunDuration);
                 if (combo == comboMax)
                 {
-                    _playerStats.EndlagEntity(3f);
-                    enemy.GiveKnockBack(_player.gameObject, knockbackStrength * 4, 0.1f);
+                    enemy.GiveKnockBack(_player.gameObject, knockbackStrength * 5, 0.1f);
                 }
                 else
                 {
@@ -92,6 +95,7 @@ public class MeleeWeapons : Weapons
 
         if (combo == comboMax)
         {
+            _playerStats.EndlagEntity(2.4f);
             combo = 0;
             //Debug.Log("Combo max");
         }

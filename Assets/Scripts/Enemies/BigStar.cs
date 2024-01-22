@@ -32,7 +32,7 @@ public class BigStar : Enemy
     // other references to own components
     Seeker _seeker;
 
-    void Start()
+    private new void Start()
     {
         // Component initialization
         _seeker = GetComponent<Seeker>();

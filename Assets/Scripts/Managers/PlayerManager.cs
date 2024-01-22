@@ -18,7 +18,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] public TextMeshProUGUI healthBarText;
     private GameObject player;
     PlayerStats _playerStats;
-    GameObject upgrades;
+    private PlayerController _playerControl;
+    private GameObject upgrades;
 
     //Saved Stats
     private int savedHealth;
@@ -30,7 +31,12 @@ public class PlayerManager : MonoBehaviour
     public int addedHealth;
     public int addedMaxHealth;
     public float addedMovespeed;
+    public float addedRange;
+    public float addedTempoGain;
+    public float addedTempoMax;
+    public int addedDamage;
 
+    private System.Type currentSecondaryChange;
 
     private void Awake()
     {
@@ -39,7 +45,6 @@ public class PlayerManager : MonoBehaviour
         /*healthBarSlider.value = savedHealth;
         healthBarText.text = savedHealth + "/" + savedMaxHealth;*/
     }
-
     /**
      * Method for spawning the player, loads all data.
      * @param x X coord for spawning the player
@@ -51,6 +56,7 @@ public class PlayerManager : MonoBehaviour
         //Debug.Log(x + ", " + y);
         player = Instantiate(playerPrefab, new Vector2(x, y), Quaternion.identity);
         _playerStats = player.GetComponent<PlayerStats>();
+        _playerControl = _playerStats.gameObject.GetComponent<PlayerController>();
         upgrades = player.transform.Find("Upgrades").gameObject;
 
         if (isNew) { isNew = false; }
@@ -70,6 +76,14 @@ public class PlayerManager : MonoBehaviour
     {
         SaveStats();
         Destroy(player);
+
+        addedHealth = 0;
+        addedMaxHealth = 0;
+        addedMovespeed = 0;
+        addedRange = 0;
+        addedDamage = 0;
+        addedTempoGain = 0;
+        addedTempoMax = 0;
     }
 
     public void SaveStats()
@@ -90,6 +104,7 @@ public class PlayerManager : MonoBehaviour
         _playerStats.health = savedHealth;
         _playerStats.maxHealth = savedMaxHealth;
         _playerStats.baseMoveSpeed = savedMovespeed;
+        Debug.Log(savedHealth);
         LoadUpgrades();
     }
 
@@ -115,22 +130,68 @@ public class PlayerManager : MonoBehaviour
 
     public void WorkUpgrades() // makes the passive upgraes work
     {
+        Debug.Log("Work Upgrades called");
         _playerStats.health -= addedHealth;
         _playerStats.maxHealth -= addedMaxHealth;
         _playerStats.baseMoveSpeed -= addedMovespeed;
+        _playerStats.bonusRange -= addedRange;
+        _playerStats.bonusDamage -= addedDamage;
+        _playerStats.tempoGain -= addedTempoGain;
+        _playerStats.tempoMax -= addedTempoMax;
 
         addedHealth = 0;
         addedMaxHealth = 0;
         addedMovespeed = 0;
+        addedRange = 0;
+        addedDamage = 0;
+        addedTempoGain = 0;
+        addedTempoMax = 0;
         foreach (Upgrade upg in upgrades.GetComponents<Upgrade>())
         {
             addedHealth += upg.healthBoost;
             addedMaxHealth += upg.healthBoost;
             addedMovespeed += upg.speedBoost;
+            addedRange += upg.weaponRangeBoost;
+            addedDamage += upg.damageBoost;
+            addedTempoGain += upg.tempoGainBoost;
+            addedTempoMax += upg.tempoMaxBoost;
         }
         _playerStats.health += addedHealth;
         _playerStats.maxHealth += addedMaxHealth;
         _playerStats.baseMoveSpeed += addedMovespeed;
+        _playerStats.bonusRange += addedRange;
+        _playerStats.bonusDamage += addedDamage;
+        _playerStats.tempoGain += addedTempoGain;
+        _playerStats.tempoMax += addedTempoMax;
+
+        SecondaryUpgrades(currentSecondaryChange);
+    }
+
+    public void SecondaryUpgrades(System.Type secondaryChoice)
+    {
+        currentSecondaryChange = secondaryChoice;
+        if (secondaryChoice == typeof(WindwallUpgrade))
+        {
+            _playerControl.UpdateSecondaryWeapon(typeof(Windwall));
+        }
+        else if (secondaryChoice == typeof(PhantomStep))
+        {
+            _playerControl.UpdateSecondaryWeapon(typeof(PhantomStep));
+        }
+        else if (secondaryChoice == typeof(FireColumnUpgrade))
+        {
+            _playerControl.UpdateSecondaryWeapon(typeof(FireColumn));
+        }
+    }
+    public void TempUpgrades()
+    {
+        _playerStats.tempDmgBoost = 0;
+        
+
+        foreach (Upgrade upg in upgrades.GetComponents<Upgrade>())
+        {
+            _playerStats.tempDmgBoost += upg.tempDmg;
+        }
     }
 
     private void WipeUpgrades()
@@ -139,5 +200,27 @@ public class PlayerManager : MonoBehaviour
         {
             Destroy(upg);
         }
+    }
+
+    public void ResetTempoBurstCD()
+    {
+        _playerStats.gameObject.GetComponent<PlayerController>().tempoCDTime = 0;
+    }
+
+    public List<Upgrade> GetUpgradesList()
+    {
+        //Upgrade[] upgList = new Upgrade[gameObject.GetComponents(typeof(Upgrade)).Length];
+        List<Upgrade> upgList = new List<Upgrade>();
+        foreach (Upgrade upg in upgrades.GetComponents<Upgrade>())
+        {
+            upgList.Add(upg);
+        }
+
+        return upgList;
+    }
+
+    public GameObject GetUpgradesPart()
+    {
+        return upgrades;
     }
 }

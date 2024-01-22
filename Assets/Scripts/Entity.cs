@@ -19,11 +19,18 @@ public abstract class Entity : MonoBehaviour
     [SerializeField] public float knockbackResistance = 1f;
     [SerializeField] protected Rigidbody2D _rb;
 
+    [SerializeField] public float speedFactor = 1f;
+
     // Stun variables
 
     private float rootReleaseTime;
     private float stunReleaseTime;
     private float endlagReleaseTime;
+
+    public void Start()
+    {
+        
+    }
 
     public void setBaseStats(int HP, float speed)
     {
@@ -71,6 +78,25 @@ public abstract class Entity : MonoBehaviour
         return endlagReleaseTime;
     }
 
+    public void SpeedBoost(float factor, float duration) // ALSO WORKS FOR SLOWS
+    {
+        StartCoroutine(speedChange(factor, duration));
+    }
+
+    private IEnumerator speedChange(float factor, float duration)
+    {
+        speedFactor *= factor;
+        yield return new WaitForSeconds(duration);
+        speedFactor /= factor;
+    }
+
+    public float ApplySpeedMods()
+    {
+        float speedMultiplier = 1;
+        speedMultiplier *= (speedFactor);
+        return speedMultiplier;
+    }
+
     public bool checkDisabled() // returns true if valid
     {
         if (stunReleaseTime > Time.time || endlagReleaseTime > Time.time)
@@ -86,10 +112,13 @@ public abstract class Entity : MonoBehaviour
      */
     public void HealDamage(int damage)
     {
-        health += damage;
-        if (health > maxHealth)
+        if (health + damage > maxHealth)
         {
             maxHealth = health;
+        }
+        else
+        {
+            health += damage;
         }
     }
     /**
@@ -114,7 +143,7 @@ public abstract class Entity : MonoBehaviour
         Vector2 direction = (transform.position - sender.transform.position).normalized;
         _rb.AddForce(strength * direction * knockbackResistance, ForceMode2D.Impulse);
         ResetKnockback(duration);
-        Debug.Log("Knockback");
+        //Debug.Log("Knockback");
     }
 
     private IEnumerator ResetKnockback(float duration)
