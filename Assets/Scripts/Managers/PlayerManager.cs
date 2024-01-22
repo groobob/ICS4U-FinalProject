@@ -178,6 +178,10 @@ public class PlayerManager : MonoBehaviour
         {
             _playerControl.UpdateSecondaryWeapon(typeof(PhantomStep));
         }
+        else if (secondaryChoice == typeof(FireColumnUpgrade))
+        {
+            _playerControl.UpdateSecondaryWeapon(typeof(FireColumn));
+        }
     }
     public void TempUpgrades()
     {
