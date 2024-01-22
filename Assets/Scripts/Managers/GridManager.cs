@@ -15,7 +15,7 @@ public class GridManager : MonoBehaviour
     public static GridManager Instance;
 
     //Values for the grid
-    public enum room {normal, item, money, challenge, explored, current};
+    public enum room {normal, item, money, challenge, explored, current, empty};
     room[,] roomGrid;
     Vector2Int playerPosition;
     [Header("Grid Parameters")]
@@ -61,10 +61,24 @@ public class GridManager : MonoBehaviour
         {
             for(int y = 0; y < gridSize.y; y++)
             {
-                if (x == (gridSize.x - 1) / 2 && y == (gridSize.y - 1) / 2)
+                // Left side and right side is pregenerated
+                // Left side
+                if (x == 0 && y == (gridSize.y - 1) / 2)
                 {
                     roomGrid[x, y] = room.current;
-                    playerPosition = new Vector2Int(x, y);
+                    playerPosition = new Vector2Int(0, y);
+                    continue;
+                }
+                else if (x == 0)
+                {
+                    roomGrid[x, y] = room.empty;
+                    continue;
+                }
+
+                // Right side
+                if (x == gridSize.x - 1 && !(y == (gridSize.y - 1) / 2))
+                {
+                    roomGrid[x, y] = room.empty;
                     continue;
                 }
 
@@ -106,10 +120,11 @@ public class GridManager : MonoBehaviour
                 Vector2 spawnPos = (new Vector2(x, y) - offset) * gridSpacing;
                 GameObject instance = Instantiate(roomObject, spawnPos, Quaternion.identity, transform);
                 Room _room = instance.GetComponent<Room>();
-                bool isNeighbour = (x == playerPosition.x - 1) && (y == playerPosition.y) ||
+                bool isNeighbour = (x == playerPosition.x + 1) && (y == playerPosition.y + 2) ||
+                                    (x == playerPosition.x + 1) && (y == playerPosition.y + 1) ||
                                     (x == playerPosition.x + 1) && (y == playerPosition.y) ||
-                                    (x == playerPosition.x) && (y == playerPosition.y - 1) ||
-                                    (x == playerPosition.x) && (y == playerPosition.y + 1) ? true : false;
+                                    (x == playerPosition.x + 1) && (y == playerPosition.y - 1) ||
+                                    (x == playerPosition.x + 1) && (y == playerPosition.y - 2) ? true : false;
 
                 switch (roomGrid[x, y])
                 {
@@ -130,6 +145,9 @@ public class GridManager : MonoBehaviour
                         break;
                     case room.current:
                         _room.Setup(room.current, false, x, y);
+                        break;
+                    case room.empty:
+                        _room.Setup(room.empty, false, x, y);
                         break;
                 }
             }
