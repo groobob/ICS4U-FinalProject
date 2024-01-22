@@ -9,7 +9,7 @@ public class FireColumnUpgrade : SecondaryChange
     void Start()
     {
         base.Init();
-        upgradeName = "Fire Column";
-        description = "Charm the flames! Your secondary is now replaced with a flaming pillar that deals tick damage";
+        upgradeName = "Dark Bolt";
+        description = "Harness dark magic! Your secondary is now replaced with a lightning strike that deals two ticks of damage";
     }
 }

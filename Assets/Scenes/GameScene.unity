@@ -1809,14 +1809,8 @@ MonoBehaviour:
   tempoBar: {fileID: 1286277491}
   healthBar: {fileID: 1991062121}
   healthBarText: {fileID: 1855272278}
+  damageNumbers: {fileID: 0}
   isNew: 0
-  addedHealth: 0
-  addedMaxHealth: 0
-  addedMovespeed: 0
-  addedRange: 0
-  addedTempoGain: 0
-  addedTempoMax: 0
-  addedDamage: 0
 --- !u!4 &1446468404
 Transform:
   m_ObjectHideFlags: 0
