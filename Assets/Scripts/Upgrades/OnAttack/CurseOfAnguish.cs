@@ -24,7 +24,7 @@ public class CurseOfAnguish : OnAttackUpgrades
                     enemy.GiveKnockBack(_playerControl.gameObject, knockbackStrength, 0.1f);
                     enemy.StunEntity(1f);
                     _playerStats.EndlagEntity(0.5f);
-                    _playerStats.SpeedBoost(0.5f, 0.5f);
+                    _playerStats.SpeedBoost(0.3f, 0.5f);
                 }
 
                 if (c.gameObject.GetComponent<Projectile>() && c.gameObject.tag == "EnemyProjectile")
@@ -32,7 +32,7 @@ public class CurseOfAnguish : OnAttackUpgrades
                     Destroy(c.gameObject);
                 }
             }
-            if (Random.Range(1,4) == 1)
+            if (Random.Range(1,3) == 1)
             {
                 _playerStats.TakeDamage(1);
             }

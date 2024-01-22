@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
         UpdateWeapon(typeof(StarterSword)); //
         //secondaryAttack = gameObject.AddComponent<Sidegun>();
         //secondaryAttack.SetPlayer(this);
-        UpdateSecondaryWeapon(typeof(PhantomStep));//Sidegun
+        UpdateSecondaryWeapon(typeof(FireColumn));//Sidegun
         runSpeed = _playerStats.GetMoveSpeed();
         numOfAttacks = 0;
     }
@@ -222,6 +222,13 @@ public class PlayerController : MonoBehaviour
         {
             if (_playerStats.tempo >= tempoRequirement && _playerStats.SpendTempo(tempoCost))
             {
+
+                if (PlayerManager.Instance.GetUpgradesPart().GetComponent<Earthquake>())
+                {
+                    PlayerManager.Instance.GetUpgradesPart().GetComponent<Earthquake>().attackEffect();
+                }
+
+
                 tempoFired = false;
                 tempoCDTime = Time.time + tempoAttackCD;
                 tempoSpellFinishTime = tempoAttackCastTime + Time.time;

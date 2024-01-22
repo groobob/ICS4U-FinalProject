@@ -137,13 +137,24 @@ public class PlayerStats : Entity
         if (health <= 0) { return false; } // if hitting dead
         if (!hitbox.enabled) { return false; }
         ChangeHitbox(false);
-        Invoke("ChangeHitbox", 1.5f);
-        health -= damage;
-        if (health <= 0)
+        Invoke("ChangeHitbox", 1f);
+
+        if (health - damage <= 0 && PlayerManager.Instance.GetUpgradesPart().GetComponent<SecondSoul>())
         {
-            DeathEvent();
+            Debug.Log("Second Soul");
+            PlayerManager.Instance.GetUpgradesPart().GetComponent<SecondSoul>().UpgradeProcc();
+            return false;
         }
-        return true;
+        else
+        {
+            health -= damage;
+            if (health <= 0)
+            {
+                DeathEvent();
+            }
+            return true;
+        }
+        
     }
 
     public void AddUpgrades(System.Type upgrade)
