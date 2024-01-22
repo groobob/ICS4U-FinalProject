@@ -44,7 +44,7 @@ public class Room : MonoBehaviour
                 case GridManager.room.item:
                     _sprite.color = Color.yellow;
                     break;
-                case GridManager.room.shop:
+                case GridManager.room.money:
                     _sprite.color = Color.green;
                     break;
                 case GridManager.room.challenge:
@@ -67,6 +67,7 @@ public class Room : MonoBehaviour
         if (accessable)
         {
             GridManager.Instance.DestroyGrid();
+            MapManager.Instance.GenerateMap(type);
             GridManager.Instance.Move(index.x, index.y);
         }
     }

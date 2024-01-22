@@ -814,6 +814,7 @@ MonoBehaviour:
   chanceWalkerSpawn: 0.05
   chanceWalkerDestroy: 0.05
   chanceEnemySpawn: 0.15
+  addedChanceOnChallenge: 0.15
   percentToFill: 0.3
   maxWalkers: 10
   _camera: {fileID: 519420031}
@@ -867,6 +868,7 @@ Transform:
   - {fileID: 1446468404}
   - {fileID: 1036744658}
   - {fileID: 1511918689}
+  - {fileID: 1863547679}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &996508240
@@ -2112,6 +2114,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1855272276}
   m_CullTransparentMesh: 1
+--- !u!1 &1863547678
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1863547679}
+  m_Layer: 0
+  m_Name: Data Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1863547679
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863547678}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 846300409}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1991062119
 GameObject:
   m_ObjectHideFlags: 0

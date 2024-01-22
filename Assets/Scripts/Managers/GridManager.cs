@@ -15,7 +15,7 @@ public class GridManager : MonoBehaviour
     public static GridManager Instance;
 
     //Values for the grid
-    public enum room {normal, item, shop, challenge, explored, current};
+    public enum room {normal, item, money, challenge, explored, current};
     room[,] roomGrid;
     Vector2Int playerPosition;
     [Header("Grid Parameters")]
@@ -70,7 +70,7 @@ public class GridManager : MonoBehaviour
 
                 float randomNum = Random.value;
                 if (randomNum < chanceItem) roomGrid[x, y] = room.item;
-                else if (randomNum < chanceItem + chanceShop) roomGrid[x, y] = room.shop;
+                else if (randomNum < chanceItem + chanceShop) roomGrid[x, y] = room.money;
                 else if (randomNum < chanceItem + chanceShop + chanceChallenge) roomGrid[x, y] = room.challenge;
                 else roomGrid[x, y] = room.normal;
             }
@@ -89,7 +89,6 @@ public class GridManager : MonoBehaviour
             var child = transform.GetChild(i).gameObject;
             Destroy(child);
         }
-        MapManager.Instance.GenerateMap();
     }
 
     /*
@@ -120,8 +119,8 @@ public class GridManager : MonoBehaviour
                     case room.item:
                         _room.Setup(room.item, isNeighbour, x, y);
                         break;
-                    case room.shop:
-                        _room.Setup(room.shop, isNeighbour, x, y);
+                    case room.money:
+                        _room.Setup(room.money, isNeighbour, x, y);
                         break;
                     case room.challenge:
                         _room.Setup(room.challenge, isNeighbour, x, y);
