@@ -51,6 +51,7 @@ public abstract class Entity : MonoBehaviour
     {
         if (health <= 0) { return false; } // if hitting dead
         health -= damage;
+        CreateDamageNumber(damage, true);
         if (health <= 0)
         {
             DeathEvent();
@@ -152,7 +153,11 @@ public abstract class Entity : MonoBehaviour
         _rb.velocity = Vector3.zero;
     }
 
-
+    public void CreateDamageNumber(int amount, bool type)
+    {
+        GameObject dmgNum = Instantiate(PlayerManager.Instance.damageNumbers, transform.position + new Vector3(0, 1, 0), Quaternion.identity);
+        dmgNum.GetComponent<DamageNumScript>().SetNumber(amount, type);
+    }
     public int GetHealth()
     {
         return health;

@@ -88,6 +88,7 @@ MonoBehaviour:
   _playerStats: {fileID: 5287278252396443439}
   _weaponPos: {fileID: 1902243784294060430}
   numOfAttacks: 0
+  tempoCDTime: 0
   tempoAttackCD: 5
   tempoCost: 25
   tempoRequirement: 40
@@ -174,7 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 7
   maxHealth: 7
-  baseMoveSpeed: 5
+  baseMoveSpeed: 7
   knockbackResistance: 1
   _rb: {fileID: 5852556656687508199}
   speedFactor: 1

@@ -21,6 +21,8 @@ public class PlayerManager : MonoBehaviour
     private PlayerController _playerControl;
     private GameObject upgrades;
 
+    public GameObject damageNumbers;
+
     //Saved Stats
     private int savedHealth;
     private int savedMaxHealth;
