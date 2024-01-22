@@ -22,6 +22,7 @@ public class MapManager : MonoBehaviour
     Vector2 spawnPos;
     int roomWidth, roomHeight;
     int numLevelsGenerated;
+    float extraEnemySpawnRate;
     [Header("Grid Parameters")] 
     [SerializeField] Vector2 roomSizeWorldUnits = new Vector2(30, 30);
     [SerializeField] float worldUnitsInOneGridCell = 1f;
@@ -43,6 +44,7 @@ public class MapManager : MonoBehaviour
     [SerializeField] float chanceWalkerSpawn = 0.05f;
     [SerializeField] float chanceWalkerDestroy = 0.05f;
     [SerializeField] float chanceEnemySpawn = 0.1f;
+    [SerializeField] float addedChanceOnChallenge = 0.1f;
     [SerializeField] float percentToFill = 0.2f;
     [SerializeField] int maxWalkers = 10;
 
@@ -55,6 +57,11 @@ public class MapManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+    }
+
+    private void Start()
+    {
+        GenerateMap(GridManager.room.normal);
     }
 
     /*
@@ -74,6 +81,7 @@ public class MapManager : MonoBehaviour
         PlayerManager.Instance.DespawnPlayer();
         ProjectileManager.Instance.ClearAllProjectiles();
         GridManager.Instance.SpawnGrid();
+        // enemy manager spawn normal cassh!!
     }
 
     /*
@@ -81,8 +89,23 @@ public class MapManager : MonoBehaviour
      * 
      * @return void
      */
-    public void GenerateMap()
+    public void GenerateMap(GridManager.room type)
     {
+        switch(type)
+        {
+            default:
+                break;
+            case GridManager.room.money:
+                // enemy manager spawn double cash!!
+                break;
+            case GridManager.room.challenge:
+                extraEnemySpawnRate = addedChanceOnChallenge;
+                break;
+            case GridManager.room.item:
+                // spawn double item
+                break;
+        }
+
         Setup();
         CreateFloor();
         CreateWalls();
@@ -277,7 +300,7 @@ public class MapManager : MonoBehaviour
                 {
                     if(Vector2.SqrMagnitude(new Vector2(spawnPos.x - x, spawnPos.y - y)) > minSquaredDistanceFromEnemy)
                     {
-                        if(Random.value < chanceEnemySpawn) 
+                        if(Random.value < chanceEnemySpawn + extraEnemySpawnRate) 
                         {
                             entityGrid[x, y] = entity.enemy;
                         }
@@ -285,6 +308,7 @@ public class MapManager : MonoBehaviour
                 }
             }
         }
+        extraEnemySpawnRate = 0;
     }
 
     /*
