@@ -163,7 +163,7 @@ MonoBehaviour:
   transitionTime: 7.5
   titleFadeInTime: 1
   offset: 0.5
-  timeUntilButtonEnabled: 3
+  timeUntilButtonEnabled: 2.5
 --- !u!4 &83204089
 Transform:
   m_ObjectHideFlags: 0

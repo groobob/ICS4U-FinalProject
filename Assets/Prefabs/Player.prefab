@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upgrades: {fileID: 152687075609785461}
-  runSpeed: 7
+  runSpeed: 10
   _playerStats: {fileID: 5287278252396443439}
   _weaponPos: {fileID: 1902243784294060430}
   numOfAttacks: 0
@@ -177,6 +177,9 @@ MonoBehaviour:
   tempoDelayWait: 1
   tempoGain: 15
   hitbox: {fileID: 6705575036995754464}
+  tempoBar: {fileID: 0}
+  healthBar: {fileID: 0}
+  healthBarText: {fileID: 0}
 --- !u!1 &2252727087898865708
 GameObject:
   m_ObjectHideFlags: 0
