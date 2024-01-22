@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 public class DataManager : MonoBehaviour
 {
     // Singleton
-    public DataManager Instance;
+    public static DataManager Instance;
 
     // Stats to store
     public enum stats{kills, wins, deaths, besttime, timeplayed}
@@ -19,9 +19,15 @@ public class DataManager : MonoBehaviour
         LoadData();
     }
 
-    public void RessetDataToDefault()
+    private void Update()
+    {
+        storedStats[4] += Time.deltaTime;
+    }
+
+    public void ResetDataToDefault()
     {
         WriteToDataFile("0|0|0|0|0");
+        LoadData();
     }
 
     public void LoadData()
@@ -88,7 +94,7 @@ public class DataManager : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        WriteToDataFile(storedStats[0] + "|" + storedStats[1] + "|" + storedStats[2] + "|" + storedStats[3] + "|" + storedStats[4]);
+        WriteToDataFile(storedStats[0] + "|" + storedStats[1] + "|" + storedStats[2] + "|" + storedStats[3] + "|" + Mathf.RoundToInt(storedStats[4]));
     }
 
     private void WriteToDataFile(string str)

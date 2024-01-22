@@ -163,7 +163,7 @@ MonoBehaviour:
   transitionTime: 7.5
   titleFadeInTime: 1
   offset: 0.5
-  timeUntilButtonEnabled: 4
+  timeUntilButtonEnabled: 3
 --- !u!4 &83204089
 Transform:
   m_ObjectHideFlags: 0
@@ -464,6 +464,7 @@ Transform:
   m_Children:
   - {fileID: 1296977283}
   - {fileID: 857072618}
+  - {fileID: 1314066954}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &627103970
@@ -850,7 +851,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfaf4890d326d214fb161ebfc6aaced8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Instance: {fileID: 0}
 --- !u!1 &875485431
 GameObject:
   m_ObjectHideFlags: 0
@@ -1387,7 +1387,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1187054164}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1314066955}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: SpawnStatsMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1187054164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1470,6 +1482,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 447405238}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1314066953
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1314066954}
+  - component: {fileID: 1314066955}
+  m_Layer: 0
+  m_Name: Menu Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1314066954
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1314066953}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 447405238}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1314066955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1314066953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c566ade50f4646d49840746eb212d153, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shopMenu: {fileID: 0}
+  statsMenu: {fileID: 2081906604993471445, guid: a8419c50ee0cf30498c256f5e6f94760, type: 3}
+  tutorialMenu: {fileID: 0}
+  _canvas: {fileID: 1163602368}
 --- !u!1 &1530596680
 GameObject:
   m_ObjectHideFlags: 0
