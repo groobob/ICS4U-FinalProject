@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4280873319877811863}
   - component: {fileID: 7657813501889636482}
   - component: {fileID: 2417149658428181102}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: TempoBurst
   m_TagString: PlayerProjectiles
   m_Icon: {fileID: 0}

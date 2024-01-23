@@ -164,7 +164,7 @@ public class PlayerStats : Entity
      */
     public new bool TakeDamage(int damage)
     {
-        if (health <= 0) { return false; } // if hitting dead
+        if (health <= 0) { SceneLoader.Instance.LoadDeathScene();  return false; } // if hitting dead
         if (!hitbox.enabled) { return false; }
         ChangeHitbox(false);
         Invoke("ChangeHitbox", 1f);

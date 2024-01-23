@@ -39,4 +39,14 @@ public class SceneLoader : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void LoadEndScene()
+    {
+        SceneManager.LoadScene(2);
+    }
+
+    public void LoadDeathScene()
+    {
+        SceneManager.LoadScene(3);
+    }
 }

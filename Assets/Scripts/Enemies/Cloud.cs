@@ -18,6 +18,7 @@ public class Cloud : Enemy
     [SerializeField] private float rangeSquared;
     [SerializeField] private float reloadTime;
     [SerializeField] private float chargeTime;
+    [SerializeField] private float projectileSpeed;
     private bool charging = false;
     private float timeElapsed;
 
@@ -74,7 +75,7 @@ public class Cloud : Enemy
         // if hitInfo.collider != null && hitInfo.collider.gameObject.GetComponent<PlayerController>() != null
         if (distanceToPlayer < rangeSquared && timeElapsed > reloadTime)
         {
-            Debug.Log("raycast worked");
+            // Debug.Log("raycast worked");
             timeElapsed = 0f;
             charging = true;
         }
@@ -99,13 +100,12 @@ public class Cloud : Enemy
         }
         else
         {
-            if (timeElapsed < chargeTime)
+            if (timeElapsed > chargeTime)
             {
                 Vector2 direction = ((Vector2)target.position - _rb.position).normalized;
                 charging = false;
                 timeElapsed = 0f;
-                //shoot
-                Debug.Log("cloud attack");
+                ProjectileManager.Instance.SpawnProjectile(_rb.position, new Vector2(target.position.x - _rb.position.x, target.position.y - _rb.position.y).normalized * projectileSpeed, 0);
             }
             else
             {

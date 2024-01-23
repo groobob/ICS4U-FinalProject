@@ -157,6 +157,7 @@ MonoBehaviour:
   rangeSquared: 400
   reloadTime: 2.5
   chargeTime: 2
+  projectileSpeed: 20
   nextWaypointDistance: 3
 --- !u!1 &7965330982228327778
 GameObject:
