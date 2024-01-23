@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4280873319877811863}
   - component: {fileID: 7657813501889636482}
   - component: {fileID: -4845140197433907993}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: MagicBullet
   m_TagString: PlayerProjectiles
   m_Icon: {fileID: 0}
