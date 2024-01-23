@@ -75,7 +75,7 @@ public class Cloud : Enemy
         // if hitInfo.collider != null && hitInfo.collider.gameObject.GetComponent<PlayerController>() != null
         if (distanceToPlayer < rangeSquared && timeElapsed > reloadTime)
         {
-            Debug.Log("raycast worked");
+            // Debug.Log("raycast worked");
             timeElapsed = 0f;
             charging = true;
         }
