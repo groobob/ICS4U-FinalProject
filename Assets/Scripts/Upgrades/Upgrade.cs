@@ -13,7 +13,6 @@ public abstract class Upgrade : MonoBehaviour
     [SerializeField] public float tempoGainBoost;
     [SerializeField] public float tempoMaxBoost;
 
-
     [SerializeField] public string description;
     [SerializeField] public string upgradeName;
     [SerializeField] protected string classification;

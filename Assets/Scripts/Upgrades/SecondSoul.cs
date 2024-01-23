@@ -14,8 +14,8 @@ public class SecondSoul : Upgrade
 
     public void Start()
     {
-        _playerStats = transform.parent.gameObject.GetComponent<PlayerStats>();
-        _playerController = transform.parent.gameObject.GetComponent<PlayerController>();
+        _playerStats = PlayerManager.Instance._playerStats;
+        _playerController = PlayerManager.Instance._playerControl;
         Used = false;
         healthBoost = 1;
         classification = "Unique";

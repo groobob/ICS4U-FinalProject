@@ -11,8 +11,8 @@ public abstract class OnHitUpgrades : Upgrade
     protected void Init()
     {
         classification = "On hit";
-        _playerStats = transform.parent.gameObject.GetComponent<PlayerStats>();
-        _playerController = transform.parent.gameObject.GetComponent<PlayerController>();
+        _playerStats = PlayerManager.Instance._playerStats;
+        _playerController = PlayerManager.Instance._playerControl;
     }
 
     public abstract void attackEffect();

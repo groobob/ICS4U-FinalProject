@@ -10,7 +10,7 @@ public class UpgradeManager : MonoBehaviour
     [Header("References")]
     [SerializeField] List<Upgrade> upgradeList;
     [SerializeField] GameObject card;
-
+    [SerializeField] Transform cardHolder;
 
     [Header("Values")]
     [SerializeField] int numCards;
@@ -34,31 +34,36 @@ public class UpgradeManager : MonoBehaviour
         Vector3 cameraPosition = PlayerManager.Instance.player.GetComponentInChildren<Camera>().transform.position;
         for(int i = (numCards - 1) / -2; i < (numCards + 1) / 2; i++)
         {
-            GameObject cardInstance = Instantiate(card, new Vector3(i * spaceBetweenCards + cameraPosition.x, cameraPosition.y, 0), Quaternion.identity, transform);
+            GameObject cardInstance = Instantiate(card, new Vector3(i * spaceBetweenCards + cameraPosition.x, cameraPosition.y, 0), Quaternion.identity, cardHolder);
             cardInstance.GetComponent<Card>().upgrade = upgradeList[Mathf.FloorToInt(Random.Range(0, upgradeList.Count - 0.01f))];
         }
     }
 
+    public void GenerateUpgradeCards()
+    {
+        GenerateUpgradeCards(numUpgrades);
+    }
+
     public void PickedUpgrade()
     {
-        DestroyCards();
         numUpgrades--;
+        DestroyCards();
         if (numUpgrades <= 0)
         {
             MapManager.Instance.DestroyMap(timeAfterCardSelection);
         }
         else
         {
-            GenerateUpgradeCards(numUpgrades);
+            Invoke("GenerateUpgradeCards", timeAfterCardSelection);
         }
     }
 
     public void DestroyCards()
     {
-        for (int i = transform.childCount - 1; i >= 0; i--)
+        for (int i = cardHolder.childCount - 1; i >= 0; i--)
         {
-            var child = transform.GetChild(i).gameObject;
-            if(!child.GetComponent<Card>().picked) Destroy(child);
+            var child = cardHolder.GetChild(i).gameObject;
+            if (!child.GetComponent<Card>().picked) Destroy(child);
             else Destroy(child, timeAfterCardSelection);
         }
     }

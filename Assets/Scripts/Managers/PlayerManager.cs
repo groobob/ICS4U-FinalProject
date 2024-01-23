@@ -18,7 +18,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] public TextMeshProUGUI healthBarText;
     public GameObject player;
     public PlayerStats _playerStats;
-    private PlayerController _playerControl;
+    public PlayerController _playerControl;
     private GameObject upgrades;
 
     //Saved Stats

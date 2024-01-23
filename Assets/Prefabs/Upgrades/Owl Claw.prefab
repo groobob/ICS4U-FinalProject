@@ -51,6 +51,6 @@ MonoBehaviour:
   tempoGainBoost: 0
   tempoMaxBoost: 0
   description: 
-  upgradeName: 
+  upgradeName: Owl's Claw
   classification: 
   tempDmg: 0

@@ -15,13 +15,15 @@ public class OwlClaw : OnHitUpgrades
 
     private void Update()
     {
-        float baseSpeed = _playerStats.GetMoveSpeed() - PlayerManager.Instance.addedMovespeed;
-        tempDmg = (int) Mathf.Ceil((_playerStats.GetMoveSpeed() * _playerController.ApplySpeedModsPlayer() - baseSpeed));
-        if (_playerController.GetWeapon().GetWeaponDamage() + tempDmg <= 1)
+        if(!(_playerStats == null))
+        {
+            float baseSpeed = _playerStats.GetMoveSpeed() - PlayerManager.Instance.addedMovespeed;
+            tempDmg = (int)Mathf.Ceil(_playerStats.GetMoveSpeed() * _playerController.ApplySpeedModsPlayer() - baseSpeed);
+        }
+        if (!(_playerController == null) && _playerController.GetWeapon().GetWeaponDamage() + tempDmg <= 1)
         {
             tempDmg = _playerController.GetWeapon().GetWeaponDamage() - 1;
         }
-        Debug.Log(tempDmg + " damage boost"); 
     }
     public override void attackEffect()
     {
