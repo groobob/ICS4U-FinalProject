@@ -258,8 +258,8 @@ MonoBehaviour:
   attackSpeed: 0
   meleeRange: 0
   enemyTargetIndicator: {fileID: 8713136338345028203}
-  enemyTargetSpaceBetweenPlayer: 0
-  flashSpeed: 0
+  enemyTargetSpaceBetweenPlayer: 7
+  flashSpeed: 0.5
   spaceBetweenPlayerSquared: 49
   rangeSquared: 64
   reloadTime: 5

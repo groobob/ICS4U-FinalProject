@@ -159,6 +159,7 @@ MonoBehaviour:
   chargeTime: 2
   animationChargeTime: 0.3
   animationAttackTime: 0.5
+  animationDeathTime: 0.7
   projectileSpeed: 20
   nextWaypointDistance: 3
 --- !u!1 &7965330982228327778

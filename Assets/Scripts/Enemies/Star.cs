@@ -1,7 +1,7 @@
 /*
  * Class to manage the ai and behaviour for the star enemy
  * 
- * @author Richard
+ * @author Richard, Evan
  * @version January 15
  */
 
@@ -24,12 +24,14 @@ public class Star : Enemy
 
     // other references to own components
     private Seeker _seeker;
+    private Animator _animator;
 
     private void Start()
     {
         // Component initialization
         _seeker = GetComponent<Seeker>();
         _rb = GetComponent<Rigidbody2D>();
+        _animator = GetComponentInChildren<Animator>();
 
         sprite = transform.GetChild(0).transform;
 
@@ -54,6 +56,7 @@ public class Star : Enemy
     // Update is called once per frame
     private void FixedUpdate()
     {
+        if (dead) return;
         if (!checkDisabled()) return;
         distanceToPlayer = Vector2.SqrMagnitude(new Vector2(target.position.x - _rb.position.x, target.position.y - _rb.position.y));
         if (distanceToPlayer > detectionRadiusSquared) return;
@@ -74,6 +77,15 @@ public class Star : Enemy
         }
 
         AttackCheck();
+    }
+
+    protected override void Death()
+    {
+        dead = true;
+        _animator.Play("Star-Die");
+        gameObject.layer = LayerMask.NameToLayer("DeadEnemies");
+        Destroy(enemyTargetIndicator);
+        GetComponentInChildren<SpriteRenderer>().sortingOrder = 1;
     }
 
     protected override void Attack()

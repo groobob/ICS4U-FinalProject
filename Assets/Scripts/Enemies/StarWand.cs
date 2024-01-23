@@ -33,12 +33,14 @@ public class StarWand : Enemy
 
     // other references to own components
     private Seeker _seeker;
+    private Animator _animator;
 
     private void Start()
     {
         // Component initialization
         _seeker = GetComponent<Seeker>();
         _rb = GetComponent<Rigidbody2D>();
+        _animator = GetComponentInChildren<Animator>();
 
         sprite = transform.GetChild(0).transform;
 
@@ -63,6 +65,7 @@ public class StarWand : Enemy
     // Update is called once per frame
     private void FixedUpdate()
     {
+        if (dead) return;
         if (!checkDisabled()) return;
 
         timeElapsed += Time.deltaTime;
@@ -88,6 +91,15 @@ public class StarWand : Enemy
         {
             currentWaypoint++;
         }
+    }
+
+    protected override void Death()
+    {
+        dead = true;
+        _animator.Play("Star-Die");
+        gameObject.layer = LayerMask.NameToLayer("DeadEnemies");
+        Destroy(enemyTargetIndicator);
+        GetComponentInChildren<SpriteRenderer>().sortingOrder = 1;
     }
 
     protected override void Attack() { }

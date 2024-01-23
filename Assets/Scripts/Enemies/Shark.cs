@@ -65,6 +65,7 @@ public class Shark : Enemy
     // Update is called once per frame
     private void FixedUpdate()
     {
+        if (dead) return;
         if (!checkDisabled()) return;
         timeElapsed += Time.deltaTime;
         distanceToPlayer = Vector2.SqrMagnitude(new Vector2(target.position.x - _rb.position.x, target.position.y - _rb.position.y));
@@ -124,6 +125,15 @@ public class Shark : Enemy
                 _animator.Play("Shark-Idle");
             }
         }
+    }
+
+    protected override void Death()
+    {
+        dead = true;
+        _animator.Play("Shark-Die");
+        gameObject.layer = LayerMask.NameToLayer("DeadEnemies");
+        Destroy(enemyTargetIndicator);
+        GetComponentInChildren<SpriteRenderer>().sortingOrder = 1;
     }
 
     protected override void Attack() { }

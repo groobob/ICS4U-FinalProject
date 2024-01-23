@@ -1,8 +1,8 @@
 /*
  * Superclass to all Enemies. Inherets from Entity.
  * 
- * @author Evan
- * @version January 09
+ * @author Evan, Richard
+ * @version January 23
  */
 
 using System.Collections;
@@ -24,6 +24,7 @@ public abstract class Enemy : Entity
 
     float flashingTime;
     bool transparent = false;
+    protected bool dead = false; 
     private float nextAttackTime;
 
     private void Awake()
@@ -33,9 +34,10 @@ public abstract class Enemy : Entity
     private void Update()
     {
         // Position calculation for player
+        if (enemyTargetIndicator == null) return;
         enemyTargetIndicator.transform.position = target.position - (target.position - transform.position).normalized * enemyTargetSpaceBetweenPlayer;
 
-        // Flashing
+        // Flashing target indicators
         flashingTime += Time.deltaTime;
         if(!transparent)
         {
@@ -68,13 +70,13 @@ public abstract class Enemy : Entity
         DataManager.Instance.IncrementData(DataManager.stats.kills);
 
         // Change later
-        Destroy(gameObject);
+        Death();
         EnemyManager.Instance.DecreaseEnemyNumber();
     }
 
     protected abstract void Attack();
 
-    //protected abstracted void Death();
+    protected abstract void Death();
 
     protected void AttackCheck()
     {

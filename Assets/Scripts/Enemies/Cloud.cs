@@ -20,6 +20,7 @@ public class Cloud : Enemy
     [SerializeField] private float chargeTime;
     [SerializeField] private float animationChargeTime;
     [SerializeField] private float animationAttackTime;
+    [SerializeField] private float animationDeathTime;
     [SerializeField] private float projectileSpeed;
     private bool charging = false;
     private float timeElapsed;
@@ -69,6 +70,7 @@ public class Cloud : Enemy
 
     private void FixedUpdate()
     {
+        if (dead) return;
         if (!checkDisabled())
         {
             attacking = false;
@@ -157,6 +159,16 @@ public class Cloud : Enemy
     private void EndAttackAnimation()
     {
         attacked = false;
+    }
+
+    protected override void Death()
+    {
+        dead = true;
+        _animator.Play("Cloud-Die");
+        gameObject.layer = LayerMask.NameToLayer("DeadEnemies");
+        Destroy(enemyTargetIndicator);
+        Destroy(gameObject, animationDeathTime);
+        GetComponentInChildren<SpriteRenderer>().sortingOrder = 1;
     }
 
     protected override void Attack() { }
