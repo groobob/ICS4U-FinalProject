@@ -16,7 +16,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] public Slider tempoBar;
     [SerializeField] public Slider healthBar;
     [SerializeField] public TextMeshProUGUI healthBarText;
-    private GameObject player;
+    public GameObject player;
     PlayerStats _playerStats;
     private PlayerController _playerControl;
     private GameObject upgrades;

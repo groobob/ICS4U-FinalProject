@@ -1938,6 +1938,7 @@ MonoBehaviour:
   tempoBar: {fileID: 1286277491}
   healthBar: {fileID: 1991062121}
   healthBarText: {fileID: 1855272278}
+  player: {fileID: 0}
   damageNumbers: {fileID: 2799928962956737027, guid: 2fad9b6a460641847b8d7fe79f587efa, type: 3}
   isNew: 0
 --- !u!4 &1446468404
@@ -2006,6 +2007,7 @@ MonoBehaviour:
   - {fileID: 8964483261284346135, guid: 4108e7954691ada43a6619abc8f5a112, type: 3}
   - {fileID: 5762413302619155340, guid: 17ffe3dac0ea66a43a73825b7315468f, type: 3}
   - {fileID: 3384354688980544220, guid: f4e9a1b39961ad44ca6c49b85dfc8c48, type: 3}
+  - {fileID: 4272227956018407191, guid: 76c2a47b2be03504383ff93202ad9a0e, type: 3}
 --- !u!1 &1681970643
 GameObject:
   m_ObjectHideFlags: 0
@@ -2552,6 +2554,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 00aafde1f185acf4bacde5059879f12a, type: 3}
   - {fileID: 8300000, guid: 7caa827acfca0d64dae44dd733f34d15, type: 3}
   - {fileID: 8300000, guid: 7a886d97afa0b0748808401aeeb7d7bf, type: 3}
+  - {fileID: 8300000, guid: cab3020aa3c2a90428755a272538d345, type: 3}
+  - {fileID: 8300000, guid: 2c5e09f78734cab4686c7cfdf64db0a0, type: 3}
+  - {fileID: 8300000, guid: b5e642a945abfb8408cf76f73dc754a4, type: 3}
+  - {fileID: 8300000, guid: 8d026d0542ead334d82a5bcd60144349, type: 3}
+  - {fileID: 8300000, guid: bcc030231e55d6f4da52b36d25ddee4a, type: 3}
+  - {fileID: 8300000, guid: 0d7a5fb042429a149897d52517f6e042, type: 3}
+  - {fileID: 8300000, guid: 5a48e1a0141fd394c8105317513e9d77, type: 3}
   music:
   - {fileID: 8300000, guid: a6e749b29bbb9a24dbdcd7b17d36b9f7, type: 3}
   - {fileID: 8300000, guid: 0ddf87ec2e9a500408e2e976868b6ee3, type: 3}

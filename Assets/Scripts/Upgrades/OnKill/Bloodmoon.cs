@@ -20,6 +20,7 @@ public class Bloodmoon : OnKillUpgrades
         int interval2 = 21/ (int)Mathf.Ceil((_playerStats.GetMoveSpeed() * _playerController.ApplySpeedModsPlayer() - baseSpeed));
         if (Random.Range(1, interval2) == 1)
         {
+            SoundManager.Instance.PlayAudio(10);
             _playerStats.HealDamage(1);
         }
     }

@@ -26,6 +26,7 @@ public class Vampiric : OnKillUpgrades
         else
         {
             current = 0;
+            SoundManager.Instance.PlayAudio(9);
             _playerStats.HealDamage(1);
         }
     }

@@ -21,6 +21,7 @@ public class FireColumn : SecondaryAttack
     public override void Attack()
     {
         Debug.Log(fireColumn);
+        SoundManager.Instance.PlayAudio(13);
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = transform.position.z;
         Instantiate(fireColumn, mousePos, Quaternion.identity);

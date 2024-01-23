@@ -15,15 +15,15 @@ public class Star : Enemy
     
     // References for the enemy
     [Header("References")]
-    [SerializeField] float nextWaypointDistance = 3f;
+    [SerializeField] private float nextWaypointDistance = 3f;
 
     // Pathfinding
-    Path path;
-    int currentWaypoint = 0;
-    float distanceToPlayer;
+    private Path path;
+    private int currentWaypoint = 0;
+    private float distanceToPlayer;
 
     // other references to own components
-    Seeker _seeker;
+    private Seeker _seeker;
 
     private new void Start()
     {
@@ -37,12 +37,12 @@ public class Star : Enemy
         InvokeRepeating("UpdatePath", 0f, 0.5f);
     }
 
-    void UpdatePath()
+    private void UpdatePath()
     {
         if (_seeker.IsDone()) _seeker.StartPath(_rb.position, target.position, OnPathComplete);
     }
 
-    void OnPathComplete(Path p)
+    private void OnPathComplete(Path p)
     {
         if(!p.error)
         {
@@ -52,7 +52,7 @@ public class Star : Enemy
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (!checkDisabled()) return;
         distanceToPlayer = Vector2.SqrMagnitude(new Vector2(target.position.x - _rb.position.x, target.position.y - _rb.position.y));

@@ -2,7 +2,7 @@
  * Script for controlling the player.
  * 
  * @author Evan
- * @version January 09
+ * @version January 23
  */
 
 using System.Collections;
@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
     private List<Enemy> rushHitEnemies;
     private float rushEndTime;
 
-    void Start()
+    private void Start()
     {
         _rb = GetComponent<Rigidbody2D>(); // Define RigidBody
         _cameraScript = FindObjectOfType<PlayerCamera>();
@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
         UpdateWeapon(typeof(StarterSword)); //
         //secondaryAttack = gameObject.AddComponent<Sidegun>();
         //secondaryAttack.SetPlayer(this);
-        UpdateSecondaryWeapon(typeof(Sidegun));//Sidegun
+        UpdateSecondaryWeapon(typeof(PhantomStep));//Sidegun
         runSpeed = _playerStats.GetMoveSpeed();
         numOfAttacks = 0;
     }
@@ -284,6 +284,8 @@ public class PlayerController : MonoBehaviour
         {
             if (_playerStats.tempo >= rushRequirement && _playerStats.SpendTempo(rushCost))
             {
+                SoundManager.Instance.PlayAudio(15);
+
                 rushCDTime = Time.time + rushAttackCD;
                 //Debug.Log("rush Attack");
                 Vector3 rushMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -320,7 +322,10 @@ public class PlayerController : MonoBehaviour
         Vector3 weaponOffset = mousePlayerVector * weaponDisplacement;
         _weaponPos.position = transform.position + weaponOffset;
     }
-
+    /**
+     * Returns a multiplier using all the speed modfiers for the 
+     * @return float
+     */
     public float ApplySpeedModsPlayer()
     {
         float speedMultiplier = 1;

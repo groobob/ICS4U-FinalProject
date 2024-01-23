@@ -14,28 +14,30 @@ public class Shadow : Enemy
 {
     // Values for the enemy
     [Header("Values")]
-    [SerializeField] float rangeSquared;
-    [SerializeField] float dashSpeed;
-    [SerializeField] float chargeTime;
-    [SerializeField] float chargeDuration;
-    float timeElapsed;
-    bool charging = false;
-    Vector2 chargeDirection;
+    [SerializeField] private float rangeSquared;
+    [SerializeField] private float dashSpeed;
+    [SerializeField] private float chargeTime;
+    [SerializeField] private float chargeDuration;
+    private float timeElapsed;
+    private bool charging = false;
+    private Vector2 chargeDirection;
 
     [SerializeField] private float knockbackStrength = 15f;
     [SerializeField] private float knockbackDuration = 0.3f;
 
     // References for the enemy
     [Header("References")]
-    [SerializeField] float nextWaypointDistance = 3f;
+    [SerializeField] private float nextWaypointDistance = 3f;
 
     // Pathfinding
-    Path path;
-    int currentWaypoint = 0;
-    float distanceToPlayer;
+    private Path path;
+    private int currentWaypoint = 0;
+    private float distanceToPlayer;
 
     // other references to own components
-    Seeker _seeker;
+    private Seeker _seeker;
+
+    private bool previousChargingValue;
 
     private new void Start()
     {
@@ -49,12 +51,12 @@ public class Shadow : Enemy
         InvokeRepeating("UpdatePath", 0f, 0.5f);
     }
 
-    void UpdatePath()
+    private void UpdatePath()
     {
         if (_seeker.IsDone()) _seeker.StartPath(_rb.position, target.position, OnPathComplete);
     }
 
-    void OnPathComplete(Path p)
+    private void OnPathComplete(Path p)
     {
         if (!p.error)
         {
@@ -64,7 +66,7 @@ public class Shadow : Enemy
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (!checkDisabled() && !charging) return;
 
@@ -76,6 +78,12 @@ public class Shadow : Enemy
         {
             //Attack stuff
             charging = true;
+            if (!previousChargingValue)
+            {
+                SoundManager.Instance.PlayAudio(11, gameObject.GetComponent<AudioSource>());
+            }
+            previousChargingValue = true;
+
 
         }
 
@@ -110,6 +118,7 @@ public class Shadow : Enemy
             if (timeElapsed > chargeTime + chargeDuration)
             {
                 charging = false;
+                previousChargingValue = false;
                 timeElapsed = 0f;
             }
 

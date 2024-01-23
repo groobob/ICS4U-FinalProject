@@ -26,4 +26,9 @@ public class MenuManager : MonoBehaviour
     {
 
     }
+
+    public void Start()
+    {
+        SoundManager.Instance.PlayMusic(0);
+    }
 }
