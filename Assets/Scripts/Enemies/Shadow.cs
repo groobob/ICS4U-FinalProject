@@ -36,14 +36,17 @@ public class Shadow : Enemy
 
     // other references to own components
     private Seeker _seeker;
+    private Animator _animator;
 
     private bool previousChargingValue;
+    private bool attacking = false;
 
     private void Start()
     {
         // Component initialization
         _seeker = GetComponent<Seeker>();
         _rb = GetComponent<Rigidbody2D>();
+        _animator = GetComponentInChildren<Animator>();
 
         sprite = transform.GetChild(0).transform;
 
@@ -76,7 +79,11 @@ public class Shadow : Enemy
 
         if (distanceToPlayer < rangeSquared)
         {
-            //Attack stuff
+            if (attacking == false)
+            {
+                _animator.Play("Shadow-Charge");
+                attacking = true;
+            }
             charging = true;
             if (!previousChargingValue)
             {
@@ -84,11 +91,11 @@ public class Shadow : Enemy
             }
             previousChargingValue = true;
 
-
         }
 
         if (!charging)
         {
+            _animator.Play("Shadow-Move");
             if (currentWaypoint >= path.vectorPath.Count) return;
 
             Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - _rb.position).normalized;
@@ -112,6 +119,7 @@ public class Shadow : Enemy
             }
             else
             {
+                _animator.Play("Shadow-Charging");
                 _rb.velocity = chargeDirection * dashSpeed * (timeElapsed - chargeTime) / 100;
             }
 
@@ -120,6 +128,7 @@ public class Shadow : Enemy
                 charging = false;
                 previousChargingValue = false;
                 timeElapsed = 0f;
+                attacking = false;
             }
 
             AttackCheck();
