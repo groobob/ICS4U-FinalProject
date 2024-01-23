@@ -1,3 +1,10 @@
+/*
+ * Script for Owl Slice. Gain a speed boost every three attacks or secondary. 
+ * 
+ * @author Evan
+ * @version January 21
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;

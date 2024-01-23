@@ -1,3 +1,10 @@
+/*
+ * Script for enemy projectile. Does damage when touching player
+ * 
+ * @author Evan
+ * @version January 23
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;

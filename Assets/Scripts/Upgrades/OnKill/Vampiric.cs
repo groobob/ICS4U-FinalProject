@@ -1,3 +1,10 @@
+/*
+ * Script for Vampiric. After killing 7 enemies, heal HP. 
+ * 
+ * @author Evan
+ * @version January 22
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;

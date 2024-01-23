@@ -1,3 +1,10 @@
+/*
+ * Script for Phantom's Edge. Gives bonus range.
+ * 
+ * @author Evan
+ * @version January 20
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

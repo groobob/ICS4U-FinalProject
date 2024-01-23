@@ -1,3 +1,10 @@
+/*
+ * Script for giving windwall secondary upgrade.
+ * 
+ * @author Evan
+ * @version January 21
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

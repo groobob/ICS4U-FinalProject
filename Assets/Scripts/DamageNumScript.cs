@@ -1,3 +1,10 @@
+/*
+ * Class for generating damage numbers.
+ * 
+ * @author Evan
+ * @version January 22
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -33,7 +40,12 @@ public class DamageNumScript : MonoBehaviour
         _textMeshPro.color = endColor;
     }
 
-
+    /**
+     * Method used to set the number of the damage numbers. Also lets you set the type of effect
+     * @param amount Magnitude of the number
+     * @param type Bool representing damage or healing
+     * 
+     */
     public void SetNumber(int amount, bool type) // true = damage, false = heal
     {
         _textMeshPro.text = amount.ToString();

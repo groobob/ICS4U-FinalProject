@@ -1,3 +1,10 @@
+/*
+ * Script for Rogueheart. Gives a damage boost at the cost of range.
+ * 
+ * @author Evan
+ * @version January 20
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;

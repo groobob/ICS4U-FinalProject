@@ -1,3 +1,10 @@
+/*
+ * Script for causing FireColumn/DarkBolt damage
+ * 
+ * @author Evan
+ * @version January 23
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +19,7 @@ public class FireDamageBlock : MonoBehaviour
 
     private bool reset;
 
-    public void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         Enemy enemy = collision.gameObject.GetComponent<Enemy>();
 

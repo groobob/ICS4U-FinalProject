@@ -1,3 +1,10 @@
+/*
+ * Script for Curse of Anguish. Randomly trade HP for a massive attack
+ * 
+ * @author Evan
+ * @version January 21
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.Intrinsics;

@@ -1,11 +1,16 @@
+/*
+ * Class to manage all things related to the player. Saving and loading stats, getting references to player, etc.
+ * 
+ * @author Evan
+ * @version January 23
+ */
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
-// Note to self. Save stats, load stats.
 
 public class PlayerManager : MonoBehaviour
 {
@@ -60,7 +65,7 @@ public class PlayerManager : MonoBehaviour
      * Method for spawning the player, loads all data.
      * @param x X coord for spawning the player
      * @param y Y coord for spawning the player
-     * @return GameObject reference to the player
+     * @return GameObject
      */
     public GameObject SpawnPlayer(float x, float y)
     {
@@ -79,7 +84,10 @@ public class PlayerManager : MonoBehaviour
 
         return player;
     }
-
+    /**
+    * Method for getting movespeed.
+    * @return float
+    */
     public float GetAddedMoveSpeed()
     {
         return addedMovespeed;
@@ -101,7 +109,9 @@ public class PlayerManager : MonoBehaviour
         addedTempoGain = 0;
         addedTempoMax = 0;
     }
-
+    /**
+    * Method for saving playerstats
+    */
     public void SaveStats()
     {
         savedHealth = _playerStats.GetHealth() - addedHealth;
@@ -113,7 +123,9 @@ public class PlayerManager : MonoBehaviour
             Instance.gameObject.AddComponent(upgrade);
         }
     }
-
+    /**
+    * Loads saved stats and upgrades the player's stats accordingly.
+    */
     public void LoadStats()
     {
         Debug.Log("Loaded stats");
@@ -124,7 +136,9 @@ public class PlayerManager : MonoBehaviour
         LoadUpgrades();
     }
 
-
+    /**
+    * Resets the character's added stats and upgrades, setting isNew to true.
+    */
     private void ResetCharacter()
     {
         addedHealth = 0;
@@ -138,7 +152,9 @@ public class PlayerManager : MonoBehaviour
         isNew = true;
         WipeUpgrades();
     }
-
+    /**
+    * Loads upgrades and applies their effects to the player.
+    */
     public void LoadUpgrades()
     {
         foreach (Upgrade upg in gameObject.GetComponents<Upgrade>())
@@ -151,7 +167,9 @@ public class PlayerManager : MonoBehaviour
             Destroy(upg);
         }
     }
-
+    /**
+    * Applies the effects of upgrades to the player's stats.
+    */
     public void WorkUpgrades() // makes the passive upgraes work
     {
         Debug.Log("Work Upgrades called");
@@ -190,7 +208,10 @@ public class PlayerManager : MonoBehaviour
 
         SecondaryUpgrades(currentSecondaryChange);
     }
-
+    /**
+     * Updates the player's secondary weapon based on the chosen upgrade.
+     * @param secondaryChoice The type of secondary upgrade chosen.
+     */
     public void SecondaryUpgrades(System.Type secondaryChoice)
     {
         currentSecondaryChange = secondaryChoice;
@@ -207,6 +228,9 @@ public class PlayerManager : MonoBehaviour
             _playerControl.UpdateSecondaryWeapon(typeof(FireColumn));
         }
     }
+    /**
+     * Applies temporary upgrades to the player's stats.
+     */
     public void TempUpgrades()
     {
         _playerStats.tempDmgBoost = 0;
@@ -217,7 +241,9 @@ public class PlayerManager : MonoBehaviour
             _playerStats.tempDmgBoost += upg.tempDmg;
         }
     }
-
+    /**
+     * Removes all upgrades from the player.
+     */
     private void WipeUpgrades()
     {
         foreach (Upgrade upg in gameObject.GetComponents<Upgrade>())
@@ -225,12 +251,17 @@ public class PlayerManager : MonoBehaviour
             Destroy(upg);
         }
     }
-
+    /**
+     * Resets the tempo burst cooldown for the player.
+     */
     public void ResetTempoBurstCD()
     {
         _playerStats.gameObject.GetComponent<PlayerController>().tempoCDTime = 0;
     }
-
+    /**
+     * Retrieves a list of upgrades attached to the player.
+     * @return List<Upgrade>
+     */
     public List<Upgrade> GetUpgradesList()
     {
         //Upgrade[] upgList = new Upgrade[gameObject.GetComponents(typeof(Upgrade)).Length];
@@ -242,18 +273,25 @@ public class PlayerManager : MonoBehaviour
 
         return upgList;
     }
-
+    /**
+     * Retrieves the GameObject containing the upgrades.
+     * @return GameObject containing the upgrades.
+     */
     public GameObject GetUpgradesPart()
     {
         return upgrades;
     }
-
+    /**
+     * Disables player controls by disabling the PlayerController and Weapons components.
+     */
     public void DisablePlayerControls()
     {
         player.GetComponent<PlayerController>().enabled = false;
         player.GetComponent<Weapons>().enabled = false;
     }
-
+    /**
+     * Enables player controls by enabling the PlayerController and Weapons components.
+     */
     public void EnablePlayerControls()
     {
         player.GetComponent<PlayerController>().enabled = true;

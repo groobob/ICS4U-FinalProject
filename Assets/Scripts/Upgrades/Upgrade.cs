@@ -1,3 +1,10 @@
+/*
+ * Superclass for all Upgrades. Every one inherets from this class.
+ * 
+ * @author Evan
+ * @version January 22
+ */
+
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;

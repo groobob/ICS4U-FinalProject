@@ -1,3 +1,10 @@
+/*
+ * Script for FireColumn/Darkbolt. Subclass of Secondary. Activate to summon an attack.
+ * 
+ * @author Evan
+ * @version January 21
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +17,9 @@ public class FireColumn : SecondaryAttack
     private static float setReloadTime = 8f;
 
     [SerializeField] private GameObject fireColumn;
-
+    /**
+     * Main Constructor
+     */
     public FireColumn() : base(setDamage, setReloadTime, null) { }
 
     private void Start()

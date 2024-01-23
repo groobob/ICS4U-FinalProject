@@ -1,3 +1,10 @@
+/*
+ * Script for Bloodmoon. Have a chance to heal when killing an enemy. This chance scales with movespeed.
+ * 
+ * @author Evan
+ * @version January 21
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;

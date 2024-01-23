@@ -1,3 +1,10 @@
+/*
+ * Script for Owl Claw. Gain more damage with a speed boost.
+ * 
+ * @author Evan
+ * @version January 21
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;

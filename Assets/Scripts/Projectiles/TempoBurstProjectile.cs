@@ -1,3 +1,10 @@
+/*
+ * Script for tempo burst projectile. Does damage when touching enemies. Pierces multiple foes
+ * 
+ * @author Evan
+ * @version January 23
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,7 +55,7 @@ public class TempoBurstProjectile : Projectile
         }
     }
 
-    private new void Start()
+    private void Start()
     {
         hitEnemies = new List<Enemy>();
         Destroy(gameObject, 0.3f);

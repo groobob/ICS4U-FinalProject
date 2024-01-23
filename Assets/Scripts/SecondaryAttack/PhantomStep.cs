@@ -1,3 +1,10 @@
+/*
+ * Script for Phantom Step. Subclass of Secondary. Activate to gain IFrames.
+ * 
+ * @author Evan
+ * @version January 21
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +20,9 @@ public class PhantomStep : SecondaryAttack
 
     private SpriteRenderer spriteRenderer;
     public Color originalColor;
-
+    /**
+     * Main Constructor
+     */
     public PhantomStep() : base(setDamage, setReloadTime, null) { }
 
     public override void Attack()

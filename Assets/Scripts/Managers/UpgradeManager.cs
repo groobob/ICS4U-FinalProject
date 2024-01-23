@@ -1,3 +1,10 @@
+/*
+ * Class for managing upgrade selection.
+ * 
+ * @author Richard
+ * @version January 23
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,12 +29,17 @@ public class UpgradeManager : MonoBehaviour
     {
         Instance = this;
     }
-
+    /**
+     * Ends the level and generates upgrade cards.
+     */
     public void EndLevel()
     {
         GenerateUpgradeCards(MapManager.Instance.numUpgradeRewards);
     }
-
+    /**
+     * Generates upgrade cards based on the specified number of upgrades.
+     * @param numUpgrades The number of upgrade cards to generate.
+     */
     public void GenerateUpgradeCards(int numUpgrades)
     {
         this.numUpgrades = numUpgrades;
@@ -38,12 +50,16 @@ public class UpgradeManager : MonoBehaviour
             cardInstance.GetComponent<Card>().upgrade = upgradeList[Mathf.FloorToInt(Random.Range(0, upgradeList.Count - 0.01f))];
         }
     }
-
+    /**
+     * Generates upgrade cards based on the previously set number of upgrades.
+     */
     public void GenerateUpgradeCards()
     {
         GenerateUpgradeCards(numUpgrades);
     }
-
+    /**
+     * Handles the event of picking an upgrade card, reducing the number of remaining upgrades and destroying the cards.
+     */
     public void PickedUpgrade()
     {
         numUpgrades--;
@@ -57,7 +73,9 @@ public class UpgradeManager : MonoBehaviour
             Invoke("GenerateUpgradeCards", timeAfterCardSelection);
         }
     }
-
+    /**
+     * Destroys the upgrade cards, removing them from the card holder.
+     */
     public void DestroyCards()
     {
         for (int i = cardHolder.childCount - 1; i >= 0; i--)

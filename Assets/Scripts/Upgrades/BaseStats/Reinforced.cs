@@ -1,3 +1,10 @@
+/*
+ * Script for Reinforced. Gives 2 HP.
+ * 
+ * @author Evan
+ * @version January 20
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

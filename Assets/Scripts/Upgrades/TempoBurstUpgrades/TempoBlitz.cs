@@ -1,3 +1,10 @@
+/*
+ * Script for Tempo Blitz Upgrade. Resets tempo blitz CD after a kill.
+ * 
+ * @author Evan
+ * @version January 21
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;

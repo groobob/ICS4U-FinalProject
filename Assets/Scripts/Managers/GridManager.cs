@@ -16,18 +16,18 @@ public class GridManager : MonoBehaviour
 
     //Values for the grid
     public enum room {normal, item, money, challenge, explored, current, empty};
-    room[,] roomGrid;
-    Vector2Int playerPosition;
+    private room[,] roomGrid;
+    private Vector2Int playerPosition;
     [Header("Grid Parameters")]
-    [SerializeField] Vector2 gridSize = new Vector2(10, 10);
-    [SerializeField] int gridSpacing = 10;
-    [SerializeField] GameObject roomObject;
+    [SerializeField] private Vector2 gridSize = new Vector2(10, 10);
+    [SerializeField] private int gridSpacing = 10;
+    [SerializeField] private GameObject roomObject;
 
     //Specified chances for different things to occur
     [Header("Generation Modification")]
-    [SerializeField] float chanceItem = 0.1f;
-    [SerializeField] float chanceShop = 0.1f;
-    [SerializeField] float chanceChallenge = 0.1f;
+    [SerializeField] private float chanceItem = 0.1f;
+    [SerializeField] private float chanceShop = 0.1f;
+    [SerializeField] private float chanceChallenge = 0.1f;
     
     /*
      * Method is called right when script is loaded

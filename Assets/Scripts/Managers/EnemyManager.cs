@@ -16,21 +16,27 @@ public class EnemyManager : MonoBehaviour
 
     // Serialized References
     [Header("Enemy Game Objects")]
-    [SerializeField] List<GameObject> tierOneEnemies;
-    [SerializeField] List<GameObject> tierTwoEnemies;
-    [SerializeField] List<GameObject> tierThreeEnemies;
+    [SerializeField] private List<GameObject> tierOneEnemies;
+    [SerializeField] private List<GameObject> tierTwoEnemies;
+    [SerializeField] private List<GameObject> tierThreeEnemies;
 
     // Values
-    float tierOneMaxSpawnRate = -4 * 10 + 60;
-    float tierTwoMaxSpawnRate = -10 + 40;
+    private float tierOneMaxSpawnRate = -4 * 10 + 60;
+    private float tierTwoMaxSpawnRate = -10 + 40;
     //float tierThreeMaxSpawnRate = 5 * 10;
-    int numEnemies = 0;
+    private int numEnemies = 0;
     //List<Enemy> enemies = new List<Enemy>();
-    void Awake()
+    private void Awake()
     {
         Instance = this;
     }
-
+    /**
+     * Spawns an enemy using specific parameters. Returns spawned enemy.
+     * @param x X coord of enemy
+     * @param y Y coord of enemy
+     * @param numLevelsGenerated The amount of levels currently generated
+     * @return GameObject
+     */
     public GameObject SpawnEnemy(float x, float y, int numLevelsGenerated)
     {
         numEnemies++;
@@ -45,7 +51,9 @@ public class EnemyManager : MonoBehaviour
         else return Instantiate(tierThreeEnemies[Mathf.FloorToInt(Random.Range(0f, 1.999f))], new Vector2(x, y), Quaternion.identity, transform);       
     }
 
-    //Used as a placeholder for later
+    /**
+     * Clears all enemies from the game.
+     */
     public void ClearAllEnemies()
     {
         for (int i = transform.childCount - 1; i >= 0; i--)
@@ -55,7 +63,9 @@ public class EnemyManager : MonoBehaviour
         }
         numEnemies = 0;
     }
-
+    /**
+     * Decreases the number of enemies.
+     */
     public void DecreaseEnemyNumber()
     {
         numEnemies--;

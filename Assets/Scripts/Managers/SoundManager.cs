@@ -1,3 +1,10 @@
+/*
+ * Class for managing playing all related sounds.
+ * 
+ * @author Evan
+ * @version January 23
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,16 +25,27 @@ public class SoundManager : MonoBehaviour
         Instance = this;
     }
 
+    /**
+     * Plays a sound clip with the specified audio ID using the default audio source.
+     * @param audioID The ID of the audio clip to play.
+     */
     public void PlayAudio(int audioID)
     {
         audioSource.PlayOneShot(sounds[audioID]);
     }
-
+    /**
+     * Plays a sound clip with the specified audio ID using the provided audio source.
+     * @param audioID The ID of the audio clip to play.
+     * @param source The audio source to play the sound from.
+     */
     public void PlayAudio(int audioID, AudioSource source)
     {
         source.PlayOneShot(sounds[audioID]);
     }
-
+    /**
+     * Plays the music clip with the specified music ID, stopping any currently playing music.
+     * @param musicID The ID of the music clip to play.
+     */
     public void PlayMusic(int musicID)
     {
         if (musicSource.isPlaying)
@@ -40,7 +58,9 @@ public class SoundManager : MonoBehaviour
 
     }
 
-
+    /**
+     * Stops the currently playing music.
+     */
     public void StopMusic()
     {
         if (musicSource.isPlaying)

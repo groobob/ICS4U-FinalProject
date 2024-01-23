@@ -1,3 +1,10 @@
+/*
+ * Superclass to all OnHitUpgrades. These upgrades procc on hit. 
+ * 
+ * @author Evan
+ * @version January 21
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,5 +22,8 @@ public abstract class OnHitUpgrades : Upgrade
         _playerController = PlayerManager.Instance._playerControl;
     }
 
+    /**
+     * Effect to be called each attack
+     */
     public abstract void attackEffect();
 }

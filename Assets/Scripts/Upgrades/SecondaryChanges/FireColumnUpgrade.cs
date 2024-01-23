@@ -1,3 +1,10 @@
+/*
+ * Script for giving fire column secondary upgrade.
+ * 
+ * @author Evan
+ * @version January 22
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;

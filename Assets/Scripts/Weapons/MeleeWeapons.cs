@@ -27,9 +27,19 @@ public class MeleeWeapons : Weapons
     protected Transform attackPoint; // Position where the attack hitbox is.
 
 
-    //NOTE: BASE KEYWORD IS BASICALLY CALLING THE SUPER CONSTRUCTOR
     /**
-     * Constructor for MeleeWeapons.
+     * Constructor for the MeleeWeapons class, initializing the properties of the melee weapon.
+     * @param damage The damage inflicted by the melee weapon.
+     * @param reloadTime The time required for the weapon to reload after an attack.
+     * @param weaponDisplacement The displacement of the weapon from the player's position.
+     * @param weaponAngle The angle at which the weapon is positioned relative to the player.
+     * @param attackWidth The width of the melee attack area.
+     * @param attackLength The length of the melee attack area.
+     * @param knockbackStrength The strength of the knockback effect caused by the weapon.
+     * @param stunDuration The duration of the stun effect caused by the weapon.
+     * @param comboMax The maximum combo count achievable with the weapon.
+     * @param endlagDuration The duration of the endlag after an attack.
+     * @param player The player controller associated with the weapon.
      */
     public MeleeWeapons(int damage, float reloadTime, float weaponDisplacement, float weaponAngle, float attackWidth, float attackLength, float knockbackStrength, float stunDuration, int comboMax, float endlagDuration, PlayerController player) : base(damage, reloadTime, weaponDisplacement, weaponAngle, player)
     {
@@ -105,7 +115,7 @@ public class MeleeWeapons : Weapons
         }
     }
 
-    void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireCube(_player.GetRealWeaponPosition(), new Vector2(attackLength, attackWidth));
         //NOTE I CANT ROTATE THIS BRO, SO LIKE GOODLUCK ITS ONLY RLLY ACCURATE WHEN POINTED DIRECTLY RIGHT.

@@ -1,3 +1,10 @@
+/*
+ * Script for managing stats that are to be saved and reloaded.
+ * 
+ * @author Richard
+ * @version January 23
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,17 +13,20 @@ using UnityEngine;
 public class StatMenu : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] TextMeshProUGUI winsText;
-    [SerializeField] TextMeshProUGUI deathsText;
-    [SerializeField] TextMeshProUGUI killsText;
-    [SerializeField] TextMeshProUGUI bestTimeText;
-    [SerializeField] TextMeshProUGUI timePlayedText;
+    [SerializeField] private TextMeshProUGUI winsText;
+    [SerializeField] private TextMeshProUGUI deathsText;
+    [SerializeField] private TextMeshProUGUI killsText;
+    [SerializeField] private TextMeshProUGUI bestTimeText;
+    [SerializeField] private TextMeshProUGUI timePlayedText;
 
     private void Awake()
     {
         UpdateData();
     }
 
+    /**
+     * Updates the data displayed in stats menu.
+     */
     public void UpdateData()
     {
         winsText.text = "Wins: " + DataManager.Instance.GetData(DataManager.stats.wins);
@@ -30,13 +40,17 @@ public class StatMenu : MonoBehaviour
     {
         timePlayedText.text = Mathf.RoundToInt(DataManager.Instance.GetData(DataManager.stats.timeplayed)) + "sec";
     }
-
+    /**
+     * Resets data in stats menu.
+     */
     public void ResetData()
     {
         DataManager.Instance.ResetDataToDefault();
         UpdateData();
     }
-
+    /**
+     * Closes stats menu.
+     */
     public void Close()
     {
         Destroy(gameObject);

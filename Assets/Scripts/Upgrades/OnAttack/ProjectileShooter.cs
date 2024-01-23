@@ -1,3 +1,10 @@
+/*
+ * Script for Projectile Shooter. Fire projectiles at enemies.
+ * 
+ * @author Evan
+ * @version January 21
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

@@ -39,7 +39,7 @@ public class Shadow : Enemy
 
     private bool previousChargingValue;
 
-    private new void Start()
+    private void Start()
     {
         // Component initialization
         _seeker = GetComponent<Seeker>();

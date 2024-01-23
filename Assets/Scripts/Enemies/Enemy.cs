@@ -65,6 +65,8 @@ public abstract class Enemy : Entity
      */
     public override void DeathEvent()
     {
+        DataManager.Instance.IncrementData(DataManager.stats.kills);
+
         Destroy(gameObject);
         EnemyManager.Instance.DecreaseEnemyNumber();
     }

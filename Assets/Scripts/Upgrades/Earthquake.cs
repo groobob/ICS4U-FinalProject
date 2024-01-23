@@ -1,3 +1,10 @@
+/*
+ * Script for Earthquake/Circle of fire upgrade. Deal AOE damage when you use Tempo burst
+ * 
+ * @author Evan
+ * @version January 21
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +23,9 @@ public class Earthquake : Upgrade
         classification = "Tempo Burst Upgrade";
     }
 
+    /**
+     * Attack effect that occurs when you tempo burst.
+     */
     public void attackEffect()
     {
         Debug.Log("Circle of Fire");

@@ -1,8 +1,17 @@
+/*
+ * This class manages and stores game data such as kills, wins, deaths, and playtime.
+ * 
+ * @author Richard
+ * @version January 23
+ */
+
+
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UIElements;
+
 
 public class DataManager : MonoBehaviour
 {
@@ -13,7 +22,11 @@ public class DataManager : MonoBehaviour
     public enum stats{kills, wins, deaths, besttime, timeplayed}
     private float[] storedStats = new float[5];
 
-    void Awake()
+    /**
+     * Awake is called when the script instance is being loaded.
+     * It sets the instance to this object, loads data, and starts incrementing time played.
+     */
+    private void Awake()
     {
         Instance = this;
         LoadData();
@@ -24,7 +37,9 @@ public class DataManager : MonoBehaviour
     {
         storedStats[4]++;
     }
-
+    /**
+     * Resets all stored data to default values and writes to the data file.
+     */
     public void ResetDataToDefault()
     {
         for (int i = 0; i < storedStats.Length; i++)
@@ -33,7 +48,9 @@ public class DataManager : MonoBehaviour
         }
         WriteToDataFile("0|0|0|0|0");
     }
-
+    /**
+     * Loads data from the "Data" resource file and populates the storedStats array.
+     */
     public void LoadData()
     {
         TextAsset text = Resources.Load<TextAsset>("Data");
@@ -44,7 +61,11 @@ public class DataManager : MonoBehaviour
             storedStats[i] = int.Parse(loadedData[i]);
         }
     }
-
+    /**
+    * Gets the specified statistic from the storedStats array.
+    * @param type The type of statistic to retrieve.
+    * @return The value of the specified statistic.
+    */
     public float GetData(stats type)
     {
         switch (type)
@@ -62,7 +83,10 @@ public class DataManager : MonoBehaviour
         }
         return -1f;
     }
-
+    /**
+     * Increments the specified statistic in the storedStats array.
+     * @param type The type of statistic to increment.
+     */
     public void IncrementData(stats type)
     {
         switch(type)
@@ -80,7 +104,11 @@ public class DataManager : MonoBehaviour
                 break;
         }
     }
-
+    /**
+     * Sets the specified statistic in the storedStats array to the given value.
+     * @param type The type of statistic to set.
+     * @param value The value to set for the specified statistic.
+     */
     public void SetData(stats type, float time)
     {
         switch(type)

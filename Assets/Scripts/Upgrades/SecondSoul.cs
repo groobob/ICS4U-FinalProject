@@ -1,3 +1,10 @@
+/*
+ * Script for Second Soul. Saves the user with IFrames when at lethal HP.
+ * 
+ * @author Evan
+ * @version January 21
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,7 +36,10 @@ public class SecondSoul : Upgrade
         upgradeName = "Second Soul";
         description = "Upon taking lethal damage, enter a spectral form where you cannot be damaged and gain a speed boost. Additionally gain health. Works once per level.";
     }
-
+    /**
+     * Proccs to give iframes and speed boost. This only occurs at lethal health
+     * 
+     */
     public void UpgradeProcc()
     {
         if (!Used)

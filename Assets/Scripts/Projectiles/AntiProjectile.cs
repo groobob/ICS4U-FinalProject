@@ -1,3 +1,10 @@
+/*
+ * Script for windwall. Destroys all enemy particles.
+ * 
+ * @author Evan
+ * @version January 22
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +19,7 @@ public class AntiProjectile : MonoBehaviour
         }
     }
 
-    public void Start()
+    private void Start()
     {
         SoundManager.Instance.PlayAudio(9);
 

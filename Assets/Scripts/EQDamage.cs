@@ -1,3 +1,10 @@
+/*
+ * Script for causing Earthquake/Circle of fire damage
+ * 
+ * @author Evan
+ * @version January 23
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +17,7 @@ public class EQDamage : MonoBehaviour
     private float stunDuration = 1.4f;
     private float previousTime;
 
-    public void TickDamage()
+    private void TickDamage()
     {
         SoundManager.Instance.PlayAudio(8);
         Collider2D[] hitBox = Physics2D.OverlapCircleAll(transform.position, transform.localScale.x);

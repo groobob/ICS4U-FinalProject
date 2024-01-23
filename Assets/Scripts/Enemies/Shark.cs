@@ -31,7 +31,7 @@ public class Shark : Enemy
 
     // other references to own components
     private Seeker _seeker;
-    private new void Start()
+    private void Start()
     {
         // Component initialization
         _seeker = GetComponent<Seeker>();

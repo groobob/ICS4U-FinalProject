@@ -1,3 +1,10 @@
+/*
+ * Handles player stats. This is a subclass of entity and manages all the background stats of the player such as damage and tempo.
+ * 
+ * @author Evan
+ * @version January 23
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -36,7 +43,7 @@ public class PlayerStats : Entity
     private bool firstSpawned;
 
 
-    private new void Start()
+    private void Start()
     {
         firstSpawned = true;
         if (PlayerManager.Instance.isNew)
@@ -45,7 +52,7 @@ public class PlayerStats : Entity
         }
     }
 
-    public void Update()
+    private void Update()
     {
         if (firstSpawned)
         {
@@ -61,7 +68,9 @@ public class PlayerStats : Entity
         UpdateUI();
         PlayerManager.Instance.TempUpgrades();
     }
-
+    /**
+     * Updates the UI elements to reflect the current player stats.
+     */
     public void UpdateUI()
     {
         tempoBar.value = tempo;
@@ -69,7 +78,9 @@ public class PlayerStats : Entity
         healthBar.value = health;
         healthBarText.text = health + "/" + maxHealth;
     }
-
+    /**
+     * Checks for new upgrades and triggers the application of upgrades if the count has changed.
+     */
     private void CheckNewUpgrades()
     {
         int currentUpgradeCount = upgrades.GetComponents<Upgrade>().Length;
@@ -79,12 +90,18 @@ public class PlayerStats : Entity
             PlayerManager.Instance.WorkUpgrades();
         }
     }
-
+    /**
+     * Handles the event of the player's death, triggering the appropriate actions and sounds.
+     */
     public override void DeathEvent()
     {
+        // INCREMENT PLAYER DEATHS HERE
+        DataManager.Instance.IncrementData(DataManager.stats.deaths);
         SoundManager.Instance.PlayAudio(1);
     }
-
+    /**
+     * Increases the player's tempo within the maximum tempo limit.
+     */
     public void AddTempo()
     {
         previousTempoTime = Time.time;
@@ -98,7 +115,11 @@ public class PlayerStats : Entity
         }
 
     }
-
+    /**
+     * Spends tempo for spell usage and returns whether the operation was successful.
+     * @param amount The amount of tempo to spend.
+     * @return True if the tempo was successfully spent; otherwise, false.
+     */
     public bool SpendTempo(float amount) // THIS IS USED FOR SPELLS ONLY
     {
         if (tempo - amount < 0)
@@ -112,12 +133,17 @@ public class PlayerStats : Entity
         }
 
     }
-
+    /**
+     * Pauses the tempo decay for the specified duration.
+     * @param duration The duration for which the tempo decay is paused.
+     */
     public void PauseTempoDecay(float duration)
     {
         tempoContinueTime = Time.time + duration;
     }
-
+    /**
+     * Manages the tempo decay process, reducing the tempo over time.
+     */
     public void TempoDecay()
     {
         if (tempoContinueTime > Time.time) { return; }
@@ -131,7 +157,11 @@ public class PlayerStats : Entity
             }
         }
     }
-
+    /**
+     * Processes the player taking damage and triggers appropriate actions based on the outcome.
+     * @param damage The amount of damage taken.
+     * @return bool
+     */
     public new bool TakeDamage(int damage)
     {
         if (health <= 0) { return false; } // if hitting dead
@@ -156,7 +186,10 @@ public class PlayerStats : Entity
         }
         
     }
-
+    /**
+     * Adds upgrades to the player, applying the effects of the added upgrade.
+     * @param System.Type The type of upgrade to add.
+     */
     public void AddUpgrades(System.Type upgrade)
     {
         if (upgrade.IsSubclassOf(typeof(SecondaryChange)))
@@ -173,13 +206,19 @@ public class PlayerStats : Entity
             Upgrade added = upgrades.AddComponent(upgrade) as Upgrade;
         }
     }
-
+    /**
+     * Grants the player invincibility frames for the specified duration.
+     * @param duration The duration of the invincibility frames.
+     */
     public void GiveIFrames(float duration)
     {
         ChangeHitbox(false);
         Invoke("ChangeHitbox", duration);
     }
-
+    /**
+     * Toggles the hitbox's enabled state to the specified value.
+     * @param value The new enabled state of the hitbox.
+     */
     private void ChangeHitbox(bool value)
     {
         hitbox.enabled = value;

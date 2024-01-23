@@ -1,3 +1,10 @@
+/*
+ * Class for picking upgrade cards.
+ * 
+ * @author Richard
+ * @version January 23
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,8 +14,8 @@ public class Card : MonoBehaviour
 {
     // References
     [Header("References")]
-    [SerializeField] GameObject nameText;
-    [SerializeField] GameObject descriptionText;
+    [SerializeField] private GameObject nameText;
+    [SerializeField] private GameObject descriptionText;
 
     // Values
     public Upgrade upgrade;

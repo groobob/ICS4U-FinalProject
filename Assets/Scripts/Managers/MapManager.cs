@@ -15,20 +15,20 @@ public class MapManager : MonoBehaviour
     public static MapManager Instance;
 
     //Values for the grid
-    enum cell {empty, floor, wall};
-    enum entity {empty, enemy};
-    cell[,] grid;
-    entity[,] entityGrid;
-    Vector2 spawnPos;
-    int roomWidth, roomHeight;
-    int numLevelsGenerated;
+    private enum cell {empty, floor, wall};
+    private enum entity {empty, enemy};
+    private cell[,] grid;
+    private entity[,] entityGrid;
+    private Vector2 spawnPos;
+    private int roomWidth, roomHeight;
+    private int numLevelsGenerated;
     public int numUpgradeRewards;
-    float extraEnemySpawnRate;
+    private float extraEnemySpawnRate;
     [Header("Grid Parameters")] 
-    [SerializeField] Vector2 roomSizeWorldUnits = new Vector2(30, 30);
-    [SerializeField] float worldUnitsInOneGridCell = 1f;
-    [SerializeField] GameObject wallObject, floorObject;
-    [SerializeField] float minSquaredDistanceFromEnemy = 10f;
+    [SerializeField] private Vector2 roomSizeWorldUnits = new Vector2(30, 30);
+    [SerializeField] private float worldUnitsInOneGridCell = 1f;
+    [SerializeField] private GameObject wallObject, floorObject;
+    [SerializeField] private float minSquaredDistanceFromEnemy = 10f;
 
     //Walkers for algorithm
     struct walker
@@ -41,18 +41,18 @@ public class MapManager : MonoBehaviour
 
     //Specified chances for different things to occur
     [Header("Generation Modification")]
-    [SerializeField] float chanceWalkerChangeDir = 0.5f;
-    [SerializeField] float chanceWalkerSpawn = 0.05f;
-    [SerializeField] float chanceWalkerDestroy = 0.05f;
-    [SerializeField] float chanceEnemySpawn = 0.1f;
-    [SerializeField] float addedChanceOnChallenge = 0.1f;
-    [SerializeField] float percentToFill = 0.2f;
-    [SerializeField] int maxWalkers = 10;
+    [SerializeField] private float chanceWalkerChangeDir = 0.5f;
+    [SerializeField] private float chanceWalkerSpawn = 0.05f;
+    [SerializeField] private float chanceWalkerDestroy = 0.05f;
+    [SerializeField] private float chanceEnemySpawn = 0.1f;
+    [SerializeField] private float addedChanceOnChallenge = 0.1f;
+    [SerializeField] private float percentToFill = 0.2f;
+    [SerializeField] private int maxWalkers = 10;
 
     //References
     [Header("Serialized References")]
-    [SerializeField] Camera _camera;
-    [SerializeField] AstarPath _pathfinder;
+    [SerializeField] private Camera _camera;
+    [SerializeField] private AstarPath _pathfinder;
 
     // Singleton
     private void Awake()
@@ -84,7 +84,9 @@ public class MapManager : MonoBehaviour
         GridManager.Instance.SpawnGrid();
         // enemy manager spawn normal cassh!!
     }
-
+    /*
+     * Destroys map.
+     */
     public void DestroyMap(float time)
     {
         Invoke("DestroyMap", time);
@@ -121,18 +123,13 @@ public class MapManager : MonoBehaviour
         SpawnLevel();
     }
 
-    // for later
-    public void GenerateBossRoom()
-    {
-
-    }
 
     /*
      * Sets up and initalizes variables for the grid
      * 
      * @return void
      */
-    void Setup()
+    private void Setup()
     {
         roomHeight = Mathf.RoundToInt(roomSizeWorldUnits.x / worldUnitsInOneGridCell);
         roomWidth = Mathf.RoundToInt(roomSizeWorldUnits.y / worldUnitsInOneGridCell);
@@ -165,7 +162,7 @@ public class MapManager : MonoBehaviour
      * 
      * @return Vector2 - Returns the generated vector2
      */
-    Vector2 RandomDirection()
+    private Vector2 RandomDirection()
     {
         return cardinalDirections[Mathf.FloorToInt(Random.Range(0f, 3.99f))];
     }
@@ -175,7 +172,7 @@ public class MapManager : MonoBehaviour
      * 
      * @return void
      */
-    void CreateFloor()
+    private void CreateFloor()
     {
         //Failsafe
         int iterations = 0;
@@ -260,7 +257,7 @@ public class MapManager : MonoBehaviour
      * 
      * @return int - Returns the number of floor tiles
      */
-    int NumberOfFloors()
+    private int NumberOfFloors()
     {
         int count = 0;
         foreach (cell space in grid)
@@ -297,7 +294,7 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    void GenerateEnemies()
+    private void GenerateEnemies()
     {
         for (int x = 0; x < roomWidth - 1; x++)
         {
@@ -323,7 +320,7 @@ public class MapManager : MonoBehaviour
      * 
      * @return void
      */
-    void SpawnLevel()
+    private void SpawnLevel()
     {
         // Spawn player first so that enemys can reference it
         _camera.enabled = false;
@@ -357,7 +354,7 @@ public class MapManager : MonoBehaviour
         _pathfinder.Scan();
         numLevelsGenerated++;
     }
-    
+
     /*
      * Spawns a gameobject at a certain co-ordinate purely for environments
      * 
@@ -367,7 +364,7 @@ public class MapManager : MonoBehaviour
      * @param type - An integer for the type to spawn, 0 for environment, 1 for player, 2 for enemies
      * @return void
      */
-    void Spawn(int x, int y, GameObject toSpawn)
+    private void Spawn(int x, int y, GameObject toSpawn)
     {
         Vector2 offset = roomSizeWorldUnits / 2.0f;
         Vector2 spawnPos = new Vector2(x, y) * worldUnitsInOneGridCell - offset;
@@ -382,7 +379,7 @@ public class MapManager : MonoBehaviour
      * @param type - An integer for the type to spawn, 0 for player, 1 for enemies
      * @return GameObject - Returns a reference to the spawned gameobject
      */
-    GameObject Spawn(int x, int y, int type)
+    private GameObject Spawn(int x, int y, int type)
     {
         Vector2 offset = roomSizeWorldUnits / 2.0f;
         Vector2 spawnPos = new Vector2(x, y) * worldUnitsInOneGridCell - offset;
@@ -395,7 +392,7 @@ public class MapManager : MonoBehaviour
      * 
      * @return void
      */
-    void CreateWalls()
+    private void CreateWalls()
     {
         for (int x = 0; x < roomWidth - 1; x++)
         {

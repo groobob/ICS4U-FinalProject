@@ -1,5 +1,5 @@
 /*
- * Script for controlling the player.
+ * Script for controlling the player. This manages attacks, special attacks, tempoBursts, etc.
  * 
  * @author Evan
  * @version January 23
@@ -151,7 +151,7 @@ public class PlayerController : MonoBehaviour
     }
 
     /**
-     * Method for checking/attacking.
+     * Method for checking/attacking the main attack.
      */
     private void MainAttack()
     {
@@ -169,7 +169,9 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
+    /**
+     * Method for checking/attacking the secondary attack.
+     */
     private void SecondaryAttack()
     {
         if (Input.GetMouseButtonDown(1))
@@ -181,27 +183,17 @@ public class PlayerController : MonoBehaviour
                 nextSecondaryAttackTime = Time.time + secondaryAttack.GetReloadTime();
                 secondaryAttack.Attack();
                 numOfAttacks++;
-                secondaryAttackUpgrades();
             }
         }
     }
-
+    /**
+     * Method for running any OnAttackUpgrades .
+     */
     private void upgradeAttacks()
     {
         foreach (OnAttackUpgrades upgrade in upgrades.GetComponents<OnAttackUpgrades>())
         {
             upgrade.upgradeAttack();
-        }
-    }
-
-    private void secondaryAttackUpgrades()
-    {
-        foreach (OnAttackUpgrades upgrade in upgrades.GetComponents<OnAttackUpgrades>())
-        {
-            if (upgrade.GetType() == typeof(OwlSlice))
-            {
-                upgrade.attack();
-            }
         }
     }
 
@@ -215,7 +207,9 @@ public class PlayerController : MonoBehaviour
         mousePlayerVector = (mousePos - transform.position).normalized;
         //Debug.Log(mousePos + " " + mousePlayerVector);
     }
-
+    /**
+     * Method for checking/attacking the tempo burst attack.
+     */
     private void TempoAttack()
     {
         if (Input.GetKeyDown(KeyCode.F) && tempoCDTime < Time.time)

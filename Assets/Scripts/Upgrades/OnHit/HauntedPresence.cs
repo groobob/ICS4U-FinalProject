@@ -1,3 +1,10 @@
+/*
+ * Script for Haunted Pressence. Summon an AOE attack every four hits. 
+ * 
+ * @author Evan
+ * @version January 21
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;

@@ -1,3 +1,10 @@
+/*
+ * Script for transitioning the title screen.
+ * 
+ * @author Richard
+ * @version January 23
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -8,21 +15,21 @@ public class Transition : MonoBehaviour
 {
     // References
     [Header("References")]
-    [SerializeField] TextMeshProUGUI titleText;
-    [SerializeField] List<GameObject> buttons;
+    [SerializeField] private TextMeshProUGUI titleText;
+    [SerializeField] private List<GameObject> buttons;
 
     // Values
     [Header("Values")]
-    [SerializeField] float timeBetweenTitleAndButton;
-    [SerializeField] float transitionTime;
-    [SerializeField] float titleFadeInTime;
-    [SerializeField] float offset;
-    [SerializeField] float timeUntilButtonEnabled;
+    [SerializeField] private float timeBetweenTitleAndButton;
+    [SerializeField] private float transitionTime;
+    [SerializeField] private float titleFadeInTime;
+    [SerializeField] private float offset;
+    [SerializeField] private float timeUntilButtonEnabled;
 
-    List<float> positionsY = new List<float>();
-    float timeElapsed;
-    bool titleOpaque = false;
-    bool flag = false;
+    private List<float> positionsY = new List<float>();
+    private float timeElapsed;
+    private bool titleOpaque = false;
+    private bool flag = false;
 
     private void Start()
     {
@@ -36,7 +43,7 @@ public class Transition : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
         timeElapsed += Time.deltaTime;
 

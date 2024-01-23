@@ -1,3 +1,10 @@
+/*
+ * Script for Windwall. Subclass of Secondary. Activate to fire a windwall.
+ * 
+ * @author Evan
+ * @version January 21
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +13,9 @@ public class Windwall : SecondaryAttack
 {
     private static int setDamage = 1;
     private static float setReloadTime = 8f;
-
+    /**
+     * Main Constructor
+     */
     public Windwall() : base(setDamage, setReloadTime, null) { }
 
     public override void Attack()
