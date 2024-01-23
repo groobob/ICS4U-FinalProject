@@ -2,7 +2,7 @@
  * Script for controlling the player.
  * 
  * @author Evan
- * @version January 09
+ * @version January 23
  */
 
 using System.Collections;
@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
     private List<Enemy> rushHitEnemies;
     private float rushEndTime;
 
-    void Start()
+    private void Start()
     {
         _rb = GetComponent<Rigidbody2D>(); // Define RigidBody
         _cameraScript = FindObjectOfType<PlayerCamera>();
@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
         UpdateWeapon(typeof(StarterSword)); //
         //secondaryAttack = gameObject.AddComponent<Sidegun>();
         //secondaryAttack.SetPlayer(this);
-        UpdateSecondaryWeapon(typeof(FireColumn));//Sidegun
+        UpdateSecondaryWeapon(typeof(PhantomStep));//Sidegun
         runSpeed = _playerStats.GetMoveSpeed();
         numOfAttacks = 0;
     }
@@ -228,7 +228,7 @@ public class PlayerController : MonoBehaviour
                     PlayerManager.Instance.GetUpgradesPart().GetComponent<Earthquake>().attackEffect();
                 }
 
-
+                SoundManager.Instance.PlayAudio(2);
                 tempoFired = false;
                 tempoCDTime = Time.time + tempoAttackCD;
                 tempoSpellFinishTime = tempoAttackCastTime + Time.time;
@@ -241,7 +241,7 @@ public class PlayerController : MonoBehaviour
                 //Debug.Log("Not enough tempo");
             }
         }
-        if ((tempoSpellFinishTime - tempoAttackCastTime*2/3) < Time.time && !tempoFired)
+        if ((tempoSpellFinishTime - tempoAttackCastTime*1.4/3) < Time.time && !tempoFired)
         {
             tempoFired = true;
             ProjectileManager.Instance.SpawnProjectile(transform.position, mousePlayerVector * 25, 1);
@@ -284,6 +284,8 @@ public class PlayerController : MonoBehaviour
         {
             if (_playerStats.tempo >= rushRequirement && _playerStats.SpendTempo(rushCost))
             {
+                SoundManager.Instance.PlayAudio(15);
+
                 rushCDTime = Time.time + rushAttackCD;
                 //Debug.Log("rush Attack");
                 Vector3 rushMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -320,7 +322,10 @@ public class PlayerController : MonoBehaviour
         Vector3 weaponOffset = mousePlayerVector * weaponDisplacement;
         _weaponPos.position = transform.position + weaponOffset;
     }
-
+    /**
+     * Returns a multiplier using all the speed modfiers for the 
+     * @return float
+     */
     public float ApplySpeedModsPlayer()
     {
         float speedMultiplier = 1;

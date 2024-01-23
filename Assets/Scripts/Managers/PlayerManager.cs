@@ -21,6 +21,8 @@ public class PlayerManager : MonoBehaviour
     public PlayerController _playerControl;
     private GameObject upgrades;
 
+    public GameObject damageNumbers;
+
     //Saved Stats
     private int savedHealth;
     private int savedMaxHealth;
@@ -28,15 +30,17 @@ public class PlayerManager : MonoBehaviour
     public bool isNew; // Determines if a player needs new base stats or not, used in PlayerStats
 
     //Stats
-    public int addedHealth;
-    public int addedMaxHealth;
-    public float addedMovespeed;
-    public float addedRange;
-    public float addedTempoGain;
-    public float addedTempoMax;
-    public int addedDamage;
+    private int addedHealth;
+    private int addedMaxHealth;
+    private float addedMovespeed;
+    private float addedRange;
+    private float addedTempoGain;
+    private float addedTempoMax;
+    private int addedDamage;
 
     private System.Type currentSecondaryChange;
+
+    [SerializeField] public Dictionary<int, Upgrade> hashMap = new Dictionary<int, Upgrade>();
 
     private void Awake()
     {
@@ -44,7 +48,14 @@ public class PlayerManager : MonoBehaviour
         isNew = true;
         /*healthBarSlider.value = savedHealth;
         healthBarText.text = savedHealth + "/" + savedMaxHealth;*/
+
     }
+
+    private void Start()
+    {
+        SoundManager.Instance.PlayMusic(1);
+    }
+
     /**
      * Method for spawning the player, loads all data.
      * @param x X coord for spawning the player
@@ -67,6 +78,11 @@ public class PlayerManager : MonoBehaviour
         _playerStats.healthBarText = healthBarText;
 
         return player;
+    }
+
+    public float GetAddedMoveSpeed()
+    {
+        return addedMovespeed;
     }
 
     /**
@@ -111,6 +127,14 @@ public class PlayerManager : MonoBehaviour
 
     private void ResetCharacter()
     {
+        addedHealth = 0;
+        addedMaxHealth = 0;
+        addedMovespeed = 0;
+        addedRange = 0;
+        addedDamage = 0;
+        addedTempoGain = 0;
+        addedTempoMax = 0;
+
         isNew = true;
         WipeUpgrades();
     }

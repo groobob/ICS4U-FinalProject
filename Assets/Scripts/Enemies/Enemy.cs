@@ -1,5 +1,5 @@
 /*
- * Superclass to all Enemies.
+ * Superclass to all Enemies. Inherets from Entity.
  * 
  * @author Evan
  * @version January 09
@@ -60,6 +60,9 @@ public abstract class Enemy : Entity
 
     }
 
+    /**
+     * Runs whenever the enemy dies
+     */
     public override void DeathEvent()
     {
         Destroy(gameObject);

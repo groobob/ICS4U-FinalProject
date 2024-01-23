@@ -52,6 +52,8 @@ public class MeleeWeapons : Weapons
      */
     public override void Attack()
     {
+        SoundManager.Instance.PlayAudio(0);
+
         _playerStats.EndlagEntity(endlagDuration);
         if (comboResetTime < Time.time) // if you have waited too long to do your next atack
         {
@@ -68,6 +70,8 @@ public class MeleeWeapons : Weapons
             Enemy enemy = c.gameObject.GetComponent<Enemy>();
             if (enemy && enemy.TakeDamage(_playerStats.bonusDamage + _playerStats.tempDmgBoost + damage * (1 + (int)(_playerStats.tempo) / 100)))
             {
+                SoundManager.Instance.PlayAudio(6);
+
                 if (enemy.GetHealth() <= 0)
                 {
                     OnKillEffects(enemy);

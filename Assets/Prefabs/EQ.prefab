@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3639815677573331741}
   - component: {fileID: 7991306470331064303}
   - component: {fileID: 3800473758842520614}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: EQ
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0.5754717, g: 0.20179838, b: 0.06243326, a: 1}
   m_FlipX: 0

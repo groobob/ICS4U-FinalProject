@@ -15,24 +15,24 @@ public class StarWand : Enemy
 {
     // Values for the enemy
     [Header("Values")]
-    [SerializeField] float spaceBetweenPlayerSquared;
-    [SerializeField] float rangeSquared;
-    [SerializeField] float reloadTime;
-    [SerializeField] float projectileSpeed;
-    float timeElapsed;
+    [SerializeField] private float spaceBetweenPlayerSquared;
+    [SerializeField] private float rangeSquared;
+    [SerializeField] private float reloadTime;
+    [SerializeField] private float projectileSpeed;
+    private float timeElapsed;
 
     // References for the enemy
     [Header("References")]
-    [SerializeField] float nextWaypointDistance = 3f;
-    
+    [SerializeField] private float nextWaypointDistance = 3f;
+
 
     // Pathfinding
-    Path path;
-    int currentWaypoint = 0;
-    float distanceToPlayer;
+    private Path path;
+    private int currentWaypoint = 0;
+    private float distanceToPlayer;
 
     // other references to own components
-    Seeker _seeker;
+    private Seeker _seeker;
 
     private new void Start()
     {
@@ -46,12 +46,12 @@ public class StarWand : Enemy
         InvokeRepeating("UpdatePath", 0f, 0.5f);
     }
 
-    void UpdatePath()
+    private void UpdatePath()
     {
         if (_seeker.IsDone()) _seeker.StartPath(_rb.position, target.position, OnPathComplete);
     }
 
-    void OnPathComplete(Path p)
+    private void OnPathComplete(Path p)
     {
         if (!p.error)
         {
@@ -61,7 +61,7 @@ public class StarWand : Enemy
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (!checkDisabled()) return;
 
@@ -69,6 +69,7 @@ public class StarWand : Enemy
         distanceToPlayer = Vector2.SqrMagnitude(new Vector2(target.position.x - _rb.position.x, target.position.y - _rb.position.y));
         if (distanceToPlayer < rangeSquared && timeElapsed > reloadTime)
         {
+            SoundManager.Instance.PlayAudio(11, gameObject.GetComponent<AudioSource>());
             ProjectileManager.Instance.SpawnProjectile(_rb.position, new Vector2(target.position.x - _rb.position.x, target.position.y - _rb.position.y).normalized * projectileSpeed, 0);
             timeElapsed = 0f;
         }

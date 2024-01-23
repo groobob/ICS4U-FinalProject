@@ -11,15 +11,14 @@ public class Earthquake : Upgrade
     {
         EQ = ProjectileManager.Instance.GetProjectileList().ElementAt(5);
         tempoGainBoost = 3f;
-        upgradeName = "Earthquake";
+        upgradeName = "Circle of Fire";
         description = "Tempo bursting creates an AOE field that damages and slows enemies. Also gives bonus Tempo Gain on basic attacks";
         classification = "Tempo Burst Upgrade";
     }
 
     public void attackEffect()
     {
-        Debug.Log("Earthquake");
-
+        Debug.Log("Circle of Fire");
         Vector3 pos = transform.position;
         pos.z = 0f;
         Instantiate(EQ, pos, Quaternion.identity);

@@ -82,7 +82,7 @@ public class PlayerStats : Entity
 
     public override void DeathEvent()
     {
-        throw new System.NotImplementedException();
+        SoundManager.Instance.PlayAudio(1);
     }
 
     public void AddTempo()

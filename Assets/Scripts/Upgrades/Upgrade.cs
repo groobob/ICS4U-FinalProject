@@ -26,5 +26,4 @@ public abstract class Upgrade : MonoBehaviour
     // On Hit
     // On Kill
     // Active (optional)
-
 }

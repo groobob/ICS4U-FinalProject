@@ -14,6 +14,8 @@ public class AntiProjectile : MonoBehaviour
 
     public void Start()
     {
+        SoundManager.Instance.PlayAudio(9);
+
         Destroy(gameObject, 3f);
     }
 }

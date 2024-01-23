@@ -11,6 +11,8 @@ public class Sidegun : SecondaryAttack
 
     public override void Attack()
     {
+        SoundManager.Instance.PlayAudio(3);
+
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = transform.position.z;
         Vector3 mousePlayerVector = (mousePos - transform.position).normalized;

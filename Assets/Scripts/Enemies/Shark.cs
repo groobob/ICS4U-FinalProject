@@ -14,23 +14,23 @@ public class Shark : Enemy
 {
     // Values for the enemy
     [Header("Values")]
-    [SerializeField] float fleeRangeSquared;
-    [SerializeField] float reloadTime;
-    [SerializeField] float projectileSpeed;
-    float timeElapsed;
+    [SerializeField] private float fleeRangeSquared;
+    [SerializeField] private float reloadTime;
+    [SerializeField] private float projectileSpeed;
+    private float timeElapsed;
 
     // References for the enemy
     [Header("References")]
-    [SerializeField] float nextWaypointDistance = 3f;
+    [SerializeField] private float nextWaypointDistance = 3f;
 
 
     // Pathfinding
-    Path path;
-    int currentWaypoint = 0;
-    float distanceToPlayer;
+    private Path path;
+    private int currentWaypoint = 0;
+    private float distanceToPlayer;
 
     // other references to own components
-    Seeker _seeker;
+    private Seeker _seeker;
     private new void Start()
     {
         // Component initialization
@@ -41,14 +41,15 @@ public class Shark : Enemy
 
         // Constant path creation
         InvokeRepeating("UpdatePath", 0f, 0.5f);
+        EndlagEntity(Random.Range(1.0f, 5.0f));
     }
 
-    void UpdatePath()
+    private void UpdatePath()
     {
         if (_seeker.IsDone()) _seeker.StartPath(_rb.position, target.position, OnPathComplete);
     }
 
-    void OnPathComplete(Path p)
+    private void OnPathComplete(Path p)
     {
         if (!p.error)
         {
@@ -58,7 +59,7 @@ public class Shark : Enemy
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (!checkDisabled()) return;
         timeElapsed += Time.deltaTime;
@@ -67,6 +68,7 @@ public class Shark : Enemy
         if (path == null) return;
         if (timeElapsed > reloadTime)
         {
+            SoundManager.Instance.PlayAudio(11, gameObject.GetComponent<AudioSource>());
             ProjectileManager.Instance.SpawnProjectileSpread(_rb.position, new Vector2(target.position.x - _rb.position.x, target.position.y - _rb.position.y).normalized * projectileSpeed, 0, 11, 2 * Mathf.PI / 11);
             timeElapsed = 0f;
         }
