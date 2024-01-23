@@ -67,11 +67,14 @@ public abstract class Enemy : Entity
     {
         DataManager.Instance.IncrementData(DataManager.stats.kills);
 
+        // Change later
         Destroy(gameObject);
         EnemyManager.Instance.DecreaseEnemyNumber();
     }
 
     protected abstract void Attack();
+
+    //protected abstracted void Death();
 
     protected void AttackCheck()
     {
