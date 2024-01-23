@@ -159,8 +159,6 @@ public class PlayerStats : Entity
 
     public void AddUpgrades(System.Type upgrade)
     {
-        //Upgrade added = upgrades.AddComponent(upgrade) as Upgrade;
-
         if (upgrade.IsSubclassOf(typeof(SecondaryChange)))
         {
             foreach (SecondaryChange upg in upgrades.GetComponents<SecondaryChange>())
@@ -170,7 +168,10 @@ public class PlayerStats : Entity
             upgrades.AddComponent(upgrade);
             PlayerManager.Instance.SecondaryUpgrades(upgrade);
         }
-
+        else
+        {
+            Upgrade added = upgrades.AddComponent(upgrade) as Upgrade;
+        }
     }
 
     public void GiveIFrames(float duration)
