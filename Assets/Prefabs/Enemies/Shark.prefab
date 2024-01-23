@@ -261,6 +261,7 @@ MonoBehaviour:
   flashSpeed: 0
   fleeRangeSquared: 36
   reloadTime: 7
+  attackCharge: 0.7
   projectileSpeed: 4
   nextWaypointDistance: 3
 --- !u!82 &6698919992349494572

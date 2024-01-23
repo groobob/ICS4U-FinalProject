@@ -39,12 +39,16 @@ public class SceneLoader : MonoBehaviour
     {
         Application.Quit();
     }
-
+    /**
+     * Loads the ending scene.
+     */
     public void LoadEndScene()
     {
         SceneManager.LoadScene(2);
     }
-
+    /**
+     * Loads the losing scene.
+     */
     public void LoadDeathScene()
     {
         SceneManager.LoadScene(3);

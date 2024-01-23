@@ -16,6 +16,7 @@ public class UpgradeManager : MonoBehaviour
     // References
     [Header("References")]
     [SerializeField] List<Upgrade> upgradeList;
+    List<Upgrade> obtainedUpgrades;
     [SerializeField] GameObject card;
     [SerializeField] Transform cardHolder;
 
@@ -59,9 +60,13 @@ public class UpgradeManager : MonoBehaviour
     }
     /**
      * Handles the event of picking an upgrade card, reducing the number of remaining upgrades and destroying the cards.
+     * 
+     * @param removeIndex the index of the upgrade to remove from the generated list
      */
-    public void PickedUpgrade()
+    public void PickedUpgrade(int removeIndex)
     {
+        obtainedUpgrades.Add(upgradeList[removeIndex]);
+        upgradeList.RemoveAt(removeIndex);
         numUpgrades--;
         DestroyCards();
         if (numUpgrades <= 0)

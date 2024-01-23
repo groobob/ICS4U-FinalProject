@@ -20,6 +20,7 @@ public class Card : MonoBehaviour
     // Values
     public Upgrade upgrade;
     public bool picked;
+    public int index;
 
     private void Start()
     {
@@ -32,6 +33,6 @@ public class Card : MonoBehaviour
     {
         picked = true;
         PlayerManager.Instance._playerStats.AddUpgrades(upgrade.GetComponent<Upgrade>().GetType());
-        UpgradeManager.Instance.PickedUpgrade();
+        UpgradeManager.Instance.PickedUpgrade(index);
     }
 }
