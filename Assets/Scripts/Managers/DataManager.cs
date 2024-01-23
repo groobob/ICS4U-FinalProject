@@ -11,7 +11,7 @@ public class DataManager : MonoBehaviour
 
     // Stats to store
     public enum stats{kills, wins, deaths, besttime, timeplayed}
-    [SerializeField] float[] storedStats = new float[5];
+    private float[] storedStats = new float[5];
 
     void Awake()
     {

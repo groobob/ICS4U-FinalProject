@@ -256,6 +256,9 @@ MonoBehaviour:
   detectionRadiusSquared: 36
   attackSpeed: 0
   meleeRange: 0
+  enemyTargetIndicator: {fileID: 5012046509435541177, guid: 3e26f1bc4ead59c499417c4b80255303, type: 3}
+  enemyTargetSpaceBetweenPlayer: 0
+  flashSpeed: 0
   fleeRangeSquared: 36
   reloadTime: 7
   projectileSpeed: 4
