@@ -48,7 +48,14 @@ public class PlayerManager : MonoBehaviour
         isNew = true;
         /*healthBarSlider.value = savedHealth;
         healthBarText.text = savedHealth + "/" + savedMaxHealth;*/
+
     }
+
+    private void Start()
+    {
+        SoundManager.Instance.PlayMusic(1);
+    }
+
     /**
      * Method for spawning the player, loads all data.
      * @param x X coord for spawning the player

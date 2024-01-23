@@ -13,6 +13,8 @@ public class CurseOfAnguish : OnAttackUpgrades
     {
         if (Random.Range(1, 8) == 1)
         {
+            SoundManager.Instance.PlayAudio(4);
+
             Debug.Log("Curse of Anguish");
             // AOE slash
             Collider2D[] hitBox = Physics2D.OverlapBoxAll(_playerControl.GetRealWeaponPosition(), new Vector2(AOEsize, AOEsize), _playerControl.GetRealWeaponAngle().eulerAngles.z);

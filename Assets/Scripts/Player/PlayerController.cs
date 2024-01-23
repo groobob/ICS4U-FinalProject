@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
         UpdateWeapon(typeof(StarterSword)); //
         //secondaryAttack = gameObject.AddComponent<Sidegun>();
         //secondaryAttack.SetPlayer(this);
-        UpdateSecondaryWeapon(typeof(FireColumn));//Sidegun
+        UpdateSecondaryWeapon(typeof(Sidegun));//Sidegun
         runSpeed = _playerStats.GetMoveSpeed();
         numOfAttacks = 0;
     }
@@ -228,7 +228,7 @@ public class PlayerController : MonoBehaviour
                     PlayerManager.Instance.GetUpgradesPart().GetComponent<Earthquake>().attackEffect();
                 }
 
-
+                SoundManager.Instance.PlayAudio(2);
                 tempoFired = false;
                 tempoCDTime = Time.time + tempoAttackCD;
                 tempoSpellFinishTime = tempoAttackCastTime + Time.time;
@@ -241,7 +241,7 @@ public class PlayerController : MonoBehaviour
                 //Debug.Log("Not enough tempo");
             }
         }
-        if ((tempoSpellFinishTime - tempoAttackCastTime*2/3) < Time.time && !tempoFired)
+        if ((tempoSpellFinishTime - tempoAttackCastTime*1.4/3) < Time.time && !tempoFired)
         {
             tempoFired = true;
             ProjectileManager.Instance.SpawnProjectile(transform.position, mousePlayerVector * 25, 1);

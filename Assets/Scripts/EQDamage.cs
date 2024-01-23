@@ -12,6 +12,7 @@ public class EQDamage : MonoBehaviour
 
     public void TickDamage()
     {
+        SoundManager.Instance.PlayAudio(8);
         Collider2D[] hitBox = Physics2D.OverlapCircleAll(transform.position, transform.localScale.x);
         foreach (Collider2D c in hitBox)
         {

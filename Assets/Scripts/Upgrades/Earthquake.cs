@@ -19,7 +19,6 @@ public class Earthquake : Upgrade
     public void attackEffect()
     {
         Debug.Log("Circle of Fire");
-
         Vector3 pos = transform.position;
         pos.z = 0f;
         Instantiate(EQ, pos, Quaternion.identity);

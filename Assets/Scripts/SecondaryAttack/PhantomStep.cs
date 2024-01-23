@@ -17,6 +17,7 @@ public class PhantomStep : SecondaryAttack
     {
         if (_playerStats.SpendTempo(tempoCost))
         {
+            SoundManager.Instance.PlayAudio(7);
             Debug.Log("Phantom Step");
             _playerStats.GiveIFrames(iframeDuration);
             _playerStats.SpeedBoost(speedBoost, iframeDuration * 1.5f);
