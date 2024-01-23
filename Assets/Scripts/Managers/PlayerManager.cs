@@ -16,9 +16,9 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] public Slider tempoBar;
     [SerializeField] public Slider healthBar;
     [SerializeField] public TextMeshProUGUI healthBarText;
-    private GameObject player;
-    PlayerStats _playerStats;
-    private PlayerController _playerControl;
+    public GameObject player;
+    public PlayerStats _playerStats;
+    public PlayerController _playerControl;
     private GameObject upgrades;
 
     //Saved Stats
@@ -222,5 +222,17 @@ public class PlayerManager : MonoBehaviour
     public GameObject GetUpgradesPart()
     {
         return upgrades;
+    }
+
+    public void DisablePlayerControls()
+    {
+        player.GetComponent<PlayerController>().enabled = false;
+        player.GetComponent<Weapons>().enabled = false;
+    }
+
+    public void EnablePlayerControls()
+    {
+        player.GetComponent<PlayerController>().enabled = true;
+        player.GetComponent<Weapons>().enabled = true;
     }
 }

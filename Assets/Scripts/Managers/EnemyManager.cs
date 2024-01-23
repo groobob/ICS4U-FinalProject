@@ -61,7 +61,8 @@ public class EnemyManager : MonoBehaviour
         numEnemies--;
         if (numEnemies <= 0)
         {
-            MapManager.Instance.DestroyMap();
+            PlayerManager.Instance.DisablePlayerControls();
+            UpgradeManager.Instance.GenerateUpgradeCards(MapManager.Instance.numUpgradeRewards);
         }
     }
 }

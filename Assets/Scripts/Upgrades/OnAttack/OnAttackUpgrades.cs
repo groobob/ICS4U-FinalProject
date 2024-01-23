@@ -11,8 +11,8 @@ public abstract class OnAttackUpgrades : Upgrade
     protected void Init()
     {
         classification = "On attack";
-        _playerControl = transform.parent.gameObject.GetComponent<PlayerController>();
-        _playerStats = transform.parent.gameObject.GetComponent<PlayerStats>();
+        _playerStats = PlayerManager.Instance._playerStats;
+        _playerControl = PlayerManager.Instance._playerControl;
     }
 
     public abstract void attack();

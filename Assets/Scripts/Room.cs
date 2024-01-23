@@ -54,6 +54,7 @@ public class Room : MonoBehaviour
         }
         else if (type == GridManager.room.explored) _sprite.color = Color.gray;
         else if (type == GridManager.room.current) _sprite.color = Color.cyan;
+        else if (type == GridManager.room.empty) _sprite.color = new Color(1f, 1f, 1f, 0f);
         else _sprite.color = Color.black;
     }
 

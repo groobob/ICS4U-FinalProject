@@ -10,8 +10,8 @@ public abstract class OnKillUpgrades : Upgrade
     protected void Init()
     {
         classification = "On kill";
-        _playerStats = transform.parent.gameObject.GetComponent<PlayerStats>();
-        _playerController = transform.parent.gameObject.GetComponent<PlayerController>();
+        _playerStats = PlayerManager.Instance._playerStats;
+        _playerController = PlayerManager.Instance._playerControl;
     }
 
     public abstract void attackEffect();

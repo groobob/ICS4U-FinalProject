@@ -11,23 +11,27 @@ public class DataManager : MonoBehaviour
 
     // Stats to store
     public enum stats{kills, wins, deaths, besttime, timeplayed}
-    float[] storedStats = new float[5];
+    [SerializeField] float[] storedStats = new float[5];
 
     void Awake()
     {
         Instance = this;
         LoadData();
+        InvokeRepeating("IncrementTimePlayed", 0f, 1f);
     }
 
-    private void Update()
+    private void IncrementTimePlayed()
     {
-        storedStats[4] += Time.deltaTime;
+        storedStats[4]++;
     }
 
     public void ResetDataToDefault()
     {
+        for (int i = 0; i < storedStats.Length; i++)
+        {
+            storedStats[i] = 0;
+        }
         WriteToDataFile("0|0|0|0|0");
-        LoadData();
     }
 
     public void LoadData()

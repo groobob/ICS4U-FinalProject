@@ -22,6 +22,7 @@ public class MapManager : MonoBehaviour
     Vector2 spawnPos;
     int roomWidth, roomHeight;
     int numLevelsGenerated;
+    public int numUpgradeRewards;
     float extraEnemySpawnRate;
     [Header("Grid Parameters")] 
     [SerializeField] Vector2 roomSizeWorldUnits = new Vector2(30, 30);
@@ -84,6 +85,11 @@ public class MapManager : MonoBehaviour
         // enemy manager spawn normal cassh!!
     }
 
+    public void DestroyMap(float time)
+    {
+        Invoke("DestroyMap", time);
+    }
+
     /*
      * Generates the map for the scene
      * 
@@ -91,6 +97,7 @@ public class MapManager : MonoBehaviour
      */
     public void GenerateMap(GridManager.room type)
     {
+        numUpgradeRewards = 1;
         switch(type)
         {
             default:
@@ -102,7 +109,7 @@ public class MapManager : MonoBehaviour
                 extraEnemySpawnRate = addedChanceOnChallenge;
                 break;
             case GridManager.room.item:
-                // spawn double item
+                numUpgradeRewards = 2;
                 break;
         }
 

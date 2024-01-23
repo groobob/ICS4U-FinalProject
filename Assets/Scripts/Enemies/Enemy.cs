@@ -7,6 +7,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class Enemy : Entity
@@ -17,12 +18,50 @@ public abstract class Enemy : Entity
     [SerializeField] protected float detectionRadiusSquared;
     [SerializeField] protected float attackSpeed;
     [SerializeField] protected float meleeRange;
+    [SerializeField] protected GameObject enemyTargetIndicator;
+    [SerializeField] protected float enemyTargetSpaceBetweenPlayer;
+    [SerializeField] private float flashSpeed;
+
+    float flashingTime;
+    bool transparent = false;
     private float nextAttackTime;
 
+    private void Awake()
+    {
+        flashingTime = Random.value * flashSpeed;
+    }
+    private void Update()
+    {
+        // Position calculation for player
+        enemyTargetIndicator.transform.position = target.position - (target.position - transform.position).normalized * enemyTargetSpaceBetweenPlayer;
+
+        // Flashing
+        flashingTime += Time.deltaTime;
+        if(!transparent)
+        {
+            if(flashingTime > flashSpeed)
+            {
+                transparent = true;
+                flashingTime = 0;
+                return;
+            }
+            enemyTargetIndicator.GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 0f, flashingTime / flashSpeed);
+        }
+        else
+        {
+            if (flashingTime > flashSpeed)
+            {
+                transparent = false;
+                flashingTime = 0;
+                return;
+            }
+            enemyTargetIndicator.GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 0f, (flashSpeed - flashingTime) / flashSpeed);
+        }
+
+    }
 
     public override void DeathEvent()
     {
-        //throw new System.NotImplementedException();
         Destroy(gameObject);
         EnemyManager.Instance.DecreaseEnemyNumber();
     }
