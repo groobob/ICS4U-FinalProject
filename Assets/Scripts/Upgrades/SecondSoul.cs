@@ -46,6 +46,7 @@ public class SecondSoul : Upgrade
         {
             Used = true;
             Debug.Log("Phantom Step");
+            Destroy(Instantiate(PlayerManager.Instance.animations[1], PlayerManager.Instance.player.transform.position, Quaternion.identity), 1f);
             _playerStats.GiveIFrames(iframeDuration);
             _playerStats.SpeedBoost(movementBuff, iframeDuration * 1.5f);
             _playerStats.EndlagEntity(iframeDuration / 8);
