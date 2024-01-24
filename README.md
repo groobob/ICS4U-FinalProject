@@ -90,6 +90,37 @@ Sound Manager:
 - Normally in unity, a new sound source is given to entities that play sound. With sound manager, it can be done with one method without using any additional scripts
 - Plays all music and sounds.
 
+Enemy Manager:
+- Handles all enemy spawning
+- Graphs were created using desmos to map out enemy spawnrates. Lower tier enemies spawn less as higher tier ones spawn more.
+- Despawning and clearing enemies
+- Allows enemies to scale off of level
+
+Map manager: 
+- Responsible for spawning and despawning map using an algorithm
+- Can specify size and other vlaues
+
+Upgrade Manager:
+- Responsible for giving upgrades upon level completion
+- Ensures same upgrades do not show up twice
+- Gives additional rewarded upgrades for coloured challenge rooms
+
+Grid manager
+- Responsible for creating a 2D array for the level selection
+- Each Tile can have a different room condition
+
+Data Manager:
+- Saves and loads data between instances of the game. 
+- saves stats such as game time, money, menu upgrades, etc
+
+Menu manager: 
+- Responsible for allowing the player to interact with menu components
+
+Scene Loader:
+- Loads different scenes such as menu, death screen, game screen etc
+
+
+
 Map Manager:
 
 >>Credits:
