@@ -97,7 +97,7 @@ MonoBehaviour:
   rushCost: 15
   rushRequirement: 30
   rushVelocity: 32
-  rushDamage: 1
+  rushDamage: 2
   rushDuration: 0.2
 --- !u!50 &5852556656687508199
 Rigidbody2D:
@@ -173,8 +173,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 598192fec07d8cf4dae22dae3ea8bfaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 7
-  maxHealth: 7
+  health: 10
+  maxHealth: 10
   baseMoveSpeed: 7
   knockbackResistance: 1
   _rb: {fileID: 5852556656687508199}
@@ -184,7 +184,7 @@ MonoBehaviour:
   tempoMax: 100
   tempoDecayFactor: 0.999
   tempoDelayWait: 1
-  tempoGain: 15
+  tempoGain: 10
   hitbox: {fileID: 6705575036995754464}
   tempoBar: {fileID: 0}
   healthBar: {fileID: 0}

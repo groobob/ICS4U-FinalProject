@@ -93,7 +93,7 @@ public abstract class Entity : MonoBehaviour
     private IEnumerator speedChange(float factor, float duration)
     {
         speedFactor *= factor;
-        yield return new WaitForSeconds(duration);
+        yield return new WaitForSeconds(duration); // waits time before setting speed back
         speedFactor /= factor;
     }
     /**

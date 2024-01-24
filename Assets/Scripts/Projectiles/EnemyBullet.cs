@@ -1,7 +1,7 @@
 /*
  * Script for enemy projectile. Does damage when touching player
  * 
- * @author Evan
+ * @author Richard
  * @version January 23
  */
 

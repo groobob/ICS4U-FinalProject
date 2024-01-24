@@ -26,8 +26,8 @@ public class ProjectileShooter : OnAttackUpgrades
     public void Start()
     {
         base.Init();
-        //damageBoost = -1;
-        upgradeName = "Magic Path: Grand Wizard";
+        damageBoost = -1;
+        upgradeName = "Grand Wizard";
         description = "Harness the power of magic. Each attack fires projectiles.";
     }
 }

@@ -27,7 +27,7 @@ public class SideGunProjectile : Projectile
         if (enemy)
         {
             bool ignore = false;
-            foreach (Enemy check in hitEnemies)
+            foreach (Enemy check in hitEnemies) // doesn't hit multiple enemies
             {
                 Debug.Log(ignore);
                 //Debug.Log(check);
@@ -42,7 +42,7 @@ public class SideGunProjectile : Projectile
             if (!ignore)
             {
                 hitEnemies.Add(enemy);
-                enemy.TakeDamage(damage);
+                enemy.TakeDamage(damage + PlayerManager.Instance._playerStats.bonusDamage + PlayerManager.Instance._playerStats.tempDmgBoost);
                 enemy.StunEntity(tempoBurstStun);
                 enemy.GiveKnockBack(gameObject, knockbakStrength, knockbackDuration);
             }

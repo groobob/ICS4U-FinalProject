@@ -73,6 +73,15 @@ public abstract class Enemy : Entity
         Death();
         EnemyManager.Instance.DecreaseEnemyNumber();
     }
+    /**
+     * Increases HP for every room cleared.
+     * @param n An integer representing the number of rooms done
+     */
+    public void BoostHealthPerLevel(int n)
+    {
+        health += 2 * n;
+        maxHealth += 2 * n;
+    }
 
     protected abstract void Attack();
 

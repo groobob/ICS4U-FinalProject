@@ -25,7 +25,7 @@ public class OwlClaw : OnHitUpgrades
         if(!(_playerStats == null))
         {
             float baseSpeed = _playerStats.GetMoveSpeed() - PlayerManager.Instance.GetAddedMoveSpeed();
-            tempDmg = (int)Mathf.Ceil(_playerStats.GetMoveSpeed() * _playerController.ApplySpeedModsPlayer() - baseSpeed);
+            tempDmg = (int)(Mathf.Ceil(_playerStats.GetMoveSpeed() * _playerController.ApplySpeedModsPlayer() - baseSpeed) * 0.6f);
         }
         if (!(_playerController == null) && _playerController.GetWeapon().GetWeaponDamage() + tempDmg <= 1)
         {

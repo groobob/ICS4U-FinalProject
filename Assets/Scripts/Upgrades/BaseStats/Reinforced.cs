@@ -14,7 +14,7 @@ public class Reinforced : BaseStatUpgrade
     public void Start()
     {
         base.Init();
-        healthBoost = 2;
+        healthBoost = 3;
         upgradeName = "Reinforced";
         description = "Gain 2 Passive HP.";
     }
