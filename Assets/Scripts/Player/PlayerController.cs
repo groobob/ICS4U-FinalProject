@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
         UpdateWeapon(typeof(StarterSword)); //
         //secondaryAttack = gameObject.AddComponent<Sidegun>();
         //secondaryAttack.SetPlayer(this);
-        UpdateSecondaryWeapon(typeof(PhantomStep));//Sidegun
+        UpdateSecondaryWeapon(typeof(Sidegun));//Sidegun
         runSpeed = _playerStats.GetMoveSpeed();
         numOfAttacks = 0;
     }
