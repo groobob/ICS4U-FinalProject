@@ -36,7 +36,7 @@ public class HauntedPresence : OnHitUpgrades
             current = 0;
             Debug.Log("Haunted Presence");
             Collider2D[] hitBox = Physics2D.OverlapBoxAll(_playerController.GetRealWeaponPosition(), new Vector2(AOEsize, AOEsize), _playerController.GetRealWeaponAngle().eulerAngles.z);
-            foreach (Collider2D c in hitBox)
+            foreach (Collider2D c in hitBox) // AOE hitbox
             {
                 Enemy enemy = c.gameObject.GetComponent<Enemy>();
                 if (enemy)

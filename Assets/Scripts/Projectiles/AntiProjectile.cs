@@ -15,7 +15,7 @@ public class AntiProjectile : MonoBehaviour
     {
         if (collision.gameObject.layer == 7)
         {
-            //Destroy(collision.gameObject);
+            Destroy(collision.gameObject);
         }
     }
 

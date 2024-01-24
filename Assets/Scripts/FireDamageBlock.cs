@@ -38,7 +38,7 @@ public class FireDamageBlock : MonoBehaviour
 
                 }
             }
-            if (!ignore)
+            if (!ignore) 
             {
                 hitEnemies.Add(enemy);
                 enemy.TakeDamage(damage);
@@ -49,10 +49,10 @@ public class FireDamageBlock : MonoBehaviour
 
     private void Update()
     {
-        if (previousTime - Time.time >= duration/2 && !reset)
+        if (previousTime - Time.time >= duration/2 && !reset)// does two ticks of damage
         {
             reset = true;
-            hitEnemies = new List<Enemy>();
+            hitEnemies = new List<Enemy>(); // resets the list of already hit enemies
         }
     }
 

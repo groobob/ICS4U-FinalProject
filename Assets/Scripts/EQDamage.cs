@@ -39,6 +39,7 @@ public class EQDamage : MonoBehaviour
 
     private void Start()
     {
+        // Multiple ticks of damage
         TickDamage();
         Invoke("TickDamage", 1f);
         Invoke("TickDamage", 2f);

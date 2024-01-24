@@ -81,7 +81,7 @@ public class MeleeWeapons : Weapons
             if (enemy && enemy.TakeDamage(_playerStats.bonusDamage + _playerStats.tempDmgBoost + damage * (1 + (int)(_playerStats.tempo) / 100)))
             {
                 SoundManager.Instance.PlayAudio(6);
-
+                // Things to do on hit
                 if (enemy.GetHealth() <= 0)
                 {
                     OnKillEffects(enemy);
@@ -90,6 +90,10 @@ public class MeleeWeapons : Weapons
                 enemy.StunEntity(stunDuration);
                 if (combo == comboMax)
                 {
+                    if (PlayerManager.Instance.GetUpgradesPart().GetComponent<OwlSlice>())
+                    {
+                        _playerStats.SpeedBoost(1.1f, 1.4f);
+                    }
                     enemy.GiveKnockBack(_player.gameObject, knockbackStrength * 5, 0.1f);
                 }
                 else
@@ -101,7 +105,7 @@ public class MeleeWeapons : Weapons
                 //enemy.GetComponent<Enemy>().GiveKnockBack(_player.gameObject, knockbackStrength, 0.1f);
             }
 
-            if (c.gameObject.GetComponent<Projectile>() && c.gameObject.tag == "EnemyProjectile")
+            if (c.gameObject.GetComponent<Projectile>() && c.gameObject.tag == "EnemyProjectile") // Destroy projectiles
             {
                 Destroy(c.gameObject);
             }

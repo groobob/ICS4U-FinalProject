@@ -27,7 +27,7 @@ public class SideGunProjectile : Projectile
         if (enemy)
         {
             bool ignore = false;
-            foreach (Enemy check in hitEnemies)
+            foreach (Enemy check in hitEnemies) // doesn't hit multiple enemies
             {
                 Debug.Log(ignore);
                 //Debug.Log(check);
