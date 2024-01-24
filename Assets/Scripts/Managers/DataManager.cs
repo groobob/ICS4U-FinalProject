@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 
 public class DataManager : MonoBehaviour
@@ -27,6 +26,7 @@ public class DataManager : MonoBehaviour
 
     // Values
     public int money;
+    public string upgradesObtained;
     private float speedrunTimer;
     private bool timerOn = false;
 
@@ -44,6 +44,7 @@ public class DataManager : MonoBehaviour
         LoadData();
         LoadShop();
         InvokeRepeating("IncrementTimePlayed", 0f, 1f);
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Update()
@@ -56,6 +57,14 @@ public class DataManager : MonoBehaviour
                 speedrunTimerText.text = GetSpeedrunTimerTime();
             }
         }
+    }
+
+    /*
+     * Get the string representation of all the upgrades obtained from upgrade manager
+     */
+    public void UpdateUpgradesObtainedList()
+    {
+        upgradesObtained = UpgradeManager.Instance.GetObtainedUpgrades();
     }
 
     /*

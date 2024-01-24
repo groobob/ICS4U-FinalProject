@@ -34,6 +34,7 @@ public class Card : MonoBehaviour
         picked = true;
         PlayerManager.Instance._playerStats.AddUpgrades(upgrade.GetComponent<Upgrade>().GetType());
         UpgradeManager.Instance.PickedUpgrade(index);
+        DataManager.Instance.UpdateUpgradesObtainedList();
         GetComponent<BoxCollider2D>().enabled = false;
     }
 }

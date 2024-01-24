@@ -39,6 +39,39 @@ public class UpgradeManager : MonoBehaviour
             upgradeListCopy.Add(upgradeList[i]);
         }
     }
+
+    /*
+     * Gives a string representation of all upgrades obtained
+     * 
+     * return string - The representation of the obtained upgrades
+     */
+    public string GetObtainedUpgrades()
+    {
+        string output = "";
+        for (int i = 0; i < obtainedUpgrades.Count; i++)
+        {
+            if (i == obtainedUpgrades.Count - 1)
+            {
+                output += obtainedUpgrades[i];
+                break;
+            }
+            output += obtainedUpgrades[i] + ", ";
+        }
+        return output;
+    }
+
+    /*
+     * Resets the upgrade manager for use again
+     */
+    public void Reset()
+    {
+        obtainedUpgrades.Clear();
+        for (int i = 0; i < upgradeList.Count; i++)
+        {
+            upgradeListCopy.Add(upgradeList[i]);
+        }
+    }
+
     /**
      * Ends the level and generates upgrade cards.
      */

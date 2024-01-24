@@ -15,7 +15,7 @@ public class GridManager : MonoBehaviour
     public static GridManager Instance;
 
     //Values for the grid
-    public enum room {normal, item, money, challenge, explored, current, empty};
+    public enum room {normal, item, money, challenge, explored, current, end, empty};
     private room[,] roomGrid;
     private Vector2Int playerPosition;
     [Header("Grid Parameters")]
@@ -76,7 +76,13 @@ public class GridManager : MonoBehaviour
                 }
 
                 // Right side
-                if (x == gridSize.x - 1 && !(y == (gridSize.y - 1) / 2))
+                if (x == gridSize.x - 1 && y == (gridSize.y - 1) / 2)
+                {
+                    roomGrid[x, y] = room.end;
+                    playerPosition = new Vector2Int(0, y);
+                    continue;
+                }
+                else if (x == gridSize.x - 1 && !(y == (gridSize.y - 1) / 2))
                 {
                     roomGrid[x, y] = room.empty;
                     continue;
@@ -145,6 +151,9 @@ public class GridManager : MonoBehaviour
                         break;
                     case room.current:
                         _room.Setup(room.current, false, x, y);
+                        break;
+                    case room.end:
+                        _room.Setup(room.end, isNeighbour, x, y);
                         break;
                     case room.empty:
                         _room.Setup(room.empty, false, x, y);
