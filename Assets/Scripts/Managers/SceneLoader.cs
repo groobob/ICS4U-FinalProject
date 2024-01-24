@@ -31,6 +31,7 @@ public class SceneLoader : MonoBehaviour
     public void LoadStartScene()
     {
         SceneManager.LoadScene(0);
+        DataManager.Instance.ResetTimer();
     }
     /**
      * Quits the game application.
@@ -45,6 +46,9 @@ public class SceneLoader : MonoBehaviour
     public void LoadEndScene()
     {
         SceneManager.LoadScene(2);
+        DataManager.Instance.StopTimer();
+        DataManager.Instance.CompareBestTimes();
+
     }
     /**
      * Loads the losing scene.
@@ -52,5 +56,14 @@ public class SceneLoader : MonoBehaviour
     public void LoadDeathScene()
     {
         SceneManager.LoadScene(3);
+        DataManager.Instance.StopTimer();
+    }
+
+    /*
+     * Loads the losing scene after a specified amount of time
+     */
+    public void LoadDeathScene(float time)
+    {
+        Invoke("LoadDeathScene", time);
     }
 }

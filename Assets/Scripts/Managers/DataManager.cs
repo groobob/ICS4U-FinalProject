@@ -9,6 +9,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -19,8 +20,16 @@ public class DataManager : MonoBehaviour
     public static DataManager Instance;
 
     // Stats to store
-    public enum stats{kills, wins, deaths, besttime, timeplayed}
+    public enum stats { kills, wins, deaths, besttime, timeplayed }
     private float[] storedStats = new float[5];
+
+    // Values
+    private float speedrunTimer;
+    private bool timerOn = false;
+
+    // References
+    [Header("References")]
+    [SerializeField] private TextMeshProUGUI speedrunTimerText;
 
     /**
      * Awake is called when the script instance is being loaded.
@@ -33,13 +42,82 @@ public class DataManager : MonoBehaviour
         InvokeRepeating("IncrementTimePlayed", 0f, 1f);
     }
 
+    private void Update()
+    {
+        if (timerOn)
+        {
+            speedrunTimer += Time.deltaTime;
+            if (!(speedrunTimerText == null))
+            {
+                speedrunTimerText.text = GetSpeedrunTimerTime();
+            }
+        }
+    }
+
+    /*
+    * Method to run calculations for the timer
+    * 
+    * @return string - Representation of the current speedrun time
+    */
+    public string GetSpeedrunTimerTime()
+    {
+        int currentTime = Mathf.RoundToInt(speedrunTimer);
+        int hrs = Mathf.FloorToInt(currentTime / 3600);
+        int min = Mathf.FloorToInt(currentTime % 3600 / 60);
+        int sec = currentTime % 3600 % 60;
+        return hrs + ":" + min + ":" + sec;
+    }
+
+    /*
+    * Starts the speedrun timer
+    */
+    public void StartTimer()
+    {
+        timerOn = true;
+    }
+
+    /*
+    * Stops the speedrun timer
+    */
+    public void StopTimer()
+    {
+        timerOn = false;
+    }
+
+    /*
+    * Resets the timer
+    */
+    public void ResetTimer()
+    {
+        timerOn = false;
+        speedrunTimer = 0f;
+    }
+
+    // Shop related methods
+    private void WriteToShopFile(string str)
+    {
+        StreamWriter writer = new StreamWriter("Assets/Resources/Shop.txt");
+        writer.Write(str);
+        writer.Close();
+    }
+
+    // Data related methods
+
+    public void CompareBestTimes()
+    {
+        if (speedrunTimer < storedStats[3])
+        {
+            SetData(stats.besttime, speedrunTimer);
+        }
+    }
+
     private void IncrementTimePlayed()
     {
         storedStats[4]++;
     }
     /**
-     * Resets all stored data to default values and writes to the data file.
-     */
+    * Resets all stored data to default values and writes to the data file.
+    */
     public void ResetDataToDefault()
     {
         for (int i = 0; i < storedStats.Length; i++)
@@ -49,8 +127,8 @@ public class DataManager : MonoBehaviour
         WriteToDataFile("0|0|0|0|0");
     }
     /**
-     * Loads data from the "Data" resource file and populates the storedStats array.
-     */
+        * Loads data from the "Data" resource file and populates the storedStats array.
+        */
     public void LoadData()
     {
         TextAsset text = Resources.Load<TextAsset>("Data");
@@ -84,12 +162,12 @@ public class DataManager : MonoBehaviour
         return -1f;
     }
     /**
-     * Increments the specified statistic in the storedStats array.
-     * @param type The type of statistic to increment.
-     */
+        * Increments the specified statistic in the storedStats array.
+        * @param type The type of statistic to increment.
+        */
     public void IncrementData(stats type)
     {
-        switch(type)
+        switch (type)
         {
             case stats.kills:
                 storedStats[0]++;
@@ -105,13 +183,13 @@ public class DataManager : MonoBehaviour
         }
     }
     /**
-     * Sets the specified statistic in the storedStats array to the given value.
-     * @param type The type of statistic to set.
-     * @param value The value to set for the specified statistic.
-     */
+        * Sets the specified statistic in the storedStats array to the given value.
+        * @param type The type of statistic to set.
+        * @param value The value to set for the specified statistic.
+        */
     public void SetData(stats type, float time)
     {
-        switch(type)
+        switch (type)
         {
             case stats.besttime:
                 storedStats[3] = time;
@@ -132,14 +210,6 @@ public class DataManager : MonoBehaviour
     private void WriteToDataFile(string str)
     {
         StreamWriter writer = new StreamWriter("Assets/Resources/Data.txt");
-        writer.Write(str);
-        writer.Close();
-    }
-
-    // for shop later maybe
-    private void WriteToShopFile(string str)
-    {
-        StreamWriter writer = new StreamWriter("Assets/Resources/Shop.txt");
         writer.Write(str);
         writer.Close();
     }

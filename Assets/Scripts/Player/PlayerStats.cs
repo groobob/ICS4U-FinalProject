@@ -95,9 +95,9 @@ public class PlayerStats : Entity
      */
     public override void DeathEvent()
     {
-        // INCREMENT PLAYER DEATHS HERE
         DataManager.Instance.IncrementData(DataManager.stats.deaths);
         SoundManager.Instance.PlayAudio(1);
+        SceneLoader.Instance.LoadDeathScene(3f);
     }
     /**
      * Increases the player's tempo within the maximum tempo limit.
@@ -164,7 +164,6 @@ public class PlayerStats : Entity
      */
     public new bool TakeDamage(int damage)
     {
-        if (health <= 0) { SceneLoader.Instance.LoadDeathScene();  return false; } // if hitting dead
         if (!hitbox.enabled) { return false; }
         ChangeHitbox(false);
         Invoke("ChangeHitbox", 1f);
