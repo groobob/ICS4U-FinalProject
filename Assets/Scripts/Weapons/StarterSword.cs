@@ -20,7 +20,7 @@ public class StarterSword : MeleeWeapons
     private static float setKnockbackStrength = 4f;
 
     private static float setStunDuration = setReloadTime + 0.25f;
-    private static int setComboMax = 4;
+    private static int setComboMax = 3;
     private static float setEndlagDuration = setReloadTime - 0.1f;
     /**
      * Constructor for startersword

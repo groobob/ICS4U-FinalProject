@@ -78,8 +78,16 @@ public class MeleeWeapons : Weapons
         foreach (Collider2D c in hitBox)
         {
             Enemy enemy = c.gameObject.GetComponent<Enemy>();
-            if (enemy && enemy.TakeDamage(_playerStats.bonusDamage + _playerStats.tempDmgBoost + damage * (1 + (int)(_playerStats.tempo) / 100)))
+
+            int tempoBoost = 0;
+            if (_playerStats.tempo > 50)
             {
+                tempoBoost = 1;
+            }
+
+            if (enemy && enemy.TakeDamage(_playerStats.bonusDamage + _playerStats.tempDmgBoost + damage + tempoBoost))
+            {
+                Debug.Log((1 + (int)(_playerStats.tempo / 100)));
                 SoundManager.Instance.PlayAudio(6);
                 // Things to do on hit
                 if (enemy.GetHealth() <= 0)

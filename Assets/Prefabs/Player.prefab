@@ -94,8 +94,8 @@ MonoBehaviour:
   tempoRequirement: 40
   tempoFired: 1
   rushAttackCD: 7
-  rushCost: 15
-  rushRequirement: 30
+  rushCost: 10
+  rushRequirement: 20
   rushVelocity: 32
   rushDamage: 2
   rushDuration: 0.2
@@ -184,7 +184,7 @@ MonoBehaviour:
   tempoMax: 100
   tempoDecayFactor: 0.997
   tempoDelayWait: 1
-  tempoGain: 10
+  tempoGain: 8
   hitbox: {fileID: 6705575036995754464}
   tempoBar: {fileID: 0}
   healthBar: {fileID: 0}

@@ -165,7 +165,7 @@ MonoBehaviour:
   damage: 2
   breakOnWalls: 0
   tempoBurstStun: 1
-  knockbakStrength: 7
+  knockbakStrength: 4
   knockbackDuration: 0.1
 --- !u!95 &2602353648818390612
 Animator:
