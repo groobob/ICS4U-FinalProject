@@ -2,12 +2,11 @@
  * Class to manage all things related to the menu and changing views and tabs.
  * 
  * @author Richard
- * @version January 21
+ * @version January 24
  */
 
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class MenuManager : MonoBehaviour
@@ -23,7 +22,8 @@ public class MenuManager : MonoBehaviour
      */
     public void SpawnShopMenu()
     {
-
+        GameObject menu = Instantiate(shopMenu, transform.position, Quaternion.identity, _canvas.transform);
+        menu.transform.localPosition = Vector3.zero;
     }
     /*
      * Generates the stats menu

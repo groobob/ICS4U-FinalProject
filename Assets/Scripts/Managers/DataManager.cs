@@ -21,9 +21,12 @@ public class DataManager : MonoBehaviour
 
     // Stats to store
     public enum stats { kills, wins, deaths, besttime, timeplayed }
+    public enum upgrade { speed, damage, health }
     private float[] storedStats = new float[5];
+    private int[] storedUpgrades = new int[3];
 
     // Values
+    public int money;
     private float speedrunTimer;
     private bool timerOn = false;
 
@@ -39,6 +42,7 @@ public class DataManager : MonoBehaviour
     {
         Instance = this;
         LoadData();
+        LoadShop();
         InvokeRepeating("IncrementTimePlayed", 0f, 1f);
     }
 
@@ -94,6 +98,89 @@ public class DataManager : MonoBehaviour
     }
 
     // Shop related methods
+
+    /*
+     * Increments your balance with a given parameter
+     * 
+     * @param amount - Amount of money to increment
+     */
+    public void IncrementMoney(int amount)
+    {
+        money += amount;
+    }
+
+    /*
+     * Gives the information from the upgrades
+     * 
+     * @return int - The upgrade progression
+     */
+    public int GetShop(upgrade type)
+    {
+        switch (type)
+        {
+            case upgrade.speed:
+                return storedUpgrades[0];
+            case upgrade.damage:
+                return storedUpgrades[1];
+            case upgrade.health:
+                return storedUpgrades[2];
+        }
+        return -1;
+    }
+
+    /*
+     * Increments a certain upgrade
+     * 
+     * @param type - The type of upgrade to increment
+     */
+    public void IncrementShop(upgrade type)
+    {
+        switch(type)
+        {
+            case upgrade.speed:
+                storedUpgrades[0]++;
+                break;
+            case upgrade.damage:
+                storedUpgrades[1]++;
+                break;
+            case upgrade.health:
+                storedUpgrades[2]++;
+                break;
+        }
+    }
+
+    /**
+    * Loads data from the "Shop" resource file and populates the storedUpgrades array.
+    */
+    public void LoadShop()
+    {
+        TextAsset text = Resources.Load<TextAsset>("Shop");
+        string[] loadedData = text.text.Split("|");
+
+        for (int i = 0; i < loadedData.Length; i++)
+        {
+            if (i == loadedData.Length - 1)
+            {
+                money = int.Parse(loadedData[i]);
+                break;
+            }
+            storedUpgrades[i] = int.Parse(loadedData[i]);
+        }
+    }
+
+    /**
+    * Resets all stored shop data to default values and writes to the shop file.
+    */
+    public void ResetShopToDefault()
+    {
+        money = 0;
+        for (int i = 0; i < storedUpgrades.Length; i++)
+        {
+            storedUpgrades[i] = 0;
+        }
+        WriteToShopFile("0|0|0|0");
+    }
+
     private void WriteToShopFile(string str)
     {
         StreamWriter writer = new StreamWriter("Assets/Resources/Shop.txt");
@@ -205,6 +292,7 @@ public class DataManager : MonoBehaviour
     private void OnApplicationQuit()
     {
         WriteToDataFile(storedStats[0] + "|" + storedStats[1] + "|" + storedStats[2] + "|" + storedStats[3] + "|" + Mathf.RoundToInt(storedStats[4]));
+        WriteToShopFile(storedUpgrades[0] + "|" +storedUpgrades[1] + "|" + storedUpgrades[2] + "|" + money);
     }
 
     private void WriteToDataFile(string str)
