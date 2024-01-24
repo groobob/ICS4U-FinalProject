@@ -16,7 +16,7 @@ public class MagicBullet : MonoBehaviour
         Enemy enemy = collision.gameObject.GetComponent<Enemy>();
         if (enemy)
         {
-            enemy.TakeDamage(1);
+            enemy.TakeDamage(2);
             Destroy(gameObject);
         }
     }
