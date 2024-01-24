@@ -46,9 +46,24 @@ public class EnemyManager : MonoBehaviour
         int random = Mathf.FloorToInt(Random.Range(0, 100.999f));
 
         // tier 1, 2, then 3
-        if (random < chanceTier1) return Instantiate(tierOneEnemies[Mathf.FloorToInt(Random.Range(0f, 1.999f))], new Vector2(x, y), Quaternion.identity, transform);
-        else if(random < chanceTier1 + chanceTier2) return Instantiate(tierTwoEnemies[Mathf.FloorToInt(Random.Range(0f, 1.999f))], new Vector2(x, y), Quaternion.identity, transform);
-        else return Instantiate(tierThreeEnemies[Mathf.FloorToInt(Random.Range(0f, 1.999f))], new Vector2(x, y), Quaternion.identity, transform);       
+        if (random < chanceTier1)
+        {
+            GameObject obj = Instantiate(tierOneEnemies[Mathf.FloorToInt(Random.Range(0f, 1.999f))], new Vector2(x, y), Quaternion.identity, transform);
+            obj.GetComponent<Enemy>().BoostHealthPerLevel(MapManager.Instance.numLevelsGenerated);
+            return obj;
+        }
+        else if (random < chanceTier1 + chanceTier2)
+        {
+            GameObject obj = Instantiate(tierTwoEnemies[Mathf.FloorToInt(Random.Range(0f, 1.999f))], new Vector2(x, y), Quaternion.identity, transform);
+            obj.GetComponent<Enemy>().BoostHealthPerLevel(MapManager.Instance.numLevelsGenerated);
+            return obj;
+        }
+        else
+        {
+            GameObject obj = Instantiate(tierThreeEnemies[Mathf.FloorToInt(Random.Range(0f, 1.999f))], new Vector2(x, y), Quaternion.identity, transform);
+            obj.GetComponent<Enemy>().BoostHealthPerLevel(MapManager.Instance.numLevelsGenerated);
+            return obj;
+        }
     }
 
     /**

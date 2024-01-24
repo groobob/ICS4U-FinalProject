@@ -306,7 +306,10 @@ public class DataManager : MonoBehaviour
         SaveToFiles();
     }
 
-    private void SaveToFiles()
+    /*
+     * Saves the current data to the files
+     */
+    public void SaveToFiles()
     {
         WriteToDataFile(storedStats[0] + "|" + storedStats[1] + "|" + storedStats[2] + "|" + storedStats[3] + "|" + Mathf.RoundToInt(storedStats[4]));
         WriteToShopFile(storedUpgrades[0] + "|" + storedUpgrades[1] + "|" + storedUpgrades[2] + "|" + money);

@@ -11,7 +11,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 1578855984200759674}
-    m_Position: {x: 200, y: 0, z: 0}
+    m_Position: {x: 100, y: 220, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8523348037450848085}
     m_Position: {x: 235, y: 65, z: 0}
@@ -80,7 +80,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BigStar-Death
+  m_Name: BigStar-Die
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []

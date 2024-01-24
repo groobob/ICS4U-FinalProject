@@ -23,6 +23,7 @@ public class SceneLoader : MonoBehaviour
      */
     public void LoadNextScene()
     {
+        DataManager.Instance.SaveToFiles();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
     /**
@@ -30,8 +31,8 @@ public class SceneLoader : MonoBehaviour
      */
     public void LoadStartScene()
     {
-        SceneManager.LoadScene(0);
         DataManager.Instance.ResetTimer();
+        SceneManager.LoadScene(0);
     }
     /**
      * Quits the game application.

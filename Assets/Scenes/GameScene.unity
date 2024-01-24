@@ -1678,6 +1678,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6886067ff3185694498a21841ba4a457, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numLevelsGenerated: 0
   numUpgradeRewards: 0
   roomSizeWorldUnits: {x: 87.5, y: 87.5}
   worldUnitsInOneGridCell: 2.5
@@ -3073,6 +3074,13 @@ MonoBehaviour:
   _playerStats: {fileID: 0}
   _playerControl: {fileID: 0}
   damageNumbers: {fileID: 2799928962956737027, guid: 2fad9b6a460641847b8d7fe79f587efa, type: 3}
+  animations:
+  - {fileID: 2869881213280856101, guid: 562a030ecc7fb8647b42f022b533aea5, type: 3}
+  - {fileID: 7232753151274827792, guid: 1ba53588cd9ecea46ae62fb29fdf0fd0, type: 3}
+  - {fileID: 6875943813961303219, guid: 0f3fe81be35fff6448a5376b7f1908bb, type: 3}
+  - {fileID: 1398510049420623147, guid: 2b4e2eee339a1ff4e93c2bc961f16d6a, type: 3}
+  - {fileID: 8245267434554292758, guid: 7ccc8f31f33d59341834fe3563cb2894, type: 3}
+  - {fileID: 3572723419577819362, guid: dd671e93026198842a7e0e7def118280, type: 3}
   isNew: 0
 --- !u!4 &1446468404
 Transform:

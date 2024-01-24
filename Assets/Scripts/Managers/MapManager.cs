@@ -21,7 +21,7 @@ public class MapManager : MonoBehaviour
     private entity[,] entityGrid;
     private Vector2 spawnPos;
     private int roomWidth, roomHeight;
-    private int numLevelsGenerated;
+    public int numLevelsGenerated;
     public int numUpgradeRewards;
     private float extraEnemySpawnRate;
     [Header("Grid Parameters")] 
