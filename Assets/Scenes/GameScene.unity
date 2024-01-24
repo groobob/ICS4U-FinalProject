@@ -3869,6 +3869,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfaf4890d326d214fb161ebfc6aaced8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speedrunTimerText: {fileID: 1782292936}
 --- !u!1 &1887903853
 GameObject:
   m_ObjectHideFlags: 0

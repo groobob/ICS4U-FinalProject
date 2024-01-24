@@ -105,7 +105,7 @@ public class DataManager : MonoBehaviour
 
     public void CompareBestTimes()
     {
-        if (speedrunTimer < storedStats[3])
+        if (speedrunTimer < storedStats[3] || storedStats[3] == 0)
         {
             SetData(stats.besttime, speedrunTimer);
         }
