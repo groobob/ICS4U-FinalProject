@@ -11,7 +11,7 @@ using UnityEngine;
 
 public class StarterSword : MeleeWeapons
 {
-    private static int setDamage = 1;
+    private static int setDamage = 3;
     private static float setReloadTime = 0.38f;
     private static float setDisplacement = 1f;
     private static float setAngle = 0f;

@@ -15,16 +15,16 @@ public class ShopMenu : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] GameObject speedSlider;
-    [SerializeField] GameObject damageSlider;
+    [SerializeField] GameObject tempogainSlider;
     [SerializeField] GameObject healthSlider;
     [SerializeField] int speedUpgradeCost;
-    [SerializeField] int damageUpgradeCost;
+    [SerializeField] int tempogainUpgradeCost;
     [SerializeField] int healthUpgradeCost;
     [SerializeField] TextMeshProUGUI speedUpgradeCostText;
-    [SerializeField] TextMeshProUGUI damageUpgradeCostText;
+    [SerializeField] TextMeshProUGUI tempogainUpgradeCostText;
     [SerializeField] TextMeshProUGUI healthUpgradeCostText;
     [SerializeField] Button speedButton;
-    [SerializeField] Button damageButton;
+    [SerializeField] Button tempogainButton;
     [SerializeField] Button healthButton;
     [SerializeField] TextMeshProUGUI currentBalanceText;
 
@@ -40,13 +40,13 @@ public class ShopMenu : MonoBehaviour
     private void UpdateData()
     {
         speedSlider.GetComponent<Slider>().value = DataManager.Instance.GetShop(DataManager.upgrade.speed);
-        damageSlider.GetComponent<Slider>().value = DataManager.Instance.GetShop(DataManager.upgrade.damage);
+        tempogainSlider.GetComponent<Slider>().value = DataManager.Instance.GetShop(DataManager.upgrade.tempogain);
         healthSlider.GetComponent<Slider>().value = DataManager.Instance.GetShop(DataManager.upgrade.health);
         speedSlider.GetComponentInChildren<TextMeshProUGUI>().text = DataManager.Instance.GetShop(DataManager.upgrade.speed) + "/" + speedSlider.GetComponent<Slider>().maxValue;
-        damageSlider.GetComponentInChildren<TextMeshProUGUI>().text = DataManager.Instance.GetShop(DataManager.upgrade.damage) + "/" + damageSlider.GetComponent<Slider>().maxValue;
+        tempogainSlider.GetComponentInChildren<TextMeshProUGUI>().text = DataManager.Instance.GetShop(DataManager.upgrade.tempogain) + "/" + tempogainSlider.GetComponent<Slider>().maxValue;
         healthSlider.GetComponentInChildren<TextMeshProUGUI>().text = DataManager.Instance.GetShop(DataManager.upgrade.health) + "/" + healthSlider.GetComponent<Slider>().maxValue;
         speedUpgradeCostText.text = "$" + speedUpgradeCost;
-        damageUpgradeCostText.text = "$" + damageUpgradeCost;
+        tempogainUpgradeCostText.text = "$" + tempogainUpgradeCost;
         healthUpgradeCostText.text = "$" + healthUpgradeCost;
         if (DataManager.Instance.money < speedUpgradeCost || speedSlider.GetComponent<Slider>().value == speedSlider.GetComponent<Slider>().maxValue)
         {
@@ -65,23 +65,23 @@ public class ShopMenu : MonoBehaviour
             speedButton.colors = cb;
             speedButton.interactable = true;
         }
-        if (DataManager.Instance.money < damageUpgradeCost || damageSlider.GetComponent<Slider>().value == damageSlider.GetComponent<Slider>().maxValue)
+        if (DataManager.Instance.money < tempogainUpgradeCost || tempogainSlider.GetComponent<Slider>().value == tempogainSlider.GetComponent<Slider>().maxValue)
         {
-            ColorBlock cb = damageButton.colors;
+            ColorBlock cb = tempogainButton.colors;
             cb.normalColor = cannotBuyColour;
             cb.selectedColor = cannotBuyColour;
             cb.disabledColor = cannotBuyColour;
-            damageButton.colors = cb;
-            damageButton.interactable = false;
+            tempogainButton.colors = cb;
+            tempogainButton.interactable = false;
 
         }
         else
         {
-            ColorBlock cb = damageButton.colors;
+            ColorBlock cb = tempogainButton.colors;
             cb.normalColor = canBuyColour;
             cb.selectedColor = canBuyColour;
-            damageButton.colors = cb;
-            damageButton.interactable = true;
+            tempogainButton.colors = cb;
+            tempogainButton.interactable = true;
 
         }
         if (DataManager.Instance.money < healthUpgradeCost || healthSlider.GetComponent<Slider>().value == healthSlider.GetComponent<Slider>().maxValue)
@@ -119,14 +119,14 @@ public class ShopMenu : MonoBehaviour
     }
 
     /*
-     * Method to handle the purchasing of a damage upgrade
+     * Method to handle the purchasing of a tempogain upgrade
      */
-    public void PurchaseDamage()
+    public void PurchaseTempoGain()
     {
-        if (DataManager.Instance.money > damageUpgradeCost && damageSlider.GetComponent<Slider>().value < damageSlider.GetComponent<Slider>().maxValue)
+        if (DataManager.Instance.money > tempogainUpgradeCost && tempogainSlider.GetComponent<Slider>().value < tempogainSlider.GetComponent<Slider>().maxValue)
         {
-            DataManager.Instance.money -= damageUpgradeCost;
-            DataManager.Instance.IncrementShop(DataManager.upgrade.damage);
+            DataManager.Instance.money -= tempogainUpgradeCost;
+            DataManager.Instance.IncrementShop(DataManager.upgrade.tempogain);
         }
         UpdateData();
     }

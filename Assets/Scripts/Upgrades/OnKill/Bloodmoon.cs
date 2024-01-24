@@ -15,14 +15,15 @@ public class Bloodmoon : OnKillUpgrades
     public void Start()
     {
         base.Init();
-        speedBoost = 0.6f;
+        speedBoost = 0.4f;
         upgradeName = "Bloodmoon";
         description = "Gain " + speedBoost + " movespeed, have chance of healing each time you defeat an enemy, scaling with bonus movespeed.";
     }
 
-    public override void attackEffect()
+    public override void attackEffect(Enemy e) // chance to heal based on Movespeed
     {
         Debug.Log("BloodMoon");
+        Destroy(Instantiate(PlayerManager.Instance.animations[2], e.transform.position, Quaternion.identity), 0.5f);
         float baseSpeed = _playerStats.GetMoveSpeed() - PlayerManager.Instance.GetAddedMoveSpeed();
         int interval2 = 21/ (int)Mathf.Ceil((_playerStats.GetMoveSpeed() * _playerController.ApplySpeedModsPlayer() - baseSpeed));
         if (Random.Range(1, interval2) == 1)

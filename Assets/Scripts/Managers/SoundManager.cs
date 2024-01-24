@@ -11,6 +11,7 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
+    //Singleton
     public static SoundManager Instance;
 
     [Header("References")]

@@ -56,7 +56,7 @@ public class PlayerStats : Entity
     {
         if (firstSpawned)
         {
-            Invoke("CheckNewUpgrades", 0.5f);
+            Invoke("CheckNewUpgrades", 0.5f); // call method a little later
         }
         else
         {
@@ -71,8 +71,9 @@ public class PlayerStats : Entity
     /**
      * Updates the UI elements to reflect the current player stats.
      */
-    public void UpdateUI()
+    private void UpdateUI()
     {
+        //update values 
         tempoBar.value = tempo;
         healthBar.maxValue = maxHealth;
         healthBar.value = health;
@@ -95,6 +96,8 @@ public class PlayerStats : Entity
      */
     public override void DeathEvent()
     {
+        PlayerManager.Instance._playerControl._characterAnimator.Play("Player-Die");
+        PlayerManager.Instance.DisablePlayerControls();
         DataManager.Instance.IncrementData(DataManager.stats.deaths);
         SoundManager.Instance.PlayAudio(1);
         SceneLoader.Instance.LoadDeathScene(3f);
@@ -142,9 +145,9 @@ public class PlayerStats : Entity
         tempoContinueTime = Time.time + duration;
     }
     /**
-     * Manages the tempo decay process, reducing the tempo over time.
+     * Manages the tempo decay process, reducing the tempo over time. Decreases by a specific percentage each time.
      */
-    public void TempoDecay()
+    private void TempoDecay()
     {
         if (tempoContinueTime > Time.time) { return; }
 
@@ -158,7 +161,7 @@ public class PlayerStats : Entity
         }
     }
     /**
-     * Processes the player taking damage and triggers appropriate actions based on the outcome.
+     * Processes the player taking damage and triggers appropriate actions based on the outcome. Player gains IFrames after getting hit.
      * @param damage The amount of damage taken.
      * @return bool
      */
@@ -172,10 +175,12 @@ public class PlayerStats : Entity
         {
             Debug.Log("Second Soul");
             PlayerManager.Instance.GetUpgradesPart().GetComponent<SecondSoul>().UpgradeProcc();
+            SoundManager.Instance.PlayAudio(7);
             return false;
         }
         else
         {
+            SoundManager.Instance.PlayAudio(6);
             health -= damage;
             if (health <= 0)
             {
@@ -191,13 +196,13 @@ public class PlayerStats : Entity
      */
     public void AddUpgrades(System.Type upgrade)
     {
-        if (upgrade.IsSubclassOf(typeof(SecondaryChange)))
+        if (upgrade.IsSubclassOf(typeof(SecondaryChange))) // If secondary change, do different behavior
         {
-            foreach (SecondaryChange upg in upgrades.GetComponents<SecondaryChange>())
+            foreach (SecondaryChange upg in upgrades.GetComponents<SecondaryChange>()) // delete previous secondary
             {
                 Destroy(upg);
             }
-            upgrades.AddComponent(upgrade);
+            upgrades.AddComponent(upgrade);// add new one
             PlayerManager.Instance.SecondaryUpgrades(upgrade);
         }
         else

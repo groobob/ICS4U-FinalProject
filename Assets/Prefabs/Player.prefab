@@ -85,6 +85,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgrades: {fileID: 152687075609785461}
   runSpeed: 7
+  _characterAnimator: {fileID: 7442673467478440804}
+  _weaponAnimator: {fileID: 651440760045383640}
+  character: {fileID: 4100876587594471980}
+  weapon: {fileID: 7274362779625426177}
   _playerStats: {fileID: 5287278252396443439}
   _weaponPos: {fileID: 1902243784294060430}
   numOfAttacks: 0
@@ -97,7 +101,7 @@ MonoBehaviour:
   rushCost: 15
   rushRequirement: 30
   rushVelocity: 32
-  rushDamage: 1
+  rushDamage: 2
   rushDuration: 0.2
 --- !u!50 &5852556656687508199
 Rigidbody2D:
@@ -173,8 +177,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 598192fec07d8cf4dae22dae3ea8bfaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 7
-  maxHealth: 7
+  health: 10
+  maxHealth: 10
   baseMoveSpeed: 7
   knockbackResistance: 1
   _rb: {fileID: 5852556656687508199}
@@ -184,7 +188,7 @@ MonoBehaviour:
   tempoMax: 100
   tempoDecayFactor: 0.999
   tempoDelayWait: 1
-  tempoGain: 15
+  tempoGain: 10
   hitbox: {fileID: 6705575036995754464}
   tempoBar: {fileID: 0}
   healthBar: {fileID: 0}
@@ -489,7 +493,7 @@ Transform:
   m_GameObject: {fileID: 5444874261966139288}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.2, y: 0, z: 0}
+  m_LocalPosition: {x: 1.3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

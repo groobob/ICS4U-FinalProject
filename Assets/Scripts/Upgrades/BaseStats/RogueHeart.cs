@@ -15,7 +15,7 @@ public class RogueHeart : BaseStatUpgrade
     public void Start()
     {
         base.Init();
-        damageBoost = 1;
+        damageBoost = 2;
         weaponRangeBoost = -1.5f;
         upgradeName = "Rogueheart";
         description = "You strike quick and deadly. Trade attack range for damage and passive speed.";

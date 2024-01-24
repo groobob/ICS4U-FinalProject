@@ -81,7 +81,7 @@ public class MeleeWeapons : Weapons
             if (enemy && enemy.TakeDamage(_playerStats.bonusDamage + _playerStats.tempDmgBoost + damage * (1 + (int)(_playerStats.tempo) / 100)))
             {
                 SoundManager.Instance.PlayAudio(6);
-
+                // Things to do on hit
                 if (enemy.GetHealth() <= 0)
                 {
                     OnKillEffects(enemy);
@@ -101,7 +101,7 @@ public class MeleeWeapons : Weapons
                 //enemy.GetComponent<Enemy>().GiveKnockBack(_player.gameObject, knockbackStrength, 0.1f);
             }
 
-            if (c.gameObject.GetComponent<Projectile>() && c.gameObject.tag == "EnemyProjectile")
+            if (c.gameObject.GetComponent<Projectile>() && c.gameObject.tag == "EnemyProjectile") // Destroy projectiles
             {
                 Destroy(c.gameObject);
             }
@@ -109,7 +109,7 @@ public class MeleeWeapons : Weapons
 
         if (combo == comboMax)
         {
-            _playerStats.EndlagEntity(2.4f);
+            _playerStats.EndlagEntity(2f);
             combo = 0;
             //Debug.Log("Combo max");
         }

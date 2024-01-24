@@ -29,6 +29,12 @@ public class PlayerController : MonoBehaviour
     private Vector3 mousePos;
     private Vector3 mousePlayerVector;
 
+    //Player Animators
+    [Header("References")]
+    [SerializeField] public Animator _characterAnimator;
+    [SerializeField] private Animator _weaponAnimator;
+    [SerializeField] private SpriteRenderer character;
+    [SerializeField] private SpriteRenderer weapon;
     //Player Stats
     [SerializeField] private PlayerStats _playerStats;
 
@@ -84,6 +90,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        // Loop for controls and info
         GetMouseInfo();
         AnimateWeapon();
         MainAttack();
@@ -94,11 +101,21 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (_playerStats.GetRootReleaseTime() > Time.time)
+        if (_playerStats.GetRootReleaseTime() > Time.time) // if not rooted
         {
             return;
         }
         Movement();
+        if (Camera.main.ScreenToWorldPoint(Input.mousePosition).x > transform.position.x)
+        {
+            character.flipX = false;
+            weapon.flipY = false;
+        }
+        else if (Camera.main.ScreenToWorldPoint(Input.mousePosition).x < transform.position.x)
+        {
+            character.flipX = true;
+            weapon.flipY = true;
+        }
     }
     /**
      * Method to call when changing the weapon of a Player. Deletes the previous weapon and adds a new one.
@@ -157,17 +174,23 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (nextAttackTime <= Time.time && _playerStats.checkDisabled()) 
+            if (nextAttackTime <= Time.time && _playerStats.checkDisabled()) // if able to attack
             {
                 nextAttackTime = Time.time + currentWeapon.GetReloadTime();
                 currentWeapon.Attack(); // call the attack method on the weapon
                 Debug.Log("attack");
-
-                numOfAttacks+= 1;
+                _weaponAnimator.Play("Sword-Attack");
+                Invoke("ResetSwordToIdle", 0.6f);
+                numOfAttacks+= 1; // increment
                 upgradeAttacks();
                 //Debug.Log("attack");
             }
         }
+    }
+
+    private void ResetSwordToIdle()
+    {
+        _weaponAnimator.Play("Sword-Idle");
     }
     /**
      * Method for checking/attacking the secondary attack.
@@ -176,9 +199,14 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
-            if (nextSecondaryAttackTime <= Time.time && _playerStats.checkDisabled())
+            if (nextSecondaryAttackTime <= Time.time && _playerStats.checkDisabled()) // if able to attack
             {
-                _playerStats.EndlagEntity(0.6f);
+                if (PlayerManager.Instance.GetUpgradesPart().GetComponent<OwlSlice>())
+                {
+                    _playerStats.SpeedBoost(1.05f, 1f);
+                }
+
+                _playerStats.EndlagEntity(0.6f); // activate attack and give player endlag
                 _playerStats.SpeedBoost(0.5f, 0.6f);
                 nextSecondaryAttackTime = Time.time + secondaryAttack.GetReloadTime();
                 secondaryAttack.Attack();
@@ -217,7 +245,7 @@ public class PlayerController : MonoBehaviour
             if (_playerStats.tempo >= tempoRequirement && _playerStats.SpendTempo(tempoCost))
             {
 
-                if (PlayerManager.Instance.GetUpgradesPart().GetComponent<Earthquake>())
+                if (PlayerManager.Instance.GetUpgradesPart().GetComponent<Earthquake>()) // upgrade ffect
                 {
                     PlayerManager.Instance.GetUpgradesPart().GetComponent<Earthquake>().attackEffect();
                 }
@@ -225,7 +253,7 @@ public class PlayerController : MonoBehaviour
                 SoundManager.Instance.PlayAudio(2);
                 tempoFired = false;
                 tempoCDTime = Time.time + tempoAttackCD;
-                tempoSpellFinishTime = tempoAttackCastTime + Time.time;
+                tempoSpellFinishTime = tempoAttackCastTime + Time.time; // initiate firing process
                 //Debug.Log("Tempo Attack");
                 _playerStats.EndlagEntity(tempoAttackCastTime);
                 _playerStats.SpeedBoost(0.2f, tempoAttackCastTime);
@@ -235,7 +263,7 @@ public class PlayerController : MonoBehaviour
                 //Debug.Log("Not enough tempo");
             }
         }
-        if ((tempoSpellFinishTime - tempoAttackCastTime*1.4/3) < Time.time && !tempoFired)
+        if ((tempoSpellFinishTime - tempoAttackCastTime*1.4/3) < Time.time && !tempoFired) // Cast the tempo burst on a specfic moment within the cast time. A delayed cast
         {
             tempoFired = true;
             ProjectileManager.Instance.SpawnProjectile(transform.position, mousePlayerVector * 25, 1, PlayerManager.Instance._playerControl.GetRealWeaponAngle());
@@ -245,7 +273,7 @@ public class PlayerController : MonoBehaviour
 
     private void RushAttack()
     {
-        if (rushEndTime > Time.time)
+        if (rushEndTime > Time.time) // While rushing
         {
             //Debug.Log("rush hitbox exists");
             Collider2D[] hitBox = Physics2D.OverlapCircleAll(transform.position, rushRadius);
@@ -255,7 +283,7 @@ public class PlayerController : MonoBehaviour
                 bool ignore = false;
                 if (e)
                 {
-                    foreach (Enemy check in rushHitEnemies)
+                    foreach (Enemy check in rushHitEnemies) // prevent hitting same enemy twice
                     {
                         //Debug.Log(check);
                         if (check == e)
@@ -268,27 +296,27 @@ public class PlayerController : MonoBehaviour
                     {
                         //Debug.Log("Damage Done");
                         rushHitEnemies.Add(e);
-                        e.TakeDamage(rushDamage);
+                        e.TakeDamage(rushDamage + _playerStats.bonusDamage + _playerStats.tempDmgBoost);
                         e.StunEntity(rushStun);
                     }
                 }
             }
         }
-        if (Input.GetKeyDown(KeyCode.Space) && rushCDTime < Time.time)
+        if (Input.GetKeyDown(KeyCode.Space) && rushCDTime < Time.time) // normal cast
         {
-            if (_playerStats.tempo >= rushRequirement && _playerStats.SpendTempo(rushCost))
+            if (_playerStats.tempo >= rushRequirement && _playerStats.SpendTempo(rushCost)) // if conditions are valid
             {
                 SoundManager.Instance.PlayAudio(15);
 
-                rushCDTime = Time.time + rushAttackCD;
+                rushCDTime = Time.time + rushAttackCD; // start rush
                 //Debug.Log("rush Attack");
                 Vector3 rushMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 rushMousePos.z = transform.position.z;
                 Vector3 rushMousePlayerVector = (mousePos - transform.position).normalized;
-                _playerStats.RootEntity(rushDuration);
+                _playerStats.RootEntity(rushDuration); // prevent player Movement from changing velocity
                 _rb.velocity = rushMousePlayerVector * rushVelocity;
                 rushEndTime = Time.time + rushDuration;
-                rushHitEnemies = new List<Enemy>();
+                rushHitEnemies = new List<Enemy>(); // reset rush list
             }
             else
             {
@@ -303,17 +331,20 @@ public class PlayerController : MonoBehaviour
     private void Movement()
     {
         direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")); // Get Direction of Player Movement
+        if (direction != Vector2.zero) _characterAnimator.Play("Player-Move");
+        else _characterAnimator.Play("Player-Idle");
         direction.Normalize(); // Fixes diagonal directions going faster than intended
-        _rb.velocity = direction * runSpeed * ApplySpeedModsPlayer();
+        _rb.velocity = direction * runSpeed * ApplySpeedModsPlayer(); // Apply speed changes to find true speed
+        //Debug.Log(runSpeed * ApplySpeedModsPlayer());
     }
     /**
      * Method for animating the weapon alongside the mouse.
      */
     private void AnimateWeapon()
     {
-        float angle = -1 * Mathf.Atan2(mousePlayerVector.y, mousePlayerVector.x) * Mathf.Rad2Deg;
+        float angle = -1 * Mathf.Atan2(mousePlayerVector.y, mousePlayerVector.x) * Mathf.Rad2Deg; // Vector math to find the angle of the weapon
         _weaponPos.rotation = Quaternion.AngleAxis(angle + weaponAngle, Vector3.back); 
-        Vector3 weaponOffset = mousePlayerVector * weaponDisplacement;
+        Vector3 weaponOffset = mousePlayerVector * weaponDisplacement; // apply offsets
         _weaponPos.position = transform.position + weaponOffset;
     }
     /**
@@ -323,8 +354,9 @@ public class PlayerController : MonoBehaviour
     public float ApplySpeedModsPlayer()
     {
         float speedMultiplier = 1;
-        speedMultiplier *= (1 + _playerStats.tempo / 400);
+        speedMultiplier *= (1 + _playerStats.tempo / 500);
         speedMultiplier *= (_playerStats.speedFactor);
+        //Debug.Log(_playerStats.speedFactor);
         return speedMultiplier;
     }
 

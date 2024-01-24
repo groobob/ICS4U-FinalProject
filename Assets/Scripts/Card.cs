@@ -16,6 +16,7 @@ public class Card : MonoBehaviour
     [Header("References")]
     [SerializeField] private GameObject nameText;
     [SerializeField] private GameObject descriptionText;
+    [SerializeField] private float startupTime;
 
     // Values
     public Upgrade upgrade;
@@ -26,7 +27,14 @@ public class Card : MonoBehaviour
     {
         nameText.GetComponent<TextMeshPro>().text = upgrade.upgradeName;
         descriptionText.GetComponent<TextMeshPro>().text = upgrade.description;
+        GetComponent<BoxCollider2D>().enabled = false;
+        Invoke("EnableCollider", startupTime);
         picked = false;
+    }
+
+    private void EnableCollider()
+    {
+        GetComponent<BoxCollider2D>().enabled = true;
     }
 
     private void OnMouseDown()

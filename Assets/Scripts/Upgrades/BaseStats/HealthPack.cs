@@ -15,7 +15,7 @@ public class HealthPack : BaseStatUpgrade
     public void Start()
     {
         base.Init();
-        healthBoost = 1;
+        healthBoost = 2;
         upgradeName = "Health Pack";
         description = "Gain 1 HP. Simple.";
     }

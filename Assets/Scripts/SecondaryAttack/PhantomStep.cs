@@ -15,7 +15,7 @@ public class PhantomStep : SecondaryAttack
     private static float setReloadTime = 7f;
     private float iframeDuration = 2f;
 
-    private float speedBoost = 1.5f;
+    private float speedBoost = 1.2f;
     private float tempoCost = 20f;
 
     private SpriteRenderer spriteRenderer;
@@ -30,6 +30,7 @@ public class PhantomStep : SecondaryAttack
         if (_playerStats.SpendTempo(tempoCost))
         {
             // MAKE THE PLAYER TRANSLUCENT AS WELL 
+            Destroy(Instantiate(PlayerManager.Instance.animations[0], PlayerManager.Instance.player.transform.position, Quaternion.identity), 1.4f);
             SoundManager.Instance.PlayAudio(7);
             Debug.Log("Phantom Step");
             _playerStats.GiveIFrames(iframeDuration);

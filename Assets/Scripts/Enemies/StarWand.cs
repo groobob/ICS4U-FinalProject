@@ -98,6 +98,7 @@ public class StarWand : Enemy
         dead = true;
         _animator.Play("Star-Die");
         gameObject.layer = LayerMask.NameToLayer("DeadEnemies");
+        DropManager.Instance.SpawnDrop(transform);
         Destroy(enemyTargetIndicator);
         GetComponentInChildren<SpriteRenderer>().sortingOrder = 9;
     }

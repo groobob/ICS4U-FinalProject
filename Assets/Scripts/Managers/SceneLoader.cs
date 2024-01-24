@@ -23,6 +23,7 @@ public class SceneLoader : MonoBehaviour
      */
     public void LoadNextScene()
     {
+        DataManager.Instance.SaveToFiles();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
     /**
@@ -30,14 +31,16 @@ public class SceneLoader : MonoBehaviour
      */
     public void LoadStartScene()
     {
-        SceneManager.LoadScene(0);
         DataManager.Instance.ResetTimer();
+        DataManager.Instance.SaveToFiles();
+        SceneManager.LoadScene(0);
     }
     /**
      * Quits the game application.
      */
     public void QuitGame()
     {
+        DataManager.Instance.SaveToFiles();
         Application.Quit();
     }
     /**
@@ -48,6 +51,8 @@ public class SceneLoader : MonoBehaviour
         
         DataManager.Instance.StopTimer();
         DataManager.Instance.CompareBestTimes();
+        DataManager.Instance.IncrementData(DataManager.stats.wins);
+        DataManager.Instance.SaveToFiles();
         SceneManager.LoadScene(2);
 
     }
@@ -57,11 +62,14 @@ public class SceneLoader : MonoBehaviour
     public void LoadDeathScene()
     {
         DataManager.Instance.StopTimer();
+        DataManager.Instance.SaveToFiles();
         SceneManager.LoadScene(3);
     }
 
     /*
      * Loads the losing scene after a specified amount of time
+     * \
+     * @param float - The time to wait
      */
     public void LoadDeathScene(float time)
     {

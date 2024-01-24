@@ -98,6 +98,11 @@ public abstract class Weapons : MonoBehaviour
     protected void OnHitEffects(Enemy enemy)
     {
         _playerStats.AddTempo();
+
+        foreach (OnHitUpgrades upgrade in PlayerManager.Instance.GetUpgradesPart().GetComponents<OnHitUpgrades>())
+        {
+            upgrade.attackEffect();
+        }
     }
 
     /**
@@ -111,7 +116,7 @@ public abstract class Weapons : MonoBehaviour
             OnKillUpgrades hitUpgrade = upg as OnKillUpgrades;
             if (hitUpgrade != null)
             {
-                hitUpgrade.attackEffect();
+                hitUpgrade.attackEffect(enemy);
             }
         }
     }
