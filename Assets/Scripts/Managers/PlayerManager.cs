@@ -28,6 +28,9 @@ public class PlayerManager : MonoBehaviour
 
     public GameObject damageNumbers;
 
+    // Animation Gameobjects
+    [SerializeField] public GameObject[] animations;
+
     //Saved Stats
     private int savedHealth;
     private int savedMaxHealth;
