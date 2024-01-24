@@ -45,9 +45,10 @@ public class SceneLoader : MonoBehaviour
      */
     public void LoadEndScene()
     {
-        SceneManager.LoadScene(2);
+        
         DataManager.Instance.StopTimer();
         DataManager.Instance.CompareBestTimes();
+        SceneManager.LoadScene(2);
 
     }
     /**
@@ -55,8 +56,8 @@ public class SceneLoader : MonoBehaviour
      */
     public void LoadDeathScene()
     {
-        SceneManager.LoadScene(3);
         DataManager.Instance.StopTimer();
+        SceneManager.LoadScene(3);
     }
 
     /*

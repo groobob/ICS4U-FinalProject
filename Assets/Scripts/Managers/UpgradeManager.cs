@@ -52,10 +52,10 @@ public class UpgradeManager : MonoBehaviour
         {
             if (i == obtainedUpgrades.Count - 1)
             {
-                output += obtainedUpgrades[i];
+                output += obtainedUpgrades[i].upgradeName;
                 break;
             }
-            output += obtainedUpgrades[i] + ", ";
+            output += obtainedUpgrades[i].upgradeName + ", ";
         }
         return output;
     }

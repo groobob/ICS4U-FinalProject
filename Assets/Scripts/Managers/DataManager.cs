@@ -44,7 +44,6 @@ public class DataManager : MonoBehaviour
         LoadData();
         LoadShop();
         InvokeRepeating("IncrementTimePlayed", 0f, 1f);
-        DontDestroyOnLoad(gameObject);
     }
 
     private void Update()
@@ -116,6 +115,7 @@ public class DataManager : MonoBehaviour
     public void IncrementMoney(int amount)
     {
         money += amount;
+        SaveToFiles();
     }
 
     /*
@@ -156,6 +156,7 @@ public class DataManager : MonoBehaviour
                 storedUpgrades[2]++;
                 break;
         }
+        SaveToFiles();
     }
 
     /**
@@ -277,6 +278,7 @@ public class DataManager : MonoBehaviour
             default:
                 break;
         }
+        SaveToFiles();
     }
     /**
         * Sets the specified statistic in the storedStats array to the given value.
@@ -296,12 +298,18 @@ public class DataManager : MonoBehaviour
             default:
                 break;
         }
+        SaveToFiles();
     }
 
     private void OnApplicationQuit()
     {
+        SaveToFiles();
+    }
+
+    private void SaveToFiles()
+    {
         WriteToDataFile(storedStats[0] + "|" + storedStats[1] + "|" + storedStats[2] + "|" + storedStats[3] + "|" + Mathf.RoundToInt(storedStats[4]));
-        WriteToShopFile(storedUpgrades[0] + "|" +storedUpgrades[1] + "|" + storedUpgrades[2] + "|" + money);
+        WriteToShopFile(storedUpgrades[0] + "|" + storedUpgrades[1] + "|" + storedUpgrades[2] + "|" + money);
     }
 
     private void WriteToDataFile(string str)
