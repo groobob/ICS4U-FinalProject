@@ -76,9 +76,12 @@ public class Room : MonoBehaviour
                 UpgradeManager.Instance.Reset();
                 SceneLoader.Instance.LoadEndScene();
             }
-            GridManager.Instance.DestroyGrid();
-            MapManager.Instance.GenerateMap(type);
-            GridManager.Instance.Move(index.x, index.y);
+            else
+            {
+                GridManager.Instance.DestroyGrid();
+                MapManager.Instance.GenerateMap(type);
+                GridManager.Instance.Move(index.x, index.y);
+            }
         }
     }
 

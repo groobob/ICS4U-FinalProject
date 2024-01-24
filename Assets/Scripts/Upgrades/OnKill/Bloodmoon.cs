@@ -20,7 +20,7 @@ public class Bloodmoon : OnKillUpgrades
         description = "Gain " + speedBoost + " movespeed, have chance of healing each time you defeat an enemy, scaling with bonus movespeed.";
     }
 
-    public override void attackEffect() // chance to heal based on Movespeed
+    public override void attackEffect(Enemy e) // chance to heal based on Movespeed
     {
         Debug.Log("BloodMoon");
         float baseSpeed = _playerStats.GetMoveSpeed() - PlayerManager.Instance.GetAddedMoveSpeed();

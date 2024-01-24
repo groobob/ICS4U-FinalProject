@@ -48,6 +48,7 @@ public class DropManager : MonoBehaviour
         else
         {
             spawnedDrop = Instantiate(money, pos.position, Quaternion.identity, transform);
+            spawnedDrop.GetComponent<MoneyDrop>().value = Mathf.RoundToInt(Random.Range(moneyMin, moneyMax));
         }
 
         spawnedDrop.GetComponent<Rigidbody2D>().AddForce(direction * launchForce, ForceMode2D.Impulse);

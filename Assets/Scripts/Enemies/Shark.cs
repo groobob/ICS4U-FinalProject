@@ -132,6 +132,7 @@ public class Shark : Enemy
         dead = true;
         _animator.Play("Shark-Die");
         gameObject.layer = LayerMask.NameToLayer("DeadEnemies");
+        DropManager.Instance.SpawnDrop(transform);
         Destroy(enemyTargetIndicator);
         GetComponentInChildren<SpriteRenderer>().sortingOrder = 9;
     }

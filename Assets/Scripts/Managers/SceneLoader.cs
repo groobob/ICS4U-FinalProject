@@ -32,6 +32,7 @@ public class SceneLoader : MonoBehaviour
     public void LoadStartScene()
     {
         DataManager.Instance.ResetTimer();
+        DataManager.Instance.SaveToFiles();
         SceneManager.LoadScene(0);
     }
     /**
@@ -49,6 +50,7 @@ public class SceneLoader : MonoBehaviour
         
         DataManager.Instance.StopTimer();
         DataManager.Instance.CompareBestTimes();
+        DataManager.Instance.SaveToFiles();
         SceneManager.LoadScene(2);
 
     }
@@ -58,6 +60,7 @@ public class SceneLoader : MonoBehaviour
     public void LoadDeathScene()
     {
         DataManager.Instance.StopTimer();
+        DataManager.Instance.SaveToFiles();
         SceneManager.LoadScene(3);
     }
 

@@ -23,7 +23,7 @@ public class Vampiric : OnKillUpgrades
         description = "Heal every " + enemiesCount + " enemies killed.";
     }
 
-    public override void attackEffect()
+    public override void attackEffect(Enemy e)
     {
         Debug.Log("Vamp");
         if (current < enemiesCount)

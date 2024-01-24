@@ -166,6 +166,7 @@ public class Cloud : Enemy
         dead = true;
         _animator.Play("Cloud-Die");
         gameObject.layer = LayerMask.NameToLayer("DeadEnemies");
+        DropManager.Instance.SpawnDrop(transform);
         Destroy(enemyTargetIndicator);
         Destroy(gameObject, animationDeathTime);
         GetComponentInChildren<SpriteRenderer>().sortingOrder = 9;
