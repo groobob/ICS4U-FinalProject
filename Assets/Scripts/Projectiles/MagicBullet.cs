@@ -11,14 +11,14 @@ using UnityEngine;
 
 public class MagicBullet : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         Enemy enemy = collision.gameObject.GetComponent<Enemy>();
         if (enemy)
         {
             enemy.TakeDamage(1);
-            Destroy(gameObject);
         }
+        Destroy(gameObject);
     }
 
     private void Start()

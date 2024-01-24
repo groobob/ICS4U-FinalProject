@@ -16,6 +16,8 @@ public class UpgradeManager : MonoBehaviour
     // References
     [Header("References")]
     [SerializeField] List<Upgrade> upgradeList;
+    List<Upgrade> upgradeListCopy = new List<Upgrade>();
+    List<Upgrade> obtainedUpgrades = new List<Upgrade>();
     [SerializeField] GameObject card;
     [SerializeField] Transform cardHolder;
 
@@ -29,6 +31,47 @@ public class UpgradeManager : MonoBehaviour
     {
         Instance = this;
     }
+
+    private void Start()
+    {
+        for(int i = 0; i < upgradeList.Count; i++)
+        {
+            upgradeListCopy.Add(upgradeList[i]);
+        }
+    }
+
+    /*
+     * Gives a string representation of all upgrades obtained
+     * 
+     * return string - The representation of the obtained upgrades
+     */
+    public string GetObtainedUpgrades()
+    {
+        string output = "";
+        for (int i = 0; i < obtainedUpgrades.Count; i++)
+        {
+            if (i == obtainedUpgrades.Count - 1)
+            {
+                output += obtainedUpgrades[i].upgradeName;
+                break;
+            }
+            output += obtainedUpgrades[i].upgradeName + ", ";
+        }
+        return output;
+    }
+
+    /*
+     * Resets the upgrade manager for use again
+     */
+    public void Reset()
+    {
+        obtainedUpgrades.Clear();
+        for (int i = 0; i < upgradeList.Count; i++)
+        {
+            upgradeListCopy.Add(upgradeList[i]);
+        }
+    }
+
     /**
      * Ends the level and generates upgrade cards.
      */
@@ -46,8 +89,10 @@ public class UpgradeManager : MonoBehaviour
         Vector3 cameraPosition = PlayerManager.Instance.player.GetComponentInChildren<Camera>().transform.position;
         for(int i = (numCards - 1) / -2; i < (numCards + 1) / 2; i++)
         {
-            GameObject cardInstance = Instantiate(card, new Vector3(i * spaceBetweenCards + cameraPosition.x, cameraPosition.y, 0), Quaternion.identity, cardHolder);
-            cardInstance.GetComponent<Card>().upgrade = upgradeList[Mathf.FloorToInt(Random.Range(0, upgradeList.Count - 0.01f))];
+            GameObject cardInstance = Instantiate(card, new Vector3(i * spaceBetweenCards + cameraPosition.x, cameraPosition.y, -1f), Quaternion.identity, cardHolder);
+            int num = Mathf.FloorToInt(Random.Range(0, upgradeListCopy.Count - 0.01f));
+            cardInstance.GetComponent<Card>().upgrade = upgradeListCopy[num];
+            cardInstance.GetComponent<Card>().index = num;
         }
     }
     /**
@@ -59,9 +104,13 @@ public class UpgradeManager : MonoBehaviour
     }
     /**
      * Handles the event of picking an upgrade card, reducing the number of remaining upgrades and destroying the cards.
+     * 
+     * @param removeIndex the index of the upgrade to remove from the generated list
      */
-    public void PickedUpgrade()
+    public void PickedUpgrade(int removeIndex)
     {
+        obtainedUpgrades.Add(upgradeListCopy[removeIndex]);
+        upgradeListCopy.RemoveAt(removeIndex);
         numUpgrades--;
         DestroyCards();
         if (numUpgrades <= 0)

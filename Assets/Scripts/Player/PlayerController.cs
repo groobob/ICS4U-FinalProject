@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
         UpdateWeapon(typeof(StarterSword)); //
         //secondaryAttack = gameObject.AddComponent<Sidegun>();
         //secondaryAttack.SetPlayer(this);
-        UpdateSecondaryWeapon(typeof(PhantomStep));//Sidegun
+        UpdateSecondaryWeapon(typeof(Sidegun));//Sidegun
         runSpeed = _playerStats.GetMoveSpeed();
         numOfAttacks = 0;
     }
@@ -238,7 +238,7 @@ public class PlayerController : MonoBehaviour
         if ((tempoSpellFinishTime - tempoAttackCastTime*1.4/3) < Time.time && !tempoFired)
         {
             tempoFired = true;
-            ProjectileManager.Instance.SpawnProjectile(transform.position, mousePlayerVector * 25, 1);
+            ProjectileManager.Instance.SpawnProjectile(transform.position, mousePlayerVector * 25, 1, PlayerManager.Instance._playerControl.GetRealWeaponAngle());
         }
 
     }
@@ -326,5 +326,10 @@ public class PlayerController : MonoBehaviour
         speedMultiplier *= (1 + _playerStats.tempo / 400);
         speedMultiplier *= (_playerStats.speedFactor);
         return speedMultiplier;
+    }
+
+    public void StopPlayer()
+    {
+        _rb.velocity = new Vector3(0f, 0f, 0f);
     }
 }

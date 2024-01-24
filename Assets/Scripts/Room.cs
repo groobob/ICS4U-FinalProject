@@ -8,6 +8,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Room : MonoBehaviour
 {
@@ -41,6 +42,9 @@ public class Room : MonoBehaviour
                 case GridManager.room.normal:
                     _sprite.color = Color.white;
                     break;
+                case GridManager.room.end:
+                    _sprite.color = Color.white;
+                    break;
                 case GridManager.room.item:
                     _sprite.color = Color.yellow;
                     break;
@@ -67,6 +71,11 @@ public class Room : MonoBehaviour
     {
         if (accessable)
         {
+            if (type == GridManager.room.end)
+            {
+                UpgradeManager.Instance.Reset();
+                SceneLoader.Instance.LoadEndScene();
+            }
             GridManager.Instance.DestroyGrid();
             MapManager.Instance.GenerateMap(type);
             GridManager.Instance.Move(index.x, index.y);

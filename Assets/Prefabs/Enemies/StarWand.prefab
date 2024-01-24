@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 15
   m_Sprite: {fileID: 2128361522, guid: 06d0610353f084b4bb05f71acf686a08, type: 3}
-  m_Color: {r: 0.0039215586, g: 0.8392157, b: 0.12503202, a: 1}
+  m_Color: {r: 0.7783019, g: 1, b: 0.7815149, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -258,8 +258,8 @@ MonoBehaviour:
   attackSpeed: 0
   meleeRange: 0
   enemyTargetIndicator: {fileID: 8713136338345028203}
-  enemyTargetSpaceBetweenPlayer: 0
-  flashSpeed: 0
+  enemyTargetSpaceBetweenPlayer: 7
+  flashSpeed: 0.5
   spaceBetweenPlayerSquared: 49
   rangeSquared: 64
   reloadTime: 5

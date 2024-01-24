@@ -18,7 +18,7 @@ public class ProjectileShooter : OnAttackUpgrades
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = transform.position.z;
         mousePlayerVector = (mousePos - transform.position).normalized;
-        ProjectileManager.Instance.SpawnProjectile(transform.position, mousePlayerVector * 18, 6);
+        ProjectileManager.Instance.SpawnProjectile(transform.position, mousePlayerVector * 18, 6, PlayerManager.Instance._playerControl.GetRealWeaponAngle());
 
         SoundManager.Instance.PlayAudio(14);
     }

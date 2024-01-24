@@ -26,6 +26,6 @@ public class Sidegun : SecondaryAttack
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = transform.position.z;
         Vector3 mousePlayerVector = (mousePos - transform.position).normalized;
-        ProjectileManager.Instance.SpawnProjectile(transform.position, mousePlayerVector * 30, 2);
+        ProjectileManager.Instance.SpawnProjectile(transform.position, mousePlayerVector * 30, 2, PlayerManager.Instance._playerControl.GetRealWeaponAngle());
     }
 }

@@ -65,7 +65,7 @@ public class PlayerManager : MonoBehaviour
      * Method for spawning the player, loads all data.
      * @param x X coord for spawning the player
      * @param y Y coord for spawning the player
-     * @return GameObject
+     * @return GameObject Reference to the player object created
      */
     public GameObject SpawnPlayer(float x, float y)
     {
@@ -287,7 +287,8 @@ public class PlayerManager : MonoBehaviour
     public void DisablePlayerControls()
     {
         player.GetComponent<PlayerController>().enabled = false;
-        player.GetComponent<Weapons>().enabled = false;
+        player.GetComponentInChildren<PlayerCamera>().enabled = false;
+        _playerControl.StopPlayer();
     }
     /**
      * Enables player controls by enabling the PlayerController and Weapons components.

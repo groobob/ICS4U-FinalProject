@@ -46,7 +46,7 @@ public class StatMenu : MonoBehaviour
     public void ResetData()
     {
         DataManager.Instance.ResetDataToDefault();
-        UpdateData();
+        Invoke("UpdateData", 0.1f);
     }
     /**
      * Closes stats menu.

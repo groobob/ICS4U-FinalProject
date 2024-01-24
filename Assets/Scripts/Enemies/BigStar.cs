@@ -9,6 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+using TMPro;
 
 public class BigStar : Enemy
 {
@@ -31,12 +32,14 @@ public class BigStar : Enemy
 
     // other references to own components
     private Seeker _seeker;
+    private Animator _animator;
 
     private void Start()
     {
         // Component initialization
         _seeker = GetComponent<Seeker>();
         _rb = GetComponent<Rigidbody2D>();
+        _animator = GetComponentInChildren<Animator>();
 
         sprite = transform.GetChild(0).transform;
 
@@ -61,6 +64,7 @@ public class BigStar : Enemy
     // Update is called once per frame
     private void FixedUpdate()
     {
+        if (dead) return;
         timeElapsed += Time.deltaTime;
         distanceToPlayer = Vector2.SqrMagnitude(new Vector2(target.position.x - _rb.position.x, target.position.y - _rb.position.y));
         if (distanceToPlayer < rangeSquared && timeElapsed > reloadTime)
@@ -86,6 +90,15 @@ public class BigStar : Enemy
         {
             currentWaypoint++;
         }
+    }
+
+    protected override void Death()
+    {
+        dead = true;
+        _animator.Play("BigStar-Die");
+        gameObject.layer = LayerMask.NameToLayer("DeadEnemies");
+        Destroy(enemyTargetIndicator);
+        GetComponentInChildren<SpriteRenderer>().sortingOrder = 9;
     }
 
     protected override void Attack() { }

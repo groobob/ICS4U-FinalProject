@@ -16,8 +16,10 @@ public class Shark : Enemy
     [Header("Values")]
     [SerializeField] private float fleeRangeSquared;
     [SerializeField] private float reloadTime;
+    [SerializeField] private float attackCharge;
     [SerializeField] private float projectileSpeed;
     private float timeElapsed;
+    private bool attacking;
 
     // References for the enemy
     [Header("References")]
@@ -31,11 +33,13 @@ public class Shark : Enemy
 
     // other references to own components
     private Seeker _seeker;
+    private Animator _animator;
     private void Start()
     {
         // Component initialization
         _seeker = GetComponent<Seeker>();
         _rb = GetComponent<Rigidbody2D>();
+        _animator = GetComponentInChildren<Animator>();
 
         sprite = transform.GetChild(0).transform;
 
@@ -61,6 +65,7 @@ public class Shark : Enemy
     // Update is called once per frame
     private void FixedUpdate()
     {
+        if (dead) return;
         if (!checkDisabled()) return;
         timeElapsed += Time.deltaTime;
         distanceToPlayer = Vector2.SqrMagnitude(new Vector2(target.position.x - _rb.position.x, target.position.y - _rb.position.y));
@@ -68,41 +73,67 @@ public class Shark : Enemy
         if (path == null) return;
         if (timeElapsed > reloadTime)
         {
+            attacking = true;
+            timeElapsed = 0f;
+            _animator.Play("Shark-Shoot");
+            return;
+        }
+        if (timeElapsed > attackCharge && attacking == true)
+        {
             SoundManager.Instance.PlayAudio(11, gameObject.GetComponent<AudioSource>());
             ProjectileManager.Instance.SpawnProjectileSpread(_rb.position, new Vector2(target.position.x - _rb.position.x, target.position.y - _rb.position.y).normalized * projectileSpeed, 0, 11, 2 * Mathf.PI / 11);
             timeElapsed = 0f;
+            attacking = false;
         }
 
-        if (distanceToPlayer < fleeRangeSquared)
+        if (!attacking)
         {
-            if (currentWaypoint >= path.vectorPath.Count) return;
-
-            Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - _rb.position).normalized;
-            direction = new Vector2(-direction.x, -direction.y);
-            Vector2 force = direction * baseMoveSpeed * Time.deltaTime;
-
-            _rb.AddForce(force, ForceMode2D.Force);
-
-            float distance = Vector2.Distance(_rb.position, path.vectorPath[currentWaypoint]);
-
-            if (distance < nextWaypointDistance)
+            if (distanceToPlayer < fleeRangeSquared)
             {
-                currentWaypoint++;
+                if (currentWaypoint >= path.vectorPath.Count) return;
+
+                Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - _rb.position).normalized;
+                direction = new Vector2(-direction.x, -direction.y);
+                Vector2 force = direction * baseMoveSpeed * Time.deltaTime;
+
+                _rb.AddForce(force, ForceMode2D.Force);
+
+                float distance = Vector2.Distance(_rb.position, path.vectorPath[currentWaypoint]);
+
+                if (distance < nextWaypointDistance)
+                {
+                    currentWaypoint++;
+                }
+            }
+            else
+            {
+                // roam
+            }
+
+            if (_rb.velocity.x >= 0.01f)
+            {
+                _animator.Play("Shark-Move");
+                sprite.localScale = new Vector3(-1f, 1f, 1f);
+            }
+            else if (_rb.velocity.x <= -0.01f)
+            {
+                _animator.Play("Shark-Move");
+                sprite.localScale = new Vector3(1f, 1f, 1f);
+            }
+            else
+            {
+                _animator.Play("Shark-Idle");
             }
         }
-        else
-        {
-            // roam
-        }
+    }
 
-        if (_rb.velocity.x >= 0.01f)
-        {
-            sprite.localScale = new Vector3(-1f, 1f, 1f);
-        }
-        else if (_rb.velocity.y <= 0.01f)
-        {
-            sprite.localScale = new Vector3(1f, 1f, 1f);
-        }
+    protected override void Death()
+    {
+        dead = true;
+        _animator.Play("Shark-Die");
+        gameObject.layer = LayerMask.NameToLayer("DeadEnemies");
+        Destroy(enemyTargetIndicator);
+        GetComponentInChildren<SpriteRenderer>().sortingOrder = 9;
     }
 
     protected override void Attack() { }

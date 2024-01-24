@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4280873319877811863}
   - component: {fileID: 7657813501889636482}
   - component: {fileID: 2417149658428181102}
+  - component: {fileID: 8454431477501308072}
   m_Layer: 11
   m_Name: TempoBurst
   m_TagString: PlayerProjectiles
@@ -77,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.28926948, g: 0.22895159, b: 0.990566, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -166,3 +167,24 @@ MonoBehaviour:
   tempoBurstStun: 1
   knockbakStrength: 12
   knockbackDuration: 0.1
+--- !u!95 &8454431477501308072
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4272227956018407191}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f89f6bd990342ea4ea832851d2979adc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

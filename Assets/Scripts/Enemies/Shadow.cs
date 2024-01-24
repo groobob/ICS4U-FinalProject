@@ -18,6 +18,7 @@ public class Shadow : Enemy
     [SerializeField] private float dashSpeed;
     [SerializeField] private float chargeTime;
     [SerializeField] private float chargeDuration;
+    [SerializeField] private float animationDeathTime;
     private float timeElapsed;
     private bool charging = false;
     private Vector2 chargeDirection;
@@ -36,14 +37,17 @@ public class Shadow : Enemy
 
     // other references to own components
     private Seeker _seeker;
+    private Animator _animator;
 
     private bool previousChargingValue;
+    private bool attacking = false;
 
     private void Start()
     {
         // Component initialization
         _seeker = GetComponent<Seeker>();
         _rb = GetComponent<Rigidbody2D>();
+        _animator = GetComponentInChildren<Animator>();
 
         sprite = transform.GetChild(0).transform;
 
@@ -68,6 +72,7 @@ public class Shadow : Enemy
     // Update is called once per frame
     private void FixedUpdate()
     {
+        if (dead) return;
         if (!checkDisabled() && !charging) return;
 
         distanceToPlayer = Vector2.SqrMagnitude(new Vector2(target.position.x - _rb.position.x, target.position.y - _rb.position.y));
@@ -76,7 +81,11 @@ public class Shadow : Enemy
 
         if (distanceToPlayer < rangeSquared)
         {
-            //Attack stuff
+            if (attacking == false)
+            {
+                _animator.Play("Shadow-Charge");
+                attacking = true;
+            }
             charging = true;
             if (!previousChargingValue)
             {
@@ -84,11 +93,11 @@ public class Shadow : Enemy
             }
             previousChargingValue = true;
 
-
         }
 
         if (!charging)
         {
+            _animator.Play("Shadow-Move");
             if (currentWaypoint >= path.vectorPath.Count) return;
 
             Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - _rb.position).normalized;
@@ -112,6 +121,7 @@ public class Shadow : Enemy
             }
             else
             {
+                _animator.Play("Shadow-Charging");
                 _rb.velocity = chargeDirection * dashSpeed * (timeElapsed - chargeTime) / 100;
             }
 
@@ -120,6 +130,7 @@ public class Shadow : Enemy
                 charging = false;
                 previousChargingValue = false;
                 timeElapsed = 0f;
+                attacking = false;
             }
 
             AttackCheck();
@@ -134,6 +145,17 @@ public class Shadow : Enemy
             sprite.localScale = new Vector3(1f, 1f, 1f);
         }
     }
+
+    protected override void Death()
+    {
+        dead = true;
+        _animator.Play("Shadow-Die");
+        gameObject.layer = LayerMask.NameToLayer("DeadEnemies");
+        Destroy(gameObject, animationDeathTime);
+        Destroy(enemyTargetIndicator);
+        GetComponentInChildren<SpriteRenderer>().sortingOrder = 9;
+    }
+
 
     protected override void Attack()
     {

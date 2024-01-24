@@ -14,7 +14,7 @@ public class WindwallUpgrade : SecondaryChange
     public void Start()
     {
         base.Init();
-        upgradeName = "Wind wall";
+        upgradeName = "Wind Wall";
         description = "Face the winds! Your secondary is now replaced with a wind wall that blocks enemy projectiles.";
     }
 }

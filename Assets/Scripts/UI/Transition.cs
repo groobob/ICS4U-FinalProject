@@ -25,6 +25,7 @@ public class Transition : MonoBehaviour
     [SerializeField] private float titleFadeInTime;
     [SerializeField] private float offset;
     [SerializeField] private float timeUntilButtonEnabled;
+    [SerializeField] private Color textColour;
 
     private List<float> positionsY = new List<float>();
     private float timeElapsed;
@@ -67,7 +68,7 @@ public class Transition : MonoBehaviour
                     if (timeElapsed < transitionTime + timeBetweenTitleAndButton + (offset * i))
                     {
                         buttons[i].GetComponent<RectTransform>().localPosition = new Vector3(0f, 200 / (timeElapsed - timeBetweenTitleAndButton - (offset * i)) + positionsY[i], 0f);
-                        buttons[i].GetComponentInChildren<TextMeshProUGUI>().color = new Color(0f, 0f, 0f, timeElapsed - timeBetweenTitleAndButton - offset * i / transitionTime);
+                        buttons[i].GetComponentInChildren<TextMeshProUGUI>().color = new Color(textColour.r, textColour.g, textColour.b, timeElapsed - timeBetweenTitleAndButton - offset * i / transitionTime);
                         continue;
                     }
                 }

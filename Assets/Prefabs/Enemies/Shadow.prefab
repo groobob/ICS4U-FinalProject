@@ -156,8 +156,9 @@ MonoBehaviour:
   flashSpeed: 0.5
   rangeSquared: 25
   dashSpeed: 1000
-  chargeTime: 0.5
+  chargeTime: 0.4
   chargeDuration: 2
+  animationDeathTime: 0.9
   knockbackStrength: 15
   knockbackDuration: 0.3
   nextWaypointDistance: 3

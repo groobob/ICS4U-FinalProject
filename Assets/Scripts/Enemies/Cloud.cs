@@ -18,9 +18,14 @@ public class Cloud : Enemy
     [SerializeField] private float rangeSquared;
     [SerializeField] private float reloadTime;
     [SerializeField] private float chargeTime;
+    [SerializeField] private float animationChargeTime;
+    [SerializeField] private float animationAttackTime;
+    [SerializeField] private float animationDeathTime;
     [SerializeField] private float projectileSpeed;
     private bool charging = false;
     private float timeElapsed;
+    private bool attacking = false;
+    private bool attacked = false;
 
     // References for the enemy
     [Header("References")]
@@ -34,12 +39,14 @@ public class Cloud : Enemy
 
     // other references to own components
     private Seeker _seeker;
+    private Animator _animator;
 
     private void Start()
     {
         // Component initialization
         _seeker = GetComponent<Seeker>();
         _rb = GetComponent<Rigidbody2D>();
+        _animator = GetComponentInChildren<Animator>();
 
         sprite = transform.GetChild(0).transform;
 
@@ -61,15 +68,22 @@ public class Cloud : Enemy
         }
     }
 
-    // Update is called once per frame
     private void FixedUpdate()
     {
-        if (!checkDisabled()) return;
+        if (dead) return;
+        if (!checkDisabled())
+        {
+            attacking = false;
+            attacked = false;
+            charging = false;
+            timeElapsed = 0f;
+            _animator.Play("Cloud-Move");
+            return;
+        }
         timeElapsed += Time.deltaTime;
         distanceToPlayer = Vector2.SqrMagnitude(new Vector2(target.position.x - _rb.position.x, target.position.y - _rb.position.y));
-        if (distanceToPlayer > detectionRadiusSquared || distanceToPlayer < spaceBetweenPlayerSquared) return;
+        if (distanceToPlayer > detectionRadiusSquared) return;
         if (path == null) return;
-
         // Figure out another time
         // RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, target.position, distanceToPlayer + 1f, 6);
         // if hitInfo.collider != null && hitInfo.collider.gameObject.GetComponent<PlayerController>() != null
@@ -84,6 +98,9 @@ public class Cloud : Enemy
 
         if (!charging)
         {
+
+            if (!attacked) _animator.Play("Cloud-Move");
+            if (distanceToPlayer < spaceBetweenPlayerSquared) return;
             if (currentWaypoint >= path.vectorPath.Count) return;
 
             Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - _rb.position).normalized;
@@ -100,10 +117,21 @@ public class Cloud : Enemy
         }
         else
         {
+            if (attacking == false)
+            {
+                _animator.Play("Cloud-Charge");
+                Invoke("PlayChargeLoop", animationChargeTime);
+                attacking = true;
+            }
+
             if (timeElapsed > chargeTime)
             {
+                _animator.Play("Cloud-Attack");
+                attacked = true;
+                Invoke("EndAttackAnimation", animationAttackTime);
                 Vector2 direction = ((Vector2)target.position - _rb.position).normalized;
                 charging = false;
+                attacking = false;
                 timeElapsed = 0f;
                 ProjectileManager.Instance.SpawnProjectile(_rb.position, new Vector2(target.position.x - _rb.position.x, target.position.y - _rb.position.y).normalized * projectileSpeed, 0);
             }
@@ -121,6 +149,26 @@ public class Cloud : Enemy
         {
             sprite.localScale = new Vector3(1f, 1f, 1f);
         }
+    }
+
+    private void PlayChargeLoop()
+    {
+        _animator.Play("Cloud-Charging");
+    }
+
+    private void EndAttackAnimation()
+    {
+        attacked = false;
+    }
+
+    protected override void Death()
+    {
+        dead = true;
+        _animator.Play("Cloud-Die");
+        gameObject.layer = LayerMask.NameToLayer("DeadEnemies");
+        Destroy(enemyTargetIndicator);
+        Destroy(gameObject, animationDeathTime);
+        GetComponentInChildren<SpriteRenderer>().sortingOrder = 9;
     }
 
     protected override void Attack() { }

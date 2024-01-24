@@ -20,6 +20,7 @@ public class Card : MonoBehaviour
     // Values
     public Upgrade upgrade;
     public bool picked;
+    public int index;
 
     private void Start()
     {
@@ -31,7 +32,10 @@ public class Card : MonoBehaviour
     private void OnMouseDown()
     {
         picked = true;
+        SoundManager.Instance.PlayAudio(16);
         PlayerManager.Instance._playerStats.AddUpgrades(upgrade.GetComponent<Upgrade>().GetType());
-        UpgradeManager.Instance.PickedUpgrade();
+        UpgradeManager.Instance.PickedUpgrade(index);
+        DataManager.Instance.UpdateUpgradesObtainedList();
+        GetComponent<BoxCollider2D>().enabled = false;
     }
 }

@@ -352,6 +352,7 @@ public class MapManager : MonoBehaviour
 
         // Refresh the pathfinder as there is a new map
         _pathfinder.Scan();
+        DataManager.Instance.StartTimer();
         numLevelsGenerated++;
     }
 
