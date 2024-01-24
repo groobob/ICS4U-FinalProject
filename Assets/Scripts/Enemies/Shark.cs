@@ -133,7 +133,7 @@ public class Shark : Enemy
         _animator.Play("Shark-Die");
         gameObject.layer = LayerMask.NameToLayer("DeadEnemies");
         Destroy(enemyTargetIndicator);
-        GetComponentInChildren<SpriteRenderer>().sortingOrder = 1;
+        GetComponentInChildren<SpriteRenderer>().sortingOrder = 9;
     }
 
     protected override void Attack() { }

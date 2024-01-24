@@ -168,7 +168,7 @@ public class Cloud : Enemy
         gameObject.layer = LayerMask.NameToLayer("DeadEnemies");
         Destroy(enemyTargetIndicator);
         Destroy(gameObject, animationDeathTime);
-        GetComponentInChildren<SpriteRenderer>().sortingOrder = 1;
+        GetComponentInChildren<SpriteRenderer>().sortingOrder = 9;
     }
 
     protected override void Attack() { }

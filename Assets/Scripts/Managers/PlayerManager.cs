@@ -287,7 +287,8 @@ public class PlayerManager : MonoBehaviour
     public void DisablePlayerControls()
     {
         player.GetComponent<PlayerController>().enabled = false;
-        player.GetComponent<Weapons>().enabled = false;
+        player.GetComponentInChildren<PlayerCamera>().enabled = false;
+        _playerControl.StopPlayer();
     }
     /**
      * Enables player controls by enabling the PlayerController and Weapons components.

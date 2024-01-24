@@ -98,7 +98,7 @@ public class BigStar : Enemy
         _animator.Play("BigStar-Die");
         gameObject.layer = LayerMask.NameToLayer("DeadEnemies");
         Destroy(enemyTargetIndicator);
-        GetComponentInChildren<SpriteRenderer>().sortingOrder = 1;
+        GetComponentInChildren<SpriteRenderer>().sortingOrder = 9;
     }
 
     protected override void Attack() { }

@@ -16,7 +16,7 @@ public class UpgradeManager : MonoBehaviour
     // References
     [Header("References")]
     [SerializeField] List<Upgrade> upgradeList;
-    List<Upgrade> obtainedUpgrades;
+    List<Upgrade> obtainedUpgrades = new List<Upgrade>();
     [SerializeField] GameObject card;
     [SerializeField] Transform cardHolder;
 

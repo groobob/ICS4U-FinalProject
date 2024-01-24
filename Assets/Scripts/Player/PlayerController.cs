@@ -327,4 +327,9 @@ public class PlayerController : MonoBehaviour
         speedMultiplier *= (_playerStats.speedFactor);
         return speedMultiplier;
     }
+
+    public void StopPlayer()
+    {
+        _rb.velocity = new Vector3(0f, 0f, 0f);
+    }
 }

@@ -153,7 +153,7 @@ public class Shadow : Enemy
         gameObject.layer = LayerMask.NameToLayer("DeadEnemies");
         Destroy(gameObject, animationDeathTime);
         Destroy(enemyTargetIndicator);
-        GetComponentInChildren<SpriteRenderer>().sortingOrder = 1;
+        GetComponentInChildren<SpriteRenderer>().sortingOrder = 9;
     }
 
 

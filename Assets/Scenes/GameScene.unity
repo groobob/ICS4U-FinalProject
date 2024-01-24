@@ -1689,7 +1689,7 @@ MonoBehaviour:
   chanceWalkerDestroy: 0.05
   chanceEnemySpawn: 0.1
   addedChanceOnChallenge: 0.1
-  percentToFill: 0.3
+  percentToFill: 0.25
   maxWalkers: 10
   _camera: {fileID: 519420031}
   _pathfinder: {fileID: 1088725937}
