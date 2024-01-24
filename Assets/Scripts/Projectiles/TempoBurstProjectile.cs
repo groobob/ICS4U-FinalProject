@@ -27,7 +27,7 @@ public class TempoBurstProjectile : Projectile
         if (enemy)
         {
             bool ignore = false;
-            foreach (Enemy check in hitEnemies)
+            foreach (Enemy check in hitEnemies) // doesn't hit multiple enemies
             {
                 Debug.Log(ignore);
                 //Debug.Log(check);
@@ -39,7 +39,7 @@ public class TempoBurstProjectile : Projectile
                     
                 }
             }
-            if (!ignore)
+            if (!ignore) // if valid target
             {
                 if (enemy.health - damage <= 0 && PlayerManager.Instance.GetUpgradesPart().GetComponent<TempoBlitz>())
                 {
@@ -48,7 +48,7 @@ public class TempoBurstProjectile : Projectile
                 }
 
                 hitEnemies.Add(enemy);
-                enemy.TakeDamage(damage);
+                enemy.TakeDamage(damage + enemy.maxHealth/6);
                 enemy.StunEntity(tempoBurstStun);
                 enemy.GiveKnockBack(gameObject, knockbakStrength, knockbackDuration);
             }

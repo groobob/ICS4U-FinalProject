@@ -15,7 +15,7 @@ public class SecondSoul : Upgrade
     private bool Used;
     private float iframeDuration = 4f;
 
-    private float movementBuff = 1.5f;
+    private float movementBuff = 1.15f;
     protected PlayerStats _playerStats;
     protected PlayerController _playerController;
 

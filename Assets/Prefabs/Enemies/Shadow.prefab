@@ -140,8 +140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98f45a519a0b64d44b0589a8cfd87119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
-  maxHealth: 5
+  health: 14
+  maxHealth: 14
   baseMoveSpeed: 500
   knockbackResistance: 1
   _rb: {fileID: 5863073005503419041}

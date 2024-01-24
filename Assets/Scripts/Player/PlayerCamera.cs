@@ -13,6 +13,7 @@ public class PlayerCamera : MonoBehaviour
 {
     [SerializeField] private Transform _player;
     Vector3 target, mousePos, refVel, shakeOffset;
+    // Camera settings/variables
     private float cameraDist = 2f;
     private float smoothTime = 0.2f, zStart;
     private float shakeMag, shakeTimeEnd;
@@ -25,6 +26,7 @@ public class PlayerCamera : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        // update all camera and mouse positions
         mousePos = CaptureMousePos();
         shakeOffset = UpdateShake();
         target = UpdateTargetPos();
@@ -77,6 +79,7 @@ public class PlayerCamera : MonoBehaviour
      * @return Vector3
      */
     private Vector3 UpdateTargetPos() {
+        // uses vector math to find new cam position
         Vector3 mouseOffset = mousePos * cameraDist;
         Vector3 ret = _player.position + mouseOffset;
         ret += shakeOffset;

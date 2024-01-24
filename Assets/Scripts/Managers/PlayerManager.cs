@@ -70,6 +70,7 @@ public class PlayerManager : MonoBehaviour
     public GameObject SpawnPlayer(float x, float y)
     {
         //Debug.Log(x + ", " + y);
+        // Create a player at a position, give it all the needed scripts
         player = Instantiate(playerPrefab, new Vector2(x, y), Quaternion.identity);
         _playerStats = player.GetComponent<PlayerStats>();
         _playerControl = _playerStats.gameObject.GetComponent<PlayerController>();
@@ -77,7 +78,7 @@ public class PlayerManager : MonoBehaviour
 
         if (isNew) { isNew = false; }
         else { LoadStats(); }
-
+        // load bars
         _playerStats.tempoBar = tempoBar;
         _playerStats.healthBar = healthBar;
         _playerStats.healthBarText = healthBarText;
@@ -101,6 +102,7 @@ public class PlayerManager : MonoBehaviour
         SaveStats();
         Destroy(player);
 
+        // Reset added stats;
         addedHealth = 0;
         addedMaxHealth = 0;
         addedMovespeed = 0;
@@ -114,10 +116,11 @@ public class PlayerManager : MonoBehaviour
     */
     public void SaveStats()
     {
+        // Save base stats
         savedHealth = _playerStats.GetHealth() - addedHealth;
         savedMaxHealth = _playerStats.GetMaxHealth() - addedMaxHealth;
         savedMovespeed = _playerStats.GetMoveSpeed() - addedMovespeed;
-        foreach (Upgrade upg in upgrades.GetComponents<Upgrade>())
+        foreach (Upgrade upg in upgrades.GetComponents<Upgrade>()) // remove all upgrades
         {
             System.Type upgrade = upg.GetType();
             Instance.gameObject.AddComponent(upgrade);
@@ -141,6 +144,7 @@ public class PlayerManager : MonoBehaviour
     */
     private void ResetCharacter()
     {
+        // reset all settings
         addedHealth = 0;
         addedMaxHealth = 0;
         addedMovespeed = 0;
@@ -157,13 +161,11 @@ public class PlayerManager : MonoBehaviour
     */
     public void LoadUpgrades()
     {
+        // Move upgrades from player manager to the player itself.
         foreach (Upgrade upg in gameObject.GetComponents<Upgrade>())
         {
             System.Type upgrade = upg.GetType();
             upgrades.gameObject.AddComponent(upgrade);
-        }
-        foreach (Upgrade upg in gameObject.GetComponents<Upgrade>())
-        {
             Destroy(upg);
         }
     }
@@ -188,6 +190,7 @@ public class PlayerManager : MonoBehaviour
         addedDamage = 0;
         addedTempoGain = 0;
         addedTempoMax = 0;
+        // Give upgrade boosts
         foreach (Upgrade upg in upgrades.GetComponents<Upgrade>())
         {
             addedHealth += upg.healthBoost;
@@ -205,7 +208,7 @@ public class PlayerManager : MonoBehaviour
         _playerStats.bonusDamage += addedDamage;
         _playerStats.tempoGain += addedTempoGain;
         _playerStats.tempoMax += addedTempoMax;
-
+        // secondary upgrades
         SecondaryUpgrades(currentSecondaryChange);
     }
     /**
@@ -214,7 +217,7 @@ public class PlayerManager : MonoBehaviour
      */
     public void SecondaryUpgrades(System.Type secondaryChoice)
     {
-        currentSecondaryChange = secondaryChoice;
+        currentSecondaryChange = secondaryChoice; // hardcoded to give specfic secondaries.
         if (secondaryChoice == typeof(WindwallUpgrade))
         {
             _playerControl.UpdateSecondaryWeapon(typeof(Windwall));
@@ -235,7 +238,7 @@ public class PlayerManager : MonoBehaviour
     {
         _playerStats.tempDmgBoost = 0;
         
-
+        // calculates temporary stat changes due to upgrades
         foreach (Upgrade upg in upgrades.GetComponents<Upgrade>())
         {
             _playerStats.tempDmgBoost += upg.tempDmg;

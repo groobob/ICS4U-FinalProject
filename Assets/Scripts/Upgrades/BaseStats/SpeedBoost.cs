@@ -15,8 +15,8 @@ public class SpeedBoost : BaseStatUpgrade
     public void Start()
     {
         base.Init();
-        speedBoost = 1.5f;
+        speedBoost = 1.1f;
         upgradeName = "Nimble Cloud";
-        description = "Light on your feet, you feel like a cloud, you gain +1.5 passive movespeed.";
+        description = "Light on your feet, you feel like a cloud, you gain " + speedBoost + " passive movespeed.";
     }
 }
