@@ -182,7 +182,9 @@ public abstract class Entity : MonoBehaviour
      */
     public void CreateDamageNumber(int amount, bool type)
     {
-        GameObject dmgNum = Instantiate(PlayerManager.Instance.damageNumbers, transform.position + new Vector3(0, 1, 0), Quaternion.identity);
+
+        float xPos = UnityEngine.Random.Range(-70, 71) / 100f;;
+        GameObject dmgNum = Instantiate(PlayerManager.Instance.damageNumbers, transform.position + new Vector3(xPos, 1, 0), Quaternion.identity);
         dmgNum.GetComponent<DamageNumScript>().SetNumber(amount, type);
     }
     /**

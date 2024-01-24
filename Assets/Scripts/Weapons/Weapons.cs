@@ -10,6 +10,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static DataManager;
 using static UnityEngine.EventSystems.EventTrigger;
 
 public abstract class Weapons : MonoBehaviour
@@ -98,6 +99,11 @@ public abstract class Weapons : MonoBehaviour
     protected void OnHitEffects(Enemy enemy)
     {
         _playerStats.AddTempo();
+
+        foreach (OnHitUpgrades upgrade in PlayerManager.Instance.GetUpgradesPart().GetComponents<OnHitUpgrades>())
+        {
+            upgrade.attackEffect();
+        }
     }
 
     /**

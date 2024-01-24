@@ -182,7 +182,7 @@ MonoBehaviour:
   upgrades: {fileID: 152687075609785461}
   tempo: 50
   tempoMax: 100
-  tempoDecayFactor: 0.999
+  tempoDecayFactor: 0.997
   tempoDelayWait: 1
   tempoGain: 10
   hitbox: {fileID: 6705575036995754464}
@@ -665,3 +665,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 5275649659170340748}
+  cameraDist: 2

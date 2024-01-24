@@ -12,10 +12,10 @@ using UnityEngine;
 
 public class HauntedPresence : OnHitUpgrades
 {
-    private int hitCount = 4;
+    private int hitCount = 3;
     private int current;
 
-    private float AOEsize = 3f;
+    private float AOEsize = 6f;
 
     public void Start()
     {
@@ -41,7 +41,7 @@ public class HauntedPresence : OnHitUpgrades
                 Enemy enemy = c.gameObject.GetComponent<Enemy>();
                 if (enemy)
                 {
-                    enemy.TakeDamage(3);
+                    enemy.TakeDamage(2);
                 }
 
                 if (c.gameObject.GetComponent<Projectile>() && c.gameObject.tag == "EnemyProjectile")

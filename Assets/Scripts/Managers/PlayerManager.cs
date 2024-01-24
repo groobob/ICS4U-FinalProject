@@ -43,6 +43,10 @@ public class PlayerManager : MonoBehaviour
     private float addedTempoMax;
     private int addedDamage;
 
+    private int dataHP;
+    private float dataSpeed;
+    private float dataTempoGain;
+
     private System.Type currentSecondaryChange;
 
     [SerializeField] public Dictionary<int, Upgrade> hashMap = new Dictionary<int, Upgrade>();
@@ -76,12 +80,21 @@ public class PlayerManager : MonoBehaviour
         _playerControl = _playerStats.gameObject.GetComponent<PlayerController>();
         upgrades = player.transform.Find("Upgrades").gameObject;
 
-        if (isNew) { isNew = false; }
+        dataHP = DataManager.Instance.GetShop(DataManager.upgrade.health);
+        dataSpeed = DataManager.Instance.GetShop(DataManager.upgrade.speed);
+        dataTempoGain = 15; // DataManager.Instance.GetShop(DataManager.upgrade.tempoGain);
+
+        if (isNew) { 
+            isNew = false;
+            ApplyMenuUpgrades();
+            Debug.Log("Ran");
+        }
         else { LoadStats(); }
         // load bars
         _playerStats.tempoBar = tempoBar;
         _playerStats.healthBar = healthBar;
         _playerStats.healthBarText = healthBarText;
+
 
         return player;
     }
@@ -169,6 +182,16 @@ public class PlayerManager : MonoBehaviour
             Destroy(upg);
         }
     }
+    private void ApplyMenuUpgrades()
+    {
+        
+        _playerStats.health += dataHP;
+        _playerStats.maxHealth += dataHP;
+        _playerStats.tempoGain += dataTempoGain;
+        _playerStats.baseMoveSpeed += dataSpeed;
+    }
+
+
     /**
     * Applies the effects of upgrades to the player's stats.
     */
