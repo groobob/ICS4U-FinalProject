@@ -238,7 +238,7 @@ public class PlayerController : MonoBehaviour
         if ((tempoSpellFinishTime - tempoAttackCastTime*1.4/3) < Time.time && !tempoFired)
         {
             tempoFired = true;
-            ProjectileManager.Instance.SpawnProjectile(transform.position, mousePlayerVector * 25, 1);
+            ProjectileManager.Instance.SpawnProjectile(transform.position, mousePlayerVector * 25, 1, PlayerManager.Instance._playerControl.GetRealWeaponAngle());
         }
 
     }
