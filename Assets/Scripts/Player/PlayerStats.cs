@@ -96,6 +96,8 @@ public class PlayerStats : Entity
      */
     public override void DeathEvent()
     {
+        PlayerManager.Instance._playerControl._characterAnimator.Play("Player-Die");
+        PlayerManager.Instance.DisablePlayerControls();
         DataManager.Instance.IncrementData(DataManager.stats.deaths);
         SoundManager.Instance.PlayAudio(1);
         SceneLoader.Instance.LoadDeathScene(3f);

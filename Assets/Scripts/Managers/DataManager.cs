@@ -20,7 +20,7 @@ public class DataManager : MonoBehaviour
 
     // Stats to store
     public enum stats { kills, wins, deaths, besttime, timeplayed }
-    public enum upgrade { speed, damage, health }
+    public enum upgrade { speed, tempogain, health }
     private float[] storedStats = new float[5];
     private int[] storedUpgrades = new int[3];
 
@@ -33,6 +33,7 @@ public class DataManager : MonoBehaviour
     // References
     [Header("References")]
     [SerializeField] private TextMeshProUGUI speedrunTimerText;
+    [SerializeField] private TextMeshProUGUI moneyText;
 
     /**
      * Awake is called when the script instance is being loaded.
@@ -54,6 +55,10 @@ public class DataManager : MonoBehaviour
             if (!(speedrunTimerText == null))
             {
                 speedrunTimerText.text = GetSpeedrunTimerTime();
+            }
+            if (!(moneyText == null))
+            {
+                moneyText.text = "$" + money;
             }
         }
     }
@@ -129,7 +134,7 @@ public class DataManager : MonoBehaviour
         {
             case upgrade.speed:
                 return storedUpgrades[0];
-            case upgrade.damage:
+            case upgrade.tempogain:
                 return storedUpgrades[1];
             case upgrade.health:
                 return storedUpgrades[2];
@@ -149,7 +154,7 @@ public class DataManager : MonoBehaviour
             case upgrade.speed:
                 storedUpgrades[0]++;
                 break;
-            case upgrade.damage:
+            case upgrade.tempogain:
                 storedUpgrades[1]++;
                 break;
             case upgrade.health:
@@ -306,7 +311,10 @@ public class DataManager : MonoBehaviour
         SaveToFiles();
     }
 
-    private void SaveToFiles()
+    /*
+     * Saves the current data to the files
+     */
+    public void SaveToFiles()
     {
         WriteToDataFile(storedStats[0] + "|" + storedStats[1] + "|" + storedStats[2] + "|" + storedStats[3] + "|" + Mathf.RoundToInt(storedStats[4]));
         WriteToShopFile(storedUpgrades[0] + "|" + storedUpgrades[1] + "|" + storedUpgrades[2] + "|" + money);

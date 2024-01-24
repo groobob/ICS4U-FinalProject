@@ -223,8 +223,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: {fileID: 7140190676121722012}
   descriptionText: {fileID: 413193504176134230}
+  startupTime: 1
   upgrade: {fileID: 0}
   picked: 1
+  index: 0
 --- !u!61 &5046939453119343382
 BoxCollider2D:
   m_ObjectHideFlags: 0

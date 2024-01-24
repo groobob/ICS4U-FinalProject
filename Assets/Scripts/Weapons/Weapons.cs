@@ -117,7 +117,7 @@ public abstract class Weapons : MonoBehaviour
             OnKillUpgrades hitUpgrade = upg as OnKillUpgrades;
             if (hitUpgrade != null)
             {
-                hitUpgrade.attackEffect();
+                hitUpgrade.attackEffect(enemy);
             }
         }
     }

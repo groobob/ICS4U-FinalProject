@@ -24,5 +24,5 @@ public abstract class OnKillUpgrades : Upgrade
     /**
      * Effect to procc when enemy is killed.
      */
-    public abstract void attackEffect();
+    public abstract void attackEffect(Enemy enemy);
 }

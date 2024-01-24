@@ -151,6 +151,7 @@ public class Shadow : Enemy
         dead = true;
         _animator.Play("Shadow-Die");
         gameObject.layer = LayerMask.NameToLayer("DeadEnemies");
+        DropManager.Instance.SpawnDrop(transform);
         Destroy(gameObject, animationDeathTime);
         Destroy(enemyTargetIndicator);
         GetComponentInChildren<SpriteRenderer>().sortingOrder = 9;

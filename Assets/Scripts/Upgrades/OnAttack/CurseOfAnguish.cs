@@ -25,6 +25,7 @@ public class CurseOfAnguish : OnAttackUpgrades
             Debug.Log("Curse of Anguish");
             // AOE slash
             Collider2D[] hitBox = Physics2D.OverlapBoxAll(_playerControl.GetRealWeaponPosition(), new Vector2(AOEsize, AOEsize), _playerControl.GetRealWeaponAngle().eulerAngles.z);
+            Destroy(Instantiate(PlayerManager.Instance.animations[3], _playerControl.GetRealWeaponPosition(), _playerControl.GetRealWeaponAngle()), 1f);
             foreach (Collider2D c in hitBox) // AOE attack
             {
                 Enemy enemy = c.gameObject.GetComponent<Enemy>();

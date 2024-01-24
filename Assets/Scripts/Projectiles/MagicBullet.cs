@@ -17,8 +17,8 @@ public class MagicBullet : MonoBehaviour
         if (enemy)
         {
             enemy.TakeDamage(2);
-            Destroy(gameObject);
         }
+        Destroy(gameObject);
     }
 
     private void Start()

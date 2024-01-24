@@ -48,9 +48,30 @@ public class DropManager : MonoBehaviour
         else
         {
             spawnedDrop = Instantiate(money, pos.position, Quaternion.identity, transform);
+            spawnedDrop.GetComponent<MoneyDrop>().value = Mathf.RoundToInt(Random.Range(moneyMin, moneyMax));
         }
 
+        spawnedDrop.GetComponent<Rigidbody2D>().angularVelocity = Random.value;
         spawnedDrop.GetComponent<Rigidbody2D>().AddForce(direction * launchForce, ForceMode2D.Impulse);
+
+        // Spawn second?
+        if(MapManager.Instance.moneyMap)
+        {
+            direction = new Vector2(Random.value, Random.value);
+
+            if (Random.value < healthPackDropChance)
+            {
+                spawnedDrop = Instantiate(healthPack, pos.position, Quaternion.identity, transform);
+            }
+            else
+            {
+                spawnedDrop = Instantiate(money, pos.position, Quaternion.identity, transform);
+                spawnedDrop.GetComponent<MoneyDrop>().value = Mathf.RoundToInt(Random.Range(moneyMin, moneyMax));
+            }
+
+            spawnedDrop.GetComponent<Rigidbody2D>().angularVelocity = Random.value;
+            spawnedDrop.GetComponent<Rigidbody2D>().AddForce(direction * launchForce, ForceMode2D.Impulse);
+        }
     }
 
     /*
