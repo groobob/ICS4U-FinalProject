@@ -314,7 +314,7 @@ GameObject:
   - component: {fileID: 8839606942732736051}
   - component: {fileID: 384596333042950461}
   m_Layer: 5
-  m_Name: BaseDamage Text
+  m_Name: BaseTempoGain Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -367,7 +367,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Base Damage Upgrade
+  m_text: Base TempoGain Upgrade
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -394,8 +394,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -449,7 +449,7 @@ GameObject:
   - component: {fileID: 1963982876456551561}
   - component: {fileID: 5596699708059201830}
   m_Layer: 5
-  m_Name: Damage Upgrade Button
+  m_Name: TempoGain Upgrade Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -558,7 +558,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 983349810723280552}
         m_TargetAssemblyTypeName: ShopMenu, Assembly-CSharp
-        m_MethodName: PurchaseDamage
+        m_MethodName: PurchaseTempoGain
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -621,16 +621,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedSlider: {fileID: 309725703962175938}
-  damageSlider: {fileID: 2356826638023240497}
+  tempogainSlider: {fileID: 0}
   healthSlider: {fileID: 8656467669156038425}
   speedUpgradeCost: 300
-  damageUpgradeCost: 500
+  tempogainUpgradeCost: 0
   healthUpgradeCost: 100
   speedUpgradeCostText: {fileID: 2205232715272389493}
-  damageUpgradeCostText: {fileID: 6743796524121465530}
+  tempogainUpgradeCostText: {fileID: 0}
   healthUpgradeCostText: {fileID: 5717580430173879008}
   speedButton: {fileID: 4876731407218035322}
-  damageButton: {fileID: 5596699708059201830}
+  tempogainButton: {fileID: 0}
   healthButton: {fileID: 6679718489717352701}
   currentBalanceText: {fileID: 7284650715070925377}
   canBuyColour: {r: 0.621173, g: 0.9339623, b: 0.66128427, a: 1}
@@ -646,7 +646,7 @@ GameObject:
   - component: {fileID: 4086035576174708818}
   - component: {fileID: 4086639171946629288}
   m_Layer: 5
-  m_Name: Damage Upgrade Bar
+  m_Name: TempoGain Upgrade Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2097,7 +2097,7 @@ GameObject:
   - component: {fileID: 5362202194541757350}
   - component: {fileID: 6743796524121465530}
   m_Layer: 5
-  m_Name: BaseDamage Cost Text
+  m_Name: BaseTempoGain Cost Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

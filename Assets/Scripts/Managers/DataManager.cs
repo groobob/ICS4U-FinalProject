@@ -20,7 +20,7 @@ public class DataManager : MonoBehaviour
 
     // Stats to store
     public enum stats { kills, wins, deaths, besttime, timeplayed }
-    public enum upgrade { speed, damage, health }
+    public enum upgrade { speed, tempogain, health }
     private float[] storedStats = new float[5];
     private int[] storedUpgrades = new int[3];
 
@@ -129,7 +129,7 @@ public class DataManager : MonoBehaviour
         {
             case upgrade.speed:
                 return storedUpgrades[0];
-            case upgrade.damage:
+            case upgrade.tempogain:
                 return storedUpgrades[1];
             case upgrade.health:
                 return storedUpgrades[2];
@@ -149,7 +149,7 @@ public class DataManager : MonoBehaviour
             case upgrade.speed:
                 storedUpgrades[0]++;
                 break;
-            case upgrade.damage:
+            case upgrade.tempogain:
                 storedUpgrades[1]++;
                 break;
             case upgrade.health:
