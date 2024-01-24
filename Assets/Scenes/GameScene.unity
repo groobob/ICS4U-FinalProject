@@ -1687,8 +1687,8 @@ MonoBehaviour:
   chanceWalkerChangeDir: 0.5
   chanceWalkerSpawn: 0.05
   chanceWalkerDestroy: 0.05
-  chanceEnemySpawn: 0.1
-  addedChanceOnChallenge: 0.1
+  chanceEnemySpawn: 0.08
+  addedChanceOnChallenge: 0.8
   percentToFill: 0.25
   maxWalkers: 10
   _camera: {fileID: 519420031}
@@ -2384,7 +2384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07ab1a7dce293fa4fbc9ba4d3b7d2bb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: {x: 8, y: 3}
+  gridSize: {x: 7, y: 3}
   gridSpacing: 6
   roomObject: {fileID: 1126142324897539060, guid: 1aac1915c0741b44db17b8611c8ccdd9, type: 3}
   chanceItem: 0.1
@@ -4284,6 +4284,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: bcc030231e55d6f4da52b36d25ddee4a, type: 3}
   - {fileID: 8300000, guid: 0d7a5fb042429a149897d52517f6e042, type: 3}
   - {fileID: 8300000, guid: 5a48e1a0141fd394c8105317513e9d77, type: 3}
+  - {fileID: 8300000, guid: 9ba38ef543ec5a7499349270ec03f757, type: 3}
   music:
   - {fileID: 8300000, guid: a6e749b29bbb9a24dbdcd7b17d36b9f7, type: 3}
   - {fileID: 8300000, guid: 0ddf87ec2e9a500408e2e976868b6ee3, type: 3}
