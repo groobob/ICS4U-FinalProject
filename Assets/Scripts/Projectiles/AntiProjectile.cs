@@ -1,5 +1,5 @@
 /*
- * Script for windwall. Destroys all enemy particles.
+ * Script for windwall. Destroys all enemy projectiles.
  * 
  * @author Evan
  * @version January 22
@@ -15,7 +15,7 @@ public class AntiProjectile : MonoBehaviour
     {
         if (collision.gameObject.layer == 7)
         {
-            //Destroy(collision.gameObject);
+            Destroy(collision.gameObject);
         }
     }
 
