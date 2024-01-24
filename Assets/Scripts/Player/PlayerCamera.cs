@@ -7,13 +7,14 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
     [SerializeField] private Transform _player;
     Vector3 target, mousePos, refVel, shakeOffset;
-    private float cameraDist = 2f;
+    [SerializeField] private float cameraDist = 2f;
     private float smoothTime = 0.2f, zStart;
     private float shakeMag, shakeTimeEnd;
     private Vector3 shakeVector;
