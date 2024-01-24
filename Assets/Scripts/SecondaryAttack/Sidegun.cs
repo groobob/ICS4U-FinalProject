@@ -11,7 +11,7 @@ using UnityEngine;
 
 public class Sidegun : SecondaryAttack
 {
-    private static int setDamage = 1;
+    private static int setDamage = 3;
     private static float setReloadTime = 5f;
 
     /**

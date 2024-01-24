@@ -42,7 +42,7 @@ public class SideGunProjectile : Projectile
             if (!ignore)
             {
                 hitEnemies.Add(enemy);
-                enemy.TakeDamage(damage);
+                enemy.TakeDamage(damage + PlayerManager.Instance._playerStats.bonusDamage + PlayerManager.Instance._playerStats.tempDmgBoost);
                 enemy.StunEntity(tempoBurstStun);
                 enemy.GiveKnockBack(gameObject, knockbakStrength, knockbackDuration);
             }

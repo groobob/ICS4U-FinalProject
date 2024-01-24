@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
         UpdateWeapon(typeof(StarterSword)); //
         //secondaryAttack = gameObject.AddComponent<Sidegun>();
         //secondaryAttack.SetPlayer(this);
-        UpdateSecondaryWeapon(typeof(PhantomStep));//Sidegun
+        UpdateSecondaryWeapon(typeof(Sidegun));//Sidegun
         runSpeed = _playerStats.GetMoveSpeed();
         numOfAttacks = 0;
     }
@@ -181,7 +181,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (PlayerManager.Instance.GetUpgradesPart().GetComponent<OwlSlice>())
                 {
-                    _playerStats.SpeedBoost(1.1f, 1.4f);
+                    _playerStats.SpeedBoost(1.05f, 1f);
                 }
 
                 _playerStats.EndlagEntity(0.6f); // activate attack and give player endlag
@@ -274,7 +274,7 @@ public class PlayerController : MonoBehaviour
                     {
                         //Debug.Log("Damage Done");
                         rushHitEnemies.Add(e);
-                        e.TakeDamage(rushDamage);
+                        e.TakeDamage(rushDamage + _playerStats.bonusDamage + _playerStats.tempDmgBoost);
                         e.StunEntity(rushStun);
                     }
                 }
@@ -311,6 +311,7 @@ public class PlayerController : MonoBehaviour
         direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")); // Get Direction of Player Movement
         direction.Normalize(); // Fixes diagonal directions going faster than intended
         _rb.velocity = direction * runSpeed * ApplySpeedModsPlayer(); // Apply speed changes to find true speed
+        //Debug.Log(runSpeed * ApplySpeedModsPlayer());
     }
     /**
      * Method for animating the weapon alongside the mouse.
@@ -329,8 +330,9 @@ public class PlayerController : MonoBehaviour
     public float ApplySpeedModsPlayer()
     {
         float speedMultiplier = 1;
-        speedMultiplier *= (1 + _playerStats.tempo / 400);
+        speedMultiplier *= (1 + _playerStats.tempo / 500);
         speedMultiplier *= (_playerStats.speedFactor);
+        //Debug.Log(_playerStats.speedFactor);
         return speedMultiplier;
     }
 }

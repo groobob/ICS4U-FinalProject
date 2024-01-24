@@ -48,7 +48,7 @@ public class TempoBurstProjectile : Projectile
                 }
 
                 hitEnemies.Add(enemy);
-                enemy.TakeDamage(damage);
+                enemy.TakeDamage(damage + enemy.maxHealth/6);
                 enemy.StunEntity(tempoBurstStun);
                 enemy.GiveKnockBack(gameObject, knockbakStrength, knockbackDuration);
             }

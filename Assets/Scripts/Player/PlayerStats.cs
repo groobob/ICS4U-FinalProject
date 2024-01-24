@@ -179,6 +179,7 @@ public class PlayerStats : Entity
         }
         else
         {
+            SoundManager.Instance.PlayAudio(6);
             health -= damage;
             if (health <= 0)
             {

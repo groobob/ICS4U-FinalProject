@@ -90,10 +90,6 @@ public class MeleeWeapons : Weapons
                 enemy.StunEntity(stunDuration);
                 if (combo == comboMax)
                 {
-                    if (PlayerManager.Instance.GetUpgradesPart().GetComponent<OwlSlice>())
-                    {
-                        _playerStats.SpeedBoost(1.1f, 1.4f);
-                    }
                     enemy.GiveKnockBack(_player.gameObject, knockbackStrength * 5, 0.1f);
                 }
                 else
@@ -113,7 +109,7 @@ public class MeleeWeapons : Weapons
 
         if (combo == comboMax)
         {
-            _playerStats.EndlagEntity(2.4f);
+            _playerStats.EndlagEntity(2f);
             combo = 0;
             //Debug.Log("Combo max");
         }

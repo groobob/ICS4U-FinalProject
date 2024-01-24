@@ -15,7 +15,7 @@ public class Bloodmoon : OnKillUpgrades
     public void Start()
     {
         base.Init();
-        speedBoost = 0.6f;
+        speedBoost = 0.4f;
         upgradeName = "Bloodmoon";
         description = "Gain " + speedBoost + " movespeed, have chance of healing each time you defeat an enemy, scaling with bonus movespeed.";
     }

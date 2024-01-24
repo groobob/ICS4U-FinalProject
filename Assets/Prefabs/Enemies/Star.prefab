@@ -104,8 +104,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d30d02bfc7411be468f58257dac947ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
-  maxHealth: 5
+  health: 8
+  maxHealth: 8
   baseMoveSpeed: 300
   knockbackResistance: 1
   _rb: {fileID: 3217262229272277206}

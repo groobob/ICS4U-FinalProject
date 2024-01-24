@@ -41,7 +41,7 @@ public class HauntedPresence : OnHitUpgrades
                 Enemy enemy = c.gameObject.GetComponent<Enemy>();
                 if (enemy)
                 {
-                    enemy.TakeDamage(1);
+                    enemy.TakeDamage(3);
                 }
 
                 if (c.gameObject.GetComponent<Projectile>() && c.gameObject.tag == "EnemyProjectile")

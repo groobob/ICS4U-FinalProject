@@ -28,7 +28,7 @@ public class CurseOfAnguish : OnAttackUpgrades
             foreach (Collider2D c in hitBox) // AOE attack
             {
                 Enemy enemy = c.gameObject.GetComponent<Enemy>();
-                if (enemy && enemy.TakeDamage(15))
+                if (enemy && enemy.TakeDamage(10 + _playerStats.bonusDamage + _playerStats.tempDmgBoost))
                 {
                     enemy.GiveKnockBack(_playerControl.gameObject, knockbackStrength, 0.1f);
                     enemy.StunEntity(1f);
@@ -41,7 +41,7 @@ public class CurseOfAnguish : OnAttackUpgrades
                     Destroy(c.gameObject);
                 }
             }
-            if (Random.Range(1,3) == 1)
+            if (Random.Range(1,4) == 1)
             {
                 _playerStats.TakeDamage(1);
             }
