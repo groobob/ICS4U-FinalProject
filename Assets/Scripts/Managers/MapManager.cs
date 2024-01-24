@@ -23,6 +23,7 @@ public class MapManager : MonoBehaviour
     private int roomWidth, roomHeight;
     public int numLevelsGenerated;
     public int numUpgradeRewards;
+    public bool moneyMap = false;
     private float extraEnemySpawnRate;
     [Header("Grid Parameters")] 
     [SerializeField] private Vector2 roomSizeWorldUnits = new Vector2(30, 30);
@@ -95,17 +96,19 @@ public class MapManager : MonoBehaviour
     /*
      * Generates the map for the scene
      * 
+     * @param GridManager.room - The type of map you are generating
      * @return void
      */
     public void GenerateMap(GridManager.room type)
     {
         numUpgradeRewards = 1;
+        moneyMap = false;
         switch(type)
         {
             default:
                 break;
             case GridManager.room.money:
-                // enemy manager spawn double cash!!
+                moneyMap = true;
                 break;
             case GridManager.room.challenge:
                 extraEnemySpawnRate = addedChanceOnChallenge;

@@ -621,16 +621,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedSlider: {fileID: 309725703962175938}
-  tempogainSlider: {fileID: 0}
+  tempogainSlider: {fileID: 2356826638023240497}
   healthSlider: {fileID: 8656467669156038425}
   speedUpgradeCost: 300
-  tempogainUpgradeCost: 0
+  tempogainUpgradeCost: 200
   healthUpgradeCost: 100
   speedUpgradeCostText: {fileID: 2205232715272389493}
-  tempogainUpgradeCostText: {fileID: 0}
+  tempogainUpgradeCostText: {fileID: 6743796524121465530}
   healthUpgradeCostText: {fileID: 5717580430173879008}
   speedButton: {fileID: 4876731407218035322}
-  tempogainButton: {fileID: 0}
+  tempogainButton: {fileID: 5596699708059201830}
   healthButton: {fileID: 6679718489717352701}
   currentBalanceText: {fileID: 7284650715070925377}
   canBuyColour: {r: 0.621173, g: 0.9339623, b: 0.66128427, a: 1}

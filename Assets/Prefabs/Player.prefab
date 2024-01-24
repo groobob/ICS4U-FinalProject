@@ -85,6 +85,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgrades: {fileID: 152687075609785461}
   runSpeed: 7
+  _characterAnimator: {fileID: 7442673467478440804}
+  _weaponAnimator: {fileID: 651440760045383640}
+  character: {fileID: 4100876587594471980}
+  weapon: {fileID: 7274362779625426177}
   _playerStats: {fileID: 5287278252396443439}
   _weaponPos: {fileID: 1902243784294060430}
   numOfAttacks: 0
@@ -489,7 +493,7 @@ Transform:
   m_GameObject: {fileID: 5444874261966139288}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.2, y: 0, z: 0}
+  m_LocalPosition: {x: 1.3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

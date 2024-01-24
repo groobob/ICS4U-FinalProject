@@ -33,6 +33,7 @@ public class DataManager : MonoBehaviour
     // References
     [Header("References")]
     [SerializeField] private TextMeshProUGUI speedrunTimerText;
+    [SerializeField] private TextMeshProUGUI moneyText;
 
     /**
      * Awake is called when the script instance is being loaded.
@@ -54,6 +55,10 @@ public class DataManager : MonoBehaviour
             if (!(speedrunTimerText == null))
             {
                 speedrunTimerText.text = GetSpeedrunTimerTime();
+            }
+            if (!(moneyText == null))
+            {
+                moneyText.text = "$" + money;
             }
         }
     }

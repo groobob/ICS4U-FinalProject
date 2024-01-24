@@ -32,7 +32,7 @@ public class StatMenu : MonoBehaviour
         winsText.text = "Wins: " + DataManager.Instance.GetData(DataManager.stats.wins);
         deathsText.text = "Deaths: " + DataManager.Instance.GetData(DataManager.stats.deaths);
         killsText.text = "Kills: " + DataManager.Instance.GetData(DataManager.stats.kills);
-        bestTimeText.text = DataManager.Instance.GetData(DataManager.stats.besttime) == 0 ? "na" : "" + DataManager.Instance.GetData(DataManager.stats.besttime);
+        bestTimeText.text = DataManager.Instance.GetData(DataManager.stats.besttime) == 0 ? "na" : DataManager.Instance.GetData(DataManager.stats.besttime) + "sec";
         timePlayedText.text = Mathf.RoundToInt(DataManager.Instance.GetData(DataManager.stats.timeplayed)) + "sec";
     }
 

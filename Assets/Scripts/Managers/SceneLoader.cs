@@ -40,6 +40,7 @@ public class SceneLoader : MonoBehaviour
      */
     public void QuitGame()
     {
+        DataManager.Instance.SaveToFiles();
         Application.Quit();
     }
     /**
@@ -50,6 +51,7 @@ public class SceneLoader : MonoBehaviour
         
         DataManager.Instance.StopTimer();
         DataManager.Instance.CompareBestTimes();
+        DataManager.Instance.IncrementData(DataManager.stats.wins);
         DataManager.Instance.SaveToFiles();
         SceneManager.LoadScene(2);
 
@@ -66,6 +68,8 @@ public class SceneLoader : MonoBehaviour
 
     /*
      * Loads the losing scene after a specified amount of time
+     * \
+     * @param float - The time to wait
      */
     public void LoadDeathScene(float time)
     {

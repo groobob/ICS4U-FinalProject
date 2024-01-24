@@ -1739,7 +1739,7 @@ MonoBehaviour:
   chanceWalkerSpawn: 0.05
   chanceWalkerDestroy: 0.05
   chanceEnemySpawn: 0.08
-  addedChanceOnChallenge: 0.8
+  addedChanceOnChallenge: 0.08
   percentToFill: 0.25
   maxWalkers: 10
   _camera: {fileID: 519420031}
@@ -3252,6 +3252,7 @@ MonoBehaviour:
   money: 0
   upgradesObtained: 
   speedrunTimerText: {fileID: 1782292936}
+  moneyText: {fileID: 1374466149}
 --- !u!114 &1499520604 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5343463417650816373, guid: 271e852be45b7944e850e2e414075f4b, type: 3}

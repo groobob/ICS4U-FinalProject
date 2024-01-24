@@ -29,6 +29,12 @@ public class PlayerController : MonoBehaviour
     private Vector3 mousePos;
     private Vector3 mousePlayerVector;
 
+    //Player Animators
+    [Header("References")]
+    [SerializeField] public Animator _characterAnimator;
+    [SerializeField] private Animator _weaponAnimator;
+    [SerializeField] private SpriteRenderer character;
+    [SerializeField] private SpriteRenderer weapon;
     //Player Stats
     [SerializeField] private PlayerStats _playerStats;
 
@@ -100,6 +106,16 @@ public class PlayerController : MonoBehaviour
             return;
         }
         Movement();
+        if (Camera.main.ScreenToWorldPoint(Input.mousePosition).x > transform.position.x)
+        {
+            character.flipX = false;
+            weapon.flipY = false;
+        }
+        else if (Camera.main.ScreenToWorldPoint(Input.mousePosition).x < transform.position.x)
+        {
+            character.flipX = true;
+            weapon.flipY = true;
+        }
     }
     /**
      * Method to call when changing the weapon of a Player. Deletes the previous weapon and adds a new one.
@@ -163,12 +179,18 @@ public class PlayerController : MonoBehaviour
                 nextAttackTime = Time.time + currentWeapon.GetReloadTime();
                 currentWeapon.Attack(); // call the attack method on the weapon
                 Debug.Log("attack");
-
+                _weaponAnimator.Play("Sword-Attack");
+                Invoke("ResetSwordToIdle", 0.6f);
                 numOfAttacks+= 1; // increment
                 upgradeAttacks();
                 //Debug.Log("attack");
             }
         }
+    }
+
+    private void ResetSwordToIdle()
+    {
+        _weaponAnimator.Play("Sword-Idle");
     }
     /**
      * Method for checking/attacking the secondary attack.
@@ -309,6 +331,8 @@ public class PlayerController : MonoBehaviour
     private void Movement()
     {
         direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")); // Get Direction of Player Movement
+        if (direction != Vector2.zero) _characterAnimator.Play("Player-Move");
+        else _characterAnimator.Play("Player-Idle");
         direction.Normalize(); // Fixes diagonal directions going faster than intended
         _rb.velocity = direction * runSpeed * ApplySpeedModsPlayer(); // Apply speed changes to find true speed
         //Debug.Log(runSpeed * ApplySpeedModsPlayer());

@@ -32,6 +32,7 @@ public class Vampiric : OnKillUpgrades
         }
         else
         {
+            Destroy(Instantiate(PlayerManager.Instance.animations[5], e.transform.position, Quaternion.identity), 0.533f);
             current = 0;
             SoundManager.Instance.PlayAudio(9);
             _playerStats.HealDamage(1);
