@@ -123,6 +123,52 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &11342101
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 11342103}
+  - component: {fileID: 11342102}
+  m_Layer: 0
+  m_Name: Info Container
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &11342102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11342101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cbe3a8f6db1e5a4da4e464c0dc9dd13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text1: 
+  text2: 
+--- !u!4 &11342103
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11342101}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.0011983, y: -0.7852115, z: -0.4166616}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &33831138
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1405,7 +1451,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.24705882, g: 0.2, b: 0.6313726, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1730,6 +1776,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numLevelsGenerated: 0
   numUpgradeRewards: 0
+  moneyMap: 0
   roomSizeWorldUnits: {x: 87.5, y: 87.5}
   worldUnitsInOneGridCell: 2.5
   wallObject: {fileID: 2549613894093050608, guid: 7f3cb57b5c2bee24f94e7ea3b8b8cef2, type: 3}
@@ -4473,3 +4520,4 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 1681970647}
   - {fileID: 273666420}
+  - {fileID: 11342103}

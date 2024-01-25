@@ -73,7 +73,8 @@ public class Room : MonoBehaviour
         {
             if (type == GridManager.room.end)
             {
-                UpgradeManager.Instance.Reset();
+                Info.Instance.SetData(DataManager.Instance.upgradesObtained, DataManager.Instance.GetSpeedrunTimerTime());
+                UpgradeManager.Instance.ResetUpgrades();
                 SceneLoader.Instance.LoadEndScene();
             }
             else

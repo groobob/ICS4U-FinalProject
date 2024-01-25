@@ -17,8 +17,8 @@ public class EndingManager : MonoBehaviour
 
     private void Start()
     {
-        upgradesCollectedText.text = DataManager.Instance.upgradesObtained;
-        timeSpentText.text = DataManager.Instance.GetSpeedrunTimerTime();
-        UpgradeManager.Instance.Reset();
+        string[] data = FindObjectOfType<Info>().GetData().Split("|");
+        upgradesCollectedText.text = data[0];
+        timeSpentText.text = data[1];
     }
 }

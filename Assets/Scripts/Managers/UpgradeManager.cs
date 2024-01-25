@@ -63,7 +63,7 @@ public class UpgradeManager : MonoBehaviour
     /*
      * Resets the upgrade manager for use again
      */
-    public void Reset()
+    public void ResetUpgrades()
     {
         obtainedUpgrades.Clear();
         for (int i = 0; i < upgradeList.Count; i++)
