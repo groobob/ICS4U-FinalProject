@@ -149,8 +149,8 @@ MonoBehaviour:
   target: {fileID: 0}
   sprite: {fileID: 0}
   detectionRadiusSquared: 100
-  attackSpeed: 0.5
-  meleeRange: 1.2
+  attackSpeed: 0
+  meleeRange: 1.5
   enemyTargetIndicator: {fileID: 61210547256236991}
   enemyTargetSpaceBetweenPlayer: 7
   flashSpeed: 0.5
