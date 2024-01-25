@@ -54,6 +54,7 @@ Player Stats + Player Camera + Player Controller:
 - Contains a tempo system. This is shown using the blue bar on the left. Tempo decreases like an exponential function by multiplying the current value by a factor of 0.997.
 - Tempo increases player movement speed and melee damage
 - Some moves such as tempo burst and rush has both a tempo requirement and a tempo cost, meaning that you get above a certain amount of tempo then spend a lesser amount each cast.
+- Most attacks interact and destroy enemy projectiles
 
 Weapons + Melee Weapons:
 - Has a 3-4 hit combo system that allows certain abilities to be chained together
@@ -142,6 +143,7 @@ Tempo Burst: https://www.youtube.com/watch?v=vbIb-Z5uO7c&pp=ygUbZGVlcHdva2VuIGdy
 https://www.youtube.com/watch?v=1yxN0FXE0ME
 slash: https://www.youtube.com/watch?v=AIS8KbfVIcE
 Rush: https://www.youtube.com/watch?v=wURp8_kO2m8&pp=ygUYc3dvcmQgc2xpY2Ugc291bmQgZWZmZWN0
+Ending: https://www.youtube.com/watch?v=f5Ogh8ip3qs
 
 Sprites:
 https://xyezawr.itch.io/gif-free-pixel-effects-pack-15-magick-arrows Creator: xyezawr
@@ -150,5 +152,6 @@ https://snoblin.itch.io/pixel-rpg-free-npc (Character) Creator: snobli
 https://xyezawr.itch.io/gif-free-pixel-effects-pack-5-blood-effects Creator: xyezawr
 https://ansimuz.itch.io/gothicvania-magic-pack-9 Creator:ansimuz
 https://craftpix.net/freebies/free-sky-with-clouds-background-pixel-art-set/ (cloud background)
+https://imgur.com/a/ybP5qH2 (Card sprites)
 
 

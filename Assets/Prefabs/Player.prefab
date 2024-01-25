@@ -101,7 +101,7 @@ MonoBehaviour:
   rushCost: 10
   rushRequirement: 20
   rushVelocity: 32
-  rushDamage: 2
+  rushDamage: 3
   rushDuration: 0.2
 --- !u!50 &5852556656687508199
 Rigidbody2D:

@@ -13,7 +13,7 @@ public class FireDamageBlock : MonoBehaviour
 {
     private float duration = 3f;
     private List<Enemy> hitEnemies;
-    private int damage = 7;
+    private int damage = 8;
     private float stunDuration = 1.4f;
 
     private void TickDamage()

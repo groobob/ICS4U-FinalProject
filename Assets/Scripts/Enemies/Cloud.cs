@@ -1,5 +1,5 @@
 /*
- * Class to manage the ai and behaviour for the cloud enemy
+ * Class to manage the ai and behaviour for the cloud enemy. Sniper class enemy, locks on then shoots.
  * 
  * @author Richard
  * @version January 17
@@ -133,7 +133,7 @@ public class Cloud : Enemy
                 charging = false;
                 attacking = false;
                 timeElapsed = 0f;
-                ProjectileManager.Instance.SpawnProjectile(_rb.position, new Vector2(target.position.x - _rb.position.x, target.position.y - _rb.position.y).normalized * projectileSpeed, 0);
+                ProjectileManager.Instance.SpawnProjectile(_rb.position, new Vector2(target.position.x - _rb.position.x, target.position.y - _rb.position.y).normalized * projectileSpeed, 7);
             }
             else
             {

@@ -15,7 +15,7 @@ public class OwlClaw : OnHitUpgrades
     public void Start()
     {
         base.Init();
-        speedBoost = 0.5f;
+        speedBoost = 0.75f;
         upgradeName = "Owl's Claw";
         description = "Gain " + speedBoost + " movespeed, deal bonus damage for each point of speed above base movespeed. However, lose damage when you are slowed.";
     }

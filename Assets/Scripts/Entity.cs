@@ -127,7 +127,7 @@ public abstract class Entity : MonoBehaviour
     {
         if (health + damage > maxHealth)
         {
-            maxHealth = health;
+            health = maxHealth;
         }
         else
         {
