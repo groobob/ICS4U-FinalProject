@@ -100,6 +100,7 @@ public class PlayerStats : Entity
         PlayerManager.Instance.DisablePlayerControls();
         DataManager.Instance.IncrementData(DataManager.stats.deaths);
         SoundManager.Instance.PlayAudio(1);
+        Info.Instance.SetData(DataManager.Instance.upgradesObtained, DataManager.Instance.GetSpeedrunTimerTime());
         SceneLoader.Instance.LoadDeathScene(3f);
     }
     /**

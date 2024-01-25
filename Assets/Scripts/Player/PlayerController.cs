@@ -180,7 +180,7 @@ public class PlayerController : MonoBehaviour
                 currentWeapon.Attack(); // call the attack method on the weapon
                 Debug.Log("attack");
                 _weaponAnimator.Play("Sword-Attack");
-                Invoke("ResetSwordToIdle", 0.6f);
+                Invoke("ResetSwordToIdle", 0.3f);
                 numOfAttacks+= 1; // increment
                 upgradeAttacks();
                 //Debug.Log("attack");
