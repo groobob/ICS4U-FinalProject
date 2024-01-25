@@ -1,3 +1,9 @@
+/*
+ * A class to make an object fade in
+ * 
+ * @author Evan
+ * @version January 24
+ */
 using UnityEngine;
 
 public class FadeInObject : MonoBehaviour
