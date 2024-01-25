@@ -13,7 +13,7 @@ public class StarterSword : MeleeWeapons
 {
     private static int setDamage = 3;
     private static float setReloadTime = 0.38f;
-    private static float setDisplacement = 1f;
+    private static float setDisplacement = 1.2f;
     private static float setAngle = 0f;
     private static float setHitWidth = 2.5f;
     private static float setHitLength = 3.5f;

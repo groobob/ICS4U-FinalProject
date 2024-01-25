@@ -98,6 +98,7 @@ public class PlayerController : MonoBehaviour
         TempoAttack();
         RushAttack();
         runSpeed = _playerStats.GetMoveSpeed();
+        //PlayerManager.Instance.WorkUpgrades();
     }
     private void FixedUpdate()
     {
@@ -136,8 +137,10 @@ public class PlayerController : MonoBehaviour
     public void UpdateSecondaryWeapon(System.Type weaponType)
     {
         Destroy(secondaryAttack);
+        Debug.Log(secondaryAttack);
         secondaryAttack = gameObject.AddComponent(weaponType) as SecondaryAttack;
         secondaryAttack.SetPlayer(this);
+        Debug.Log(secondaryAttack);
     }
 
     /**

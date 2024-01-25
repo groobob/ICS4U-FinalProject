@@ -169,23 +169,23 @@ public class PlayerManager : MonoBehaviour
         addedTempoGain = 0;
         addedTempoMax = 0;
 
-        isNew = true;
+        isNew = true;// set is new to true
         WipeUpgrades();
     }
     /**
     * Loads upgrades and applies their effects to the player.
     */
-    public void LoadUpgrades()
+    public void LoadUpgrades() // NOTE UPGRADES ARE STORED IN PLR MANAGER BETWEEN SCANES
     {
         // Move upgrades from player manager to the player itself.
         foreach (Upgrade upg in gameObject.GetComponents<Upgrade>())
         {
             System.Type upgrade = upg.GetType();
-            upgrades.gameObject.AddComponent(upgrade);
+            upgrades.gameObject.AddComponent(upgrade); // destroy original and clone to player
             Destroy(upg);
         }
     }
-    private void ApplyMenuUpgrades()
+    private void ApplyMenuUpgrades() // apply menu upgrades at the start of the game
     {
         
         _playerStats.health += dataHP;
@@ -201,6 +201,7 @@ public class PlayerManager : MonoBehaviour
     public void WorkUpgrades() // makes the passive upgraes work
     {
         Debug.Log("Work Upgrades called");
+        // reset stats so we dont double add them
         _playerStats.health -= addedHealth;
         _playerStats.maxHealth -= addedMaxHealth;
         _playerStats.baseMoveSpeed -= addedMovespeed;
@@ -209,6 +210,7 @@ public class PlayerManager : MonoBehaviour
         _playerStats.tempoGain -= addedTempoGain;
         _playerStats.tempoMax -= addedTempoMax;
 
+        // reset added stats, we are recalculating them
         addedHealth = 0;
         addedMaxHealth = 0;
         addedMovespeed = 0;
@@ -227,6 +229,7 @@ public class PlayerManager : MonoBehaviour
             addedTempoGain += upg.tempoGainBoost;
             addedTempoMax += upg.tempoMaxBoost;
         }
+        // Set upgrades
         _playerStats.health += addedHealth;
         _playerStats.maxHealth += addedMaxHealth;
         _playerStats.baseMoveSpeed += addedMovespeed;
@@ -234,7 +237,7 @@ public class PlayerManager : MonoBehaviour
         _playerStats.bonusDamage += addedDamage;
         _playerStats.tempoGain += addedTempoGain;
         _playerStats.tempoMax += addedTempoMax;
-        // secondary upgrades
+        // set secondary upgrades
         SecondaryUpgrades(currentSecondaryChange);
     }
     /**
@@ -244,11 +247,12 @@ public class PlayerManager : MonoBehaviour
     public void SecondaryUpgrades(System.Type secondaryChoice)
     {
         currentSecondaryChange = secondaryChoice; // hardcoded to give specfic secondaries.
+        Debug.Log(secondaryChoice);
         if (secondaryChoice == typeof(WindwallUpgrade))
         {
             _playerControl.UpdateSecondaryWeapon(typeof(Windwall));
         }
-        else if (secondaryChoice == typeof(PhantomStep))
+        else if (secondaryChoice == typeof(PhantomStepUpgrade))
         {
             _playerControl.UpdateSecondaryWeapon(typeof(PhantomStep));
         }
@@ -295,7 +299,7 @@ public class PlayerManager : MonoBehaviour
     {
         //Upgrade[] upgList = new Upgrade[gameObject.GetComponents(typeof(Upgrade)).Length];
         List<Upgrade> upgList = new List<Upgrade>();
-        foreach (Upgrade upg in upgrades.GetComponents<Upgrade>())
+        foreach (Upgrade upg in upgrades.GetComponents<Upgrade>()) // grab a list of all upgrades
         {
             upgList.Add(upg);
         }

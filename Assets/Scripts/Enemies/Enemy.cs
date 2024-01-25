@@ -72,6 +72,7 @@ public abstract class Enemy : Entity
         // Change later
         Death();
         EnemyManager.Instance.DecreaseEnemyNumber();
+        Destroy(gameObject, 1f);
     }
     /**
      * Increases HP for every room cleared.

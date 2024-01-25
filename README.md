@@ -22,6 +22,7 @@ Enemy:
 - Each enemy has unique custom made animations and code
 - All have unique behaviors
 - Enemies scale with the levels
+- Enemies have trackers to determine their position
 - Shark:
 	- Fleeing type enemy, this enemy kites the player, fleeing once they get too close.
 	- They fire projectiles in a circle around them, making them difficult to deal with
@@ -56,7 +57,7 @@ Player Stats + Player Camera + Player Controller:
 
 Weapons + Melee Weapons:
 - Has a 3-4 hit combo system that allows certain abilities to be chained together
-- Sample combo: (m1 -> m1 -> m1 -> side gun -> rush)
+- Sample combo: (m1 -> m1 -> side gun -> rush)
 - Melee weapon all applies on hit and on attack upgrade effects
 
 
@@ -65,7 +66,7 @@ Upgrades:
 - Designed to function together. For example, Owl Claw, Owl Slice, and Bloodmoon all intend of functioning together as they all interact with one another
 - Secondary upgrades swap the secondary weapon of the player.
 - Each upgrade is seperated into types which need to be seperately accomdated for.
-- Sometimes unique upgrades warrented their own implementation
+- Sometimes unique upgrades warrented their own implementation  
 Unique Secondaries:
 - FireColumn/Darkbolt: Summons a lightning bolt that does two ticks of damage
 - Phantom Step: Iframes and speed for tempo
