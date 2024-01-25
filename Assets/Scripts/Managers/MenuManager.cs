@@ -38,7 +38,8 @@ public class MenuManager : MonoBehaviour
      */
     public void SpawnTutorialMenu()
     {
-
+        GameObject menu = Instantiate(tutorialMenu, transform.position, Quaternion.identity, _canvas.transform);
+        menu.transform.localPosition = Vector3.zero;
     }
     /*
      * Plays music for the titlescreen.
