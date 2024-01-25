@@ -7,6 +7,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GridManager : MonoBehaviour
@@ -28,6 +29,11 @@ public class GridManager : MonoBehaviour
     [SerializeField] private float chanceItem = 0.1f;
     [SerializeField] private float chanceShop = 0.1f;
     [SerializeField] private float chanceChallenge = 0.1f;
+
+    // References
+    [Header("References")]
+    [SerializeField] private GameObject selectionTextBox;
+    [SerializeField] private GameObject infoTextBox;
     
     /*
      * Method is called right when script is loaded
@@ -104,6 +110,8 @@ public class GridManager : MonoBehaviour
      */
     public void DestroyGrid()
     {
+        selectionTextBox.SetActive(false);
+        infoTextBox.SetActive(false);
         for (int i = transform.childCount - 1; i >= 0; i--)
         {
             var child = transform.GetChild(i).gameObject;
@@ -126,6 +134,7 @@ public class GridManager : MonoBehaviour
                 Vector2 spawnPos = (new Vector2(x, y) - offset) * gridSpacing;
                 GameObject instance = Instantiate(roomObject, spawnPos, Quaternion.identity, transform);
                 Room _room = instance.GetComponent<Room>();
+                _room.text = infoTextBox.GetComponent<TextMeshProUGUI>();
                 bool isNeighbour = (x == playerPosition.x + 1) && (y == playerPosition.y + 2) ||
                                     (x == playerPosition.x + 1) && (y == playerPosition.y + 1) ||
                                     (x == playerPosition.x + 1) && (y == playerPosition.y) ||
@@ -161,6 +170,9 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
+
+        selectionTextBox.SetActive(true);
+        infoTextBox.SetActive(true);
     }
 
     /*

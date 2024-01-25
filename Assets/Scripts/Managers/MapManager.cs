@@ -79,6 +79,7 @@ public class MapManager : MonoBehaviour
             Destroy(child);
         }
         _camera.enabled = true;
+        DropManager.Instance.RemoveAllDrops();
         EnemyManager.Instance.ClearAllEnemies();
         PlayerManager.Instance.DespawnPlayer();
         ProjectileManager.Instance.ClearAllProjectiles();

@@ -7,16 +7,18 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Room : MonoBehaviour
 {
     // Identifier variables
-    GridManager.room type;
-    bool accessable;
-    SpriteRenderer _sprite;
-    Vector2Int index;
+    private GridManager.room type;
+    private bool accessable;
+    private SpriteRenderer _sprite;
+    private Vector2Int index;
+    public TextMeshProUGUI text;
 
     /*
      * A method that sets up the room based on the given inputs from GridManager
@@ -73,7 +75,8 @@ public class Room : MonoBehaviour
         {
             if (type == GridManager.room.end)
             {
-                UpgradeManager.Instance.Reset();
+                Info.Instance.SetData(DataManager.Instance.upgradesObtained, DataManager.Instance.GetSpeedrunTimerTime());
+                UpgradeManager.Instance.ResetUpgrades();
                 SceneLoader.Instance.LoadEndScene();
             }
             else
@@ -83,6 +86,46 @@ public class Room : MonoBehaviour
                 GridManager.Instance.Move(index.x, index.y);
             }
         }
+    }
+
+    private void OnMouseEnter()
+    {
+        if (_sprite.color == Color.black)
+        {
+            text.text = "Unknown room";
+            return;
+        }
+        switch (type)
+        {
+            case GridManager.room.normal:
+                text.text = "Normal room";
+                break;
+            case GridManager.room.end:
+                text.text = "End room";
+                break;
+            case GridManager.room.item:
+                text.text = "Upgrade room";
+                break;
+            case GridManager.room.money:
+                text.text = "Money room";
+                break;
+            case GridManager.room.challenge:
+                text.text = "Challenge room";
+                break;
+            case GridManager.room.explored:
+                text.text = "Explored room";
+                break;
+            case GridManager.room.current:
+                text.text = "Current room";
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void OnMouseExit()
+    {
+        text.text = "Nothing";
     }
 
 }
