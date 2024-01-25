@@ -204,13 +204,17 @@ public class PlayerController : MonoBehaviour
         {
             if (nextSecondaryAttackTime <= Time.time && _playerStats.checkDisabled()) // if able to attack
             {
-                if (PlayerManager.Instance.GetUpgradesPart().GetComponent<OwlSlice>())
+                if (PlayerManager.Instance.GetUpgradesPart().GetComponent<OwlSlice>() || PlayerManager.Instance.GetUpgradesPart().GetComponent<PhantomStepUpgrade>())
                 {
-                    _playerStats.SpeedBoost(1.05f, 1f);
+                    _playerStats.SpeedBoost(1.1f, 1f);
                 }
-
+                else
+                {
+                    _playerStats.SpeedBoost(0.5f, 0.6f);
+                }
+                // SECONDARY HERE
                 _playerStats.EndlagEntity(0.6f); // activate attack and give player endlag
-                _playerStats.SpeedBoost(0.5f, 0.6f);
+                
                 nextSecondaryAttackTime = Time.time + secondaryAttack.GetReloadTime();
                 secondaryAttack.Attack();
                 numOfAttacks++;
@@ -252,7 +256,7 @@ public class PlayerController : MonoBehaviour
                 {
                     PlayerManager.Instance.GetUpgradesPart().GetComponent<Earthquake>().attackEffect();
                 }
-
+                // TEMPO EFFECT HERE
                 SoundManager.Instance.PlayAudio(2);
                 tempoFired = false;
                 tempoCDTime = Time.time + tempoAttackCD;
