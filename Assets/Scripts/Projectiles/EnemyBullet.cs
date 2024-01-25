@@ -17,7 +17,7 @@ public class EnemyBullet : Projectile
         PlayerStats _playerStats = collision.gameObject.transform.parent.gameObject.GetComponent<PlayerStats>();
         if (_playerStats)
         {
-            _playerStats.TakeDamage(1);
+            _playerStats.TakeDamage(damage);
             Destroy(gameObject);
         }
     }

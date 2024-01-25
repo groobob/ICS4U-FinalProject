@@ -9,7 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MagicBullet : MonoBehaviour
+public class MagicBullet : Projectile
 {
     public Color[] colors; // Array of colors to choose from
     private SpriteRenderer spriteRenderer;
