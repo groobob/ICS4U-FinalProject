@@ -12,7 +12,7 @@ using UnityEngine;
 public class SecondSoul : Upgrade
 {
 
-    private bool Used;
+    public bool Used;
     private float iframeDuration = 4f;
 
     private float movementBuff = 1.15f;
@@ -45,7 +45,7 @@ public class SecondSoul : Upgrade
         if (!Used)
         {
             Used = true;
-            Debug.Log("Phantom Step");
+            Debug.Log("second soul");
             Destroy(Instantiate(PlayerManager.Instance.animations[1], PlayerManager.Instance.player.transform.position, Quaternion.identity), 1f);
             _playerStats.GiveIFrames(iframeDuration);
             _playerStats.SpeedBoost(movementBuff, iframeDuration * 1.5f);

@@ -310,7 +310,7 @@ public class PlayerController : MonoBehaviour
             if (_playerStats.tempo >= rushRequirement && _playerStats.SpendTempo(rushCost)) // if conditions are valid
             {
                 SoundManager.Instance.PlayAudio(15);
-
+                Destroy(Instantiate(PlayerManager.Instance.animations[7], GetRealWeaponPosition(), GetRealWeaponAngle()), 0.55f);
                 rushCDTime = Time.time + rushAttackCD; // start rush
                 //Debug.Log("rush Attack");
                 Vector3 rushMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

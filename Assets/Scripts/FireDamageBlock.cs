@@ -13,54 +13,33 @@ public class FireDamageBlock : MonoBehaviour
 {
     private float duration = 3f;
     private List<Enemy> hitEnemies;
-    private int damage = 4;
+    private int damage = 7;
     private float stunDuration = 1.4f;
-    private float previousTime;
 
-    private bool reset;
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void TickDamage()
     {
-        Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-
-        if (enemy)
+        SoundManager.Instance.PlayAudio(8);
+        Collider2D[] hitBox = Physics2D.OverlapCircleAll(transform.position, transform.localScale.x);
+        foreach (Collider2D c in hitBox)
         {
-            bool ignore = false;
-            foreach (Enemy check in hitEnemies)
+            Enemy enemy = c.gameObject.GetComponent<Enemy>();
+            if (enemy && enemy.TakeDamage(damage))
             {
-                Debug.Log(ignore);
-                //Debug.Log(check);
-                if (check == enemy)
-                {
-                    ignore = true;
-                    Debug.Log("true");
-                    break;
-
-                }
-            }
-            if (!ignore) 
-            {
-                hitEnemies.Add(enemy);
-                enemy.TakeDamage(damage);
+                enemy.GiveKnockBack(gameObject, 2f, 0.1f);
                 enemy.StunEntity(stunDuration);
             }
-        }
-    }
 
-    private void Update()
-    {
-        if (previousTime - Time.time >= duration/2 && !reset)// does two ticks of damage
-        {
-            reset = true;
-            hitEnemies = new List<Enemy>(); // resets the list of already hit enemies
+            if (c.gameObject.GetComponent<Projectile>() && c.gameObject.tag == "EnemyProjectile")
+            {
+                Destroy(c.gameObject);
+            }
         }
     }
 
     private void Start()
     {
-        reset = false;
-        previousTime = Time.time;
         hitEnemies = new List<Enemy>();
+        TickDamage();
         Destroy(gameObject, duration);
     }
 }

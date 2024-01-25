@@ -42,9 +42,11 @@ public class PlayerStats : Entity
 
     private bool firstSpawned;
 
+    private bool dead;
 
     private void Start()
     {
+        dead = false;
         firstSpawned = true;
         if (PlayerManager.Instance.isNew)
         {
@@ -96,6 +98,7 @@ public class PlayerStats : Entity
      */
     public override void DeathEvent()
     {
+        dead = true;
         PlayerManager.Instance._playerControl._characterAnimator.Play("Player-Die");
         PlayerManager.Instance.DisablePlayerControls();
         DataManager.Instance.IncrementData(DataManager.stats.deaths);
@@ -167,27 +170,27 @@ public class PlayerStats : Entity
      */
     public new bool TakeDamage(int damage)
     {
-        if (!hitbox.enabled) { return false; }
-        ChangeHitbox(false);
-        Invoke("ChangeHitbox", 1f);
+        if (!hitbox.enabled || dead) { return false; }
+        
 
-        if (health - damage <= 0 && PlayerManager.Instance.GetUpgradesPart().GetComponent<SecondSoul>())
+        if (health - damage <= 0 && PlayerManager.Instance.GetUpgradesPart().GetComponent<SecondSoul>() && !PlayerManager.Instance.GetUpgradesPart().GetComponent<SecondSoul>().Used)
         {
             Debug.Log("Second Soul");
             PlayerManager.Instance.GetUpgradesPart().GetComponent<SecondSoul>().UpgradeProcc();
             SoundManager.Instance.PlayAudio(7);
             return false;
         }
-        else
+
+        ChangeHitbox(false);
+        Invoke("ChangeHitbox", 1f);
+        SoundManager.Instance.PlayAudio(6);
+        health -= damage;
+        if (health <= 0)
         {
-            SoundManager.Instance.PlayAudio(6);
-            health -= damage;
-            if (health <= 0)
-            {
-                DeathEvent();
-            }
-            return true;
+            DeathEvent();
         }
+        return true;
+        
         
     }
     /**

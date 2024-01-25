@@ -24,6 +24,7 @@ public abstract class Weapons : MonoBehaviour
     protected float weaponAngle; // what angle offset should the weapon appear to have
     protected PlayerController _player;
     protected PlayerStats _playerStats;
+    protected PlayerController _playerController;
 
     /**
  * Constructor for the Weapons class, initializing the properties of the weapon.
@@ -62,6 +63,7 @@ public abstract class Weapons : MonoBehaviour
     {
         _player = plr;
         _playerStats = plr.gameObject.GetComponent<PlayerStats>();
+        _playerController = plr.gameObject.GetComponent<PlayerController>();
         //Debug.Log(damage + " " + reloadTime + " " + _player);
     }
     /**

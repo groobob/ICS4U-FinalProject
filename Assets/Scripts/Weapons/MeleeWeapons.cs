@@ -119,6 +119,8 @@ public class MeleeWeapons : Weapons
         {
             _playerStats.EndlagEntity(2f);
             combo = 0;
+
+            Destroy(Instantiate(PlayerManager.Instance.animations[6], _playerController.GetRealWeaponPosition(), _playerController.GetRealWeaponAngle()), 0.55f);
             //Debug.Log("Combo max");
         }
     }

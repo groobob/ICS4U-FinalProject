@@ -34,6 +34,6 @@ public class OwlClaw : OnHitUpgrades
     }
     public override void attackEffect()
     {
-        throw new System.NotImplementedException();
+        
     }
 }

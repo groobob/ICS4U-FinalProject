@@ -99,7 +99,8 @@ Enemy Manager:
 
 Map manager: 
 - Responsible for spawning and despawning map using an algorithm
-- Can specify size and other vlaues
+- Can specify size and other values
+- Map generation is procedurally generated.
 
 Upgrade Manager:
 - Responsible for giving upgrades upon level completion
