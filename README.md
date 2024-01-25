@@ -157,6 +157,11 @@ https://xyezawr.itch.io/gif-free-pixel-effects-pack-5-blood-effects Creator: xye
 https://ansimuz.itch.io/gothicvania-magic-pack-9 Creator:ansimuz
 https://craftpix.net/freebies/free-sky-with-clouds-background-pixel-art-set/ (cloud background)
 https://imgur.com/a/ybP5qH2 (Card sprites)
+https://imgur.com/a/ybP5qH2 (Card sprites)
+https://openart.ai/discovery/sd-1007466442633007244 End Screen  
 
 Packages:
 A* Pathfinding Project: https://arongranberg.com/astar/
+
+Known Bugs:
+- Sometimes a Null value exception will appear in the console when running the game. I believe this is a Unity bug that doesn't affect the game at all. It has been there since we started and hasn't done anything 
